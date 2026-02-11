@@ -1,0 +1,24 @@
+---
+title: "Assessments"
+---
+
+## Assessment Overview
+
+Please find the summary of course assessments below. Click on the **Assessment Task** name for detailed instructions and rubrics.
+
+| Assessment Task | Weighting | Deadline | Word Count |
+|:----------------|:----------|:---------|:-----------|
+| [Assessment 1: Essay Plan](assessment-01.qmd) | 10% | Thu 19th March, 23:59 | 2 pages A4 |
+| [Assessment 2: Mid-term Opinion Piece](assessment-02.qmd) | 30% | Thu 5th March, 23:59 | 1000 words |
+| [Assessment 3: Long Essay](assessment-03.qmd) | 60% | Thu 16th April, 23:59 | 3000 words |
+
+## Important Information
+
+*   **Lateness Penalties:** Please ensure you submit on time. Lateness penalties apply.
+*   **Academic Misconduct:** Review the guidance on how to avoid academic misconduct.
+*   **Submission:** All work should be submitted via the Turnitin dropbox on Learn.
+*   **Anonymity:** Include your **exam number** (e.g., B135425) as the first part of your submission title. Do not include your name.
+
+## Grading
+
+All assessments are graded using the [University of Edinburgh Common Marking Scheme](https://www.ed.ac.uk/timetabling-examinations/exams/regulations/common-marking-scheme).

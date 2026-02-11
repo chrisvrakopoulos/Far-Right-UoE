@@ -1,0 +1,825 @@
+---
+title: "Far-Right in Scandinavia"
+subtitle: "The Far Right (Week 4)"
+author: "Dr. Christos Vrakopoulos"
+format:
+  revealjs:
+    theme: solarized
+    slide-number: true
+    incremental: true
+    transition: slide
+    chalkboard: true    
+    fontsize: 26px
+    css: custom.css
+editor: visual
+---
+
+```{r setup, include=FALSE}
+# Load required packages
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(tidyverse)
+library(manifestoR)
+library(lubridate)
+library(ggthemes)
+
+# Set Manifesto Project API key
+mp_setapikey(key = "193c54d64b1189c526214074350ead07")
+
+# Load Manifesto Project data
+mp_data <- manifestoR::mp_maindataset()
+
+# Define party codes for Scandinavian far-right parties
+# Sweden: Sweden Democrats (SD)
+# Denmark: Danish People's Party (DPP), Progress Party
+# Norway: Progress Party (FrP)
+# Finland: Finns Party (PS/True Finns)
+
+party_codes <- tribble(
+  ~party, ~party_label,
+  # Sweden
+  11710, "SD",        # Sweden Democrats (was wrong: 11820)
+  # Denmark  
+  13720, "DF",        # Danish People's Party (correct)
+  13951, "FrP-DK",    # Progress Party (Denmark) (was wrong: 13620)
+  # Norway
+  12951, "FrP-NO",    # Progress Party (Norway) / Anders Lange's Party (was wrong: 12720)
+  # Finland
+  14820, "PS"         # True Finns / Finns Party (correct)
+)
+
+# Extract far-right party data
+far_right_raw <- mp_data %>%
+  filter(party %in% party_codes$party) %>%
+  mutate(year = year(as.Date(edate))) %>%
+  left_join(party_codes, by = "party") %>%
+  select(countryname, year, edate, party_label, pervote, absseat) %>%
+  filter(!is.na(pervote)) %>%
+  arrange(countryname, year, edate)
+
+# Combine vote shares within same election
+far_right_combined <- far_right_raw %>%
+  group_by(countryname, year, edate) %>%
+  summarise(
+    vote_share = sum(pervote, na.rm = TRUE),
+    parties = paste(unique(party_label), collapse = " + "),
+    .groups = "drop"
+  ) %>%
+  group_by(countryname, year) %>%
+  slice_max(edate, n = 1, with_ties = FALSE) %>%
+  ungroup() %>%
+  select(country = countryname, year, vote_share)
+
+far_right_data <- far_right_combined
+
+# Individual country datasets
+sweden_data <- far_right_raw %>% 
+  filter(countryname == "Sweden") %>%
+  group_by(countryname, year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(countryname, year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  select(country = countryname, year, vote_share)
+
+denmark_data <- far_right_raw %>% 
+  filter(countryname == "Denmark") %>%
+  group_by(countryname, year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(countryname, year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  select(country = countryname, year, vote_share)
+
+norway_data <- far_right_raw %>% 
+  filter(countryname == "Norway") %>%
+  group_by(year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  mutate(country = "Norway") %>%
+  select(country, year, vote_share)
+
+finland_data <- far_right_raw %>% 
+  filter(countryname == "Finland") %>%
+  group_by(year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  mutate(country = "Finland") %>%
+  select(country, year, vote_share)
+```
+
+## Today's Lecture
+
+::: incremental
+-   **Part 1:** Why Scandinavia?
+-   **Part 2:** Four Trajectories
+-   **Part 3:** Comparative Synthesis
+-   **Part 4:** Implications
+:::
+
+# Part 1: Why Scandinavia?
+
+
+## The Scandinavian Puzzle
+
+::::::: columns
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+**Should be resistant to far-right:**
+:::
+
+::: incremental
+-   Generous welfare states
+
+-   Low inequality
+
+-   High trust societies
+
+-   Strong social democratic tradition
+
+-   Consensus politics
+:::
+::::
+
+:::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+**Yet far-right succeeded:**
+:::
+
+::: incremental
+-   Sweden: 20%+ (2018-)
+
+-   Denmark: 21% peak (2015)
+
+-   Norway: 22% peak (2009)
+
+-   Finland: 19% (2011, 2019)
+:::
+::::
+:::::::
+
+# Part 2: Four Trajectories
+
+## Sweden: Sweden Democrats (Sverigedemokraterna) {background-image="images/sd_logos.png" background-size="cover" background-opacity="0.2"}
+
+::::: columns
+::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+#### From Fringe to Mainstream:
+:::
+
+-   Founded 1988, roots in neo‑Nazi skinhead milieu
+
+-   Early years: explicit racist and white‑supremacist rhetoric
+
+-   Visible street‑movement style: uniforms, marches, episodes of violence
+
+-   1995-2005: Marginalized (\<1%)
+
+::: {.fragment .fade-in}
+#### Transformation (2005-):
+:::
+
+-   Jimmie Åkesson becomes leader (2005)
+
+-   Professionalization strategy (message discipline, media training, local branches)
+
+-   Expel extremists
+
+-   Moderate image, suit-and-tie
+
+-   Goal: become a ‘normal’ party voters can support without stigma
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+#### What They Stand For Today:
+:::
+
+-   **Nativism:** Immigration framed as threat to “Swedish values”
+
+-   **Economic:** Welfare chauvinism. “Strong welfare, but for Swedes first”
+
+-   **Social:** Socially conservative
+
+-   **EU:** Soft Eurosceptic (critical of EU integration, not exit)
+
+::: {.fragment .fade-in}
+**Key insight:** Longest organizational transformation in Europe (20+ years from neo-Nazi to 20% party)
+:::
+:::
+:::::
+
+## Sweden: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_sweden <- ggplot(sweden_data, aes(x = year, y = vote_share)) +
+  geom_line(linewidth = 1.5, color = "#FDB913") +
+  geom_point(size = 3, color = "#FDB913") +
+  geom_vline(xintercept = c(2005, 2010), linetype = "dashed", alpha = 0.5) +
+  annotate("text", x = 2005, y = 2, label = "Åkesson\nleader", hjust = -0.1, size = 4) +
+  annotate("text", x = 2010, y = 7, label = "Breakthrough", hjust = -0.1, size = 4) +
+  annotate("text", x = 2022, y = 21, label = "20.5%", hjust = -0.1, size = 4) +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16)
+
+ggplotly(p_sweden, tooltip = c("x", "y")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+## Denmark: Danish People's Party (Dansk Folkeparti) {background-image="images/df.png" background-size="cover" background-opacity="0.2"}
+
+::::: columns
+::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Origins:
+:::
+
+-   Founded 1995 (split from Progress Party)
+
+-   Pia Kjærsgaard leader (1995-2012)
+
+-   Moderate from the start (learning from Norwegian FrP’s radicalism)
+
+::: {.fragment .fade-in}
+#### Breakthrough:
+:::
+
+-   1998: 7.4%
+
+-   2001: 12% support center-right govt
+
+-   2015: **21.1%** (peak, second largest)
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+#### Core Ideology:
+:::
+
+-   **Nativism:** Danish culture under threat
+
+-   **Economic:** Radical welfare chauvinism (often cited as Europe’s strongest)
+
+-   **Social:** Traditionalist, Christian-inflected social conservatism
+
+-   **EU:** Eurosceptic
+
+::: {.fragment .fade-in}
+#### 2019: COLLAPSE
+:::
+::: incremental
+-   Social Democrats adopt DPP’s immigration/welfare positions
+
+-   DPP collapses: 21% → 8.7% (2015–2019)
+
+-   Mainstream accommodation works in Denmark
+
+:::
+:::
+:::::
+
+## Denmark: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_denmark <- ggplot(denmark_data, aes(x = year, y = vote_share)) +
+  geom_line(linewidth = 1.5, color = "#C60C30") +
+  geom_point(size = 3, color = "#C60C30") +
+  annotate("rect", xmin = 2015, xmax = 2019, ymin = 0, ymax = 25, alpha = 0.1, fill = "blue") +
+  annotate("text", x = 2017, y = 17, label = "Social Democrats\nsteal positions", 
+           size = 3.5, color = "blue") +
+  geom_vline(xintercept = 2015, linetype = "dashed", alpha = 0.5) +
+  annotate("text", x = 2015, y = 22, label = "Peak\n21.1%", hjust = -0.1, size = 4, fontface = "bold") +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16)
+
+ggplotly(p_denmark, tooltip = c("x", "y")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+## Norway: Progress Party (Fremskrittspartiet) {background-image="images/npp.png" background-size="cover" background-opacity="0.2"}
+
+:::::: columns
+::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+#### Origins:
+:::
+
+-   Founded 1973 (anti-tax, libertarian)
+
+-   Anders Lange: "Strong reduction in taxes"
+
+-   1980s: Added anti-immigration (critique of refugee/asylum policy)
+
+-   Long presence (50+ years)
+
+-   Gradual rise: from protest party to 2nd largest in 2009
+
+::: {.fragment .fade-in}
+#### Government (2013-2020):
+:::
+
+-   Coalition with Conservatives
+
+-   First far-right in Scandinavian govt
+
+-   Moderated tone, but kept restrictive immigration stance
+:::
+
+:::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+#### Core Ideology:
+:::
+
+-   **Nativism:** Immigration control
+
+-   **Economic:** Neoliberal + welfare chauvinist; Protect oil wealth for ‘Norwegians first’
+
+-   **Social:** Mixed (liberal on some issues)
+
+-   **EU:** Norway outside EU (Eurosceptic on EEA)
+
+::: {.fragment .fade-in}
+**Result:** Moderation in government → loss of protest appeal → electoral decline → rise again
+:::
+
+-   2009: 22.9% (peak)
+
+-   2021: 11.6% (after government)
+
+-   2025: 23.8%
+::::
+::::::
+
+## Norway: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_norway <- ggplot(norway_data, aes(x = year, y = vote_share)) +
+  geom_line(linewidth = 1.5, color = "#BA0C2F") +
+  geom_point(size = 3, color = "#BA0C2F") +
+  annotate("rect", xmin = 2013, xmax = 2020, ymin = 0, ymax = 25, alpha = 0.15, fill = "red") +
+  annotate("text", x = 2016.5, y = 23, label = "In\ngovernment", size = 3.5, color = "red") +
+  geom_vline(xintercept = 2009, linetype = "dashed", alpha = 0.5) +
+  annotate("text", x = 2009, y = 24, label = "Peak\n22.9%", hjust = -0.1, size = 4, fontface = "bold") +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16)
+
+ggplotly(p_norway, tooltip = c("x", "y")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+## Finland: Finns Party (Perussuomalaiset) {background-image="images/Perussuomalaiset_Logo.svg.png" background-size="cover" background-opacity="0.2"}
+
+::::::: columns
+:::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+#### Origins:
+:::
+
+-   Founded 1995 (Finnish Rural Party successor)
+
+-   Agrarian populism + nationalism
+
+-   Timo Soini leader (1997-2017)
+
+::: {.fragment .fade-in}
+#### Breakthrough:
+:::
+
+-   2011: **19.1%** (EU bailout crisis)
+
+-   2015: **17.7%** - enters government
+
+::: {.fragment .fade-in}
+**2017: THE SPLIT**
+:::
+
+-   Cost of office: coalition compromises vs. radical base expectations
+
+-   Party splits: Blue Reform (moderates, stayed in govt) vs. Finns Party (radicalized opposition)
+::::
+
+:::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+#### Core Ideology:
+:::
+
+-   **Nativism:** Finnish culture, anti-immigration
+
+-   **Economic:** Welfare chauvinist, Eurosceptic
+
+-   **Social:** Socially conservative
+
+-   **EU:** Hard Eurosceptic (anti-bailout)
+
+::: {.fragment .fade-in}
+**After split:**
+:::
+
+-   Blue Reform: Moderate, stayed in govt → died
+
+-   Finns Party: Radical, opposition → organizationally purified, electoral recovery (2023: 20.1%, second largest party)
+::::
+:::::::
+
+## Finland: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_finland <- ggplot(finland_data, aes(x = year, y = vote_share)) +
+  geom_line(linewidth = 1.5, color = "#003580") +
+  geom_point(size = 3, color = "#003580") +
+  geom_vline(xintercept = c(2011, 2017), linetype = "dashed", alpha = 0.5) +
+  annotate("text", x = 2011, y = 20, label = "Breakthrough\n19.1%", hjust = -0.1, size = 4, fontface = "bold") +
+  annotate("text", x = 2017, y = 15, label = "Split", hjust = -0.1, size = 4) +
+  annotate("rect", xmin = 2015, xmax = 2017, ymin = 0, ymax = 20, alpha = 0.1, fill = "red") +
+  annotate("text", x = 2016, y = 18, label = "In govt", size = 3, color = "red") +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16)
+
+ggplotly(p_finland, tooltip = c("x", "y")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+# Part 3: Comparative Synthesis
+
+## Scandinavian Patterns
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+# Add flag emojis
+far_right_flags <- far_right_data %>% 
+  filter(country %in% c("Sweden", "Denmark", "Norway", "Finland")) %>%
+  mutate(
+    flag_emoji = case_when(
+      country == "Sweden" ~ "🇸🇪",
+      country == "Denmark" ~ "🇩🇰",
+      country == "Norway" ~ "🇳🇴",
+      country == "Finland" ~ "🇫🇮"
+    )
+  )
+
+# Get only the last year for each country
+last_points <- far_right_flags %>%
+  group_by(country) %>%
+  slice_max(year, n = 1) %>%
+  ungroup()
+
+p <- ggplot(far_right_flags, 
+            aes(x = year, y = vote_share, color = country, group = country)) +
+  geom_line(linewidth = 1.5, alpha = 0.8) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_text(data = last_points,
+            aes(label = flag_emoji), 
+            size = 8, 
+            hjust = -0.5) +
+  scale_color_manual(
+    values = c("Sweden" = "#FDB913", "Denmark" = "#C60C30", 
+               "Norway" = "#BA0C2F", "Finland" = "#003580")
+  ) +
+  labs(x = "Year", y = "Vote Share (%)", color = "Country") +
+  theme_solarized(base_size = 16) +
+  theme(legend.position = "bottom", legend.title = element_text(face = "bold"))
+
+ggplotly(p, tooltip = c("x", "y", "colour")) %>%
+  layout(hovermode = "x unified", autosize = FALSE, width = 900, height = 500)
+```
+
+## Welfare Chauvinism in Action
+
+| Country | Welfare State Type | Far-Right Strategy | Outcome |
+|------------------|------------------|------------------|------------------|
+| Sweden | Universal, generous | "Swedish welfare for Swedes" | 20%+ sustained |
+| Denmark | Universal, generous | Strictest in Europe | 21% peak, then theft |
+| Norway | Universal, generous | Oil fund + immigration | 23% peak, govt decline |
+| Finland | Universal, generous | Anti-EU bailout + immigration | 19% breakthrough |
+
+::: {.fragment .fade-in}
+Generous welfare states don't prevent far-right - they provide **justification for exclusion**
+:::
+
+## Government Participation Effects
+
+| Country | In Government?      | Duration | Result                 | Vote Change     |
+|--------------|---------------|--------------|-----------------|--------------|
+| Sweden  | Support only (2024) | Ongoing  | TBD                    | \-              |
+|         |                     |          |                        |                 |
+| Denmark | Never               | \-       | Position theft instead | 21% → 2.6%      |
+| Norway  | Yes (2013-2020)     | 7 years  | Gradual decline        | 22.9% → 11.6%   |
+| Finland | Yes (2015-2017)     | 2 years  | Split, moderates died  | 17.7% → (split) |
+
+::: {.fragment .fade-in}
+**Pattern:** Government participation **harmful** for far-right across all cases
+:::
+
+::: {.fragment .fade-in}
+**Exception:** Can organizational strength cushion the blow? (Norway vs. Austria)
+:::
+
+## Who Votes Far-Right in Scandinavia?
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 12
+#| fig-height: 8
+
+load("/Users/cvrakopo/My Drive/Publications/ESS Data 1-10/Final Creation/ess_analysis_full.RData")  # Adjust path as needed
+
+# Filter data for the five countries
+ess_scan <- ess_analysis %>%
+  filter(country %in% c("Finland", "Denmark", "Sweden", "Norway"))
+
+
+# Prepare data with age categories and calculate differences from reference
+demo_comparison <- ess_scan %>%
+  mutate(
+    # Create age categories
+    age_cat = case_when(
+      agea < 35 ~ "18-34",
+      agea >= 35 & agea < 55 ~ "35-54",
+      agea >= 55 & agea < 70 ~ "55-69",
+      agea >= 70 ~ "70+"
+    ),
+    
+    # Immigration attitudes
+    immi_cat = case_when(
+      is.na(p_immi_index) ~ NA_character_,
+      p_immi_index < 30 ~ "Liberal",
+      p_immi_index >= 30 & p_immi_index < 70 ~ "Neutral",
+      p_immi_index >= 70 ~ "Restrictive"
+    ),
+    
+    # Trust in politicians (0-10 scale)
+    trust_cat = case_when(
+      is.na(trstplt) ~ NA_character_,
+      trstplt <= 3 ~ "Low trust",
+      trstplt >= 4 & trstplt <= 6 ~ "Medium trust",
+      trstplt >= 7 ~ "High trust"
+    ),
+    
+    # Left-Right scale (0-10 scale)
+    lr_cat = case_when(
+      is.na(lrscale) ~ NA_character_,
+      lrscale <= 3 ~ "Left",
+      lrscale >= 4 & lrscale <= 6 ~ "Center",
+      lrscale >= 7 ~ "Right"
+    ),
+    
+    # Household income feelings (1-4 scale)
+    income_cat = case_when(
+      is.na(hincfel) ~ NA_character_,
+      hincfel == 1 ~ "Comfortable",
+      hincfel == 2 ~ "Coping",
+      hincfel == 3 ~ "Difficult",
+      hincfel == 4 ~ "Very difficult"
+    ),
+    
+    # Simplify education
+    education_simple = case_when(
+      educ_level %in% c("Less than lower secondary", "Lower secondary") ~ "Low",
+      educ_level %in% c("Lower tier upper secondary", "Upper tier upper secondary", 
+                        "Advanced vocational, sub-degree") ~ "Medium",
+      educ_level %in% c("Lower tertiary education, BA level", 
+                        "Higher tertiary education, >= MA level") ~ "High"
+    ),
+    
+    # Simplify class
+    class_simple = case_when(
+      oesch8 %in% c("Production workers", "Service workers") ~ "Working class",
+      oesch8 %in% c("Clerks", "Small business owners") ~ "Lower middle",
+      oesch8 %in% c("Technical (semi-)professionals", "(Associate) managers") ~ "Upper middle",
+      oesch8 %in% c("Socio-cultural (semi-)professionals", 
+                    "Self-employed professionals and large employers") ~ "Professional/Managers"
+    )
+  ) %>%
+  # Convert far_right to numeric if it's not already
+  mutate(far_right_num = as.numeric(far_right == "Far-right"))
+
+# Calculate proportions for each category
+calc_props <- function(data, var) {
+  data %>%
+    filter(!is.na(.data[[var]])) %>%  # Remove NAs for this variable
+    group_by(across(all_of(var))) %>%
+    summarise(
+      prop = mean(far_right_num, na.rm = TRUE) * 100,
+      n = n(),
+      se = sd(far_right_num, na.rm = TRUE) / sqrt(n()) * 100,
+      .groups = "drop"
+    ) %>%
+    rename(category = 1)
+}
+
+# Get proportions for each demographic
+gender_props <- calc_props(demo_comparison, "gender") %>% mutate(variable = "Gender")
+age_props <- calc_props(demo_comparison, "age_cat") %>% mutate(variable = "Age")
+immi_props <- calc_props(demo_comparison, "immi_cat") %>% mutate(variable = "Immigration attitudes")
+trust_props <- calc_props(demo_comparison, "trust_cat") %>% mutate(variable = "Political trust")
+lr_props <- calc_props(demo_comparison, "lr_cat") %>% mutate(variable = "Left-Right position")
+income_props <- calc_props(demo_comparison, "income_cat") %>% mutate(variable = "Economic situation")
+edu_props <- calc_props(demo_comparison, "education_simple") %>% mutate(variable = "Education")
+urban_props <- calc_props(demo_comparison, "urban_rural") %>% mutate(variable = "Location")
+class_props <- calc_props(demo_comparison, "class_simple") %>% mutate(variable = "Class")
+
+# Combine all
+all_props <- bind_rows(
+  gender_props, age_props, immi_props, trust_props, lr_props, income_props,
+  edu_props, urban_props, class_props
+) %>%
+  filter(!is.na(category))
+
+# Set reference categories and calculate differences
+reference_levels <- tribble(
+  ~variable, ~reference,
+  "Gender", "Female",
+  "Age", "18-34",
+  "Immigration attitudes", "Liberal",
+  "Political trust", "High trust",
+  "Left-Right position", "Center",
+  "Economic situation", "Comfortable",
+  "Education", "High",
+  "Location", "Urban",
+  "Class", "Professional/Managers"
+)
+
+# Get reference values
+reference_values <- all_props %>%
+  inner_join(reference_levels, by = "variable") %>%
+  filter(category == reference) %>%
+  select(variable, ref_prop = prop)
+
+# Calculate differences from reference
+plot_data <- all_props %>%
+  left_join(reference_values, by = "variable") %>%
+  mutate(
+    diff = prop - ref_prop,
+    ci_lower = diff - 1.96 * se,
+    ci_upper = diff + 1.96 * se,
+    is_reference = category %in% reference_levels$reference
+  ) %>%
+  # Order categories within each variable
+  mutate(
+    category = factor(category, levels = c(
+      # Gender
+      "Male", "Female",
+      # Age
+      "70+", "55-69", "35-54", "18-34",
+      # Immigration
+      "Restrictive", "Neutral", "Liberal",
+      # Trust
+      "Low trust", "Medium trust", "High trust",
+      # Left-Right
+      "Right", "Center", "Left",
+      # Economic situation
+      "Very difficult", "Difficult", "Coping", "Comfortable",
+      # Education
+      "Low", "Medium", "High",
+      # Location
+      "Rural", "Urban",
+      # Class
+      "Working class", "Lower middle", "Upper middle", "Professional/Managers"
+    )),
+    variable = factor(variable, levels = c(
+      "Gender", "Age", "Immigration attitudes", "Political trust", 
+      "Left-Right position", "Economic situation", "Education", "Location", "Class"
+    ))
+  ) %>%
+  arrange(variable, category)
+
+# Create the plot
+ggplot(plot_data, aes(x = diff, y = category)) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "gray40", linewidth = 0.8) +
+  geom_segment(aes(x = 0, xend = diff, y = category, yend = category, 
+                   color = diff > 0, alpha = !is_reference), 
+               linewidth = 4) +
+  geom_errorbar(aes(xmin = ci_lower, xmax = ci_upper, alpha = !is_reference), 
+                orientation = "y", width = 0.2, linewidth = 0.8) +
+  geom_point(aes(alpha = !is_reference), size = 2.5, color = "black") +
+  geom_text(data = plot_data %>% filter(is_reference),
+            aes(label = "Reference"), x = 0.5, size = 3, hjust = 0, 
+            fontface = "italic", color = "gray50") +
+  facet_wrap(~variable, ncol = 1, scales = "free_y", strip.position = "left") +
+  scale_color_manual(values = c("TRUE" = "#E74C3C", "FALSE" = "#3498DB"), guide = "none") +
+  scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.3), guide = "none") +
+  scale_x_continuous(
+    breaks = seq(-10, 15, 5),
+    labels = function(x) paste0(ifelse(x > 0, "+", ""), x, " pp")
+  ) +
+  labs(
+    title = "Far-Right Support: Differences from Reference Categories",
+    subtitle = "Denmark, Finland, Norway, and Sweden (ESS data)",
+    x = "← Less likely to support far-right          More likely to support far-right →",
+    y = NULL
+  ) +
+  theme_solarized(base_size = 14) +
+  theme(
+    strip.placement = "outside",
+    strip.text.y.left = element_text(face = "bold", angle = 0, hjust = 1, size = 13),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.title = element_text(face = "bold", size = 15),
+    plot.subtitle = element_text(color = "gray40", size = 12),
+    axis.text.y = element_text(size = 12),
+    axis.title.x = element_text(margin = margin(t = 10), size = 12)
+  )
+
+```
+
+## Key Puzzles from Scandinavia
+
+::::::::::: columns
+:::::: {.column width="50%"}
+::: {.fragment .fade-in}
+1.  The Professionalization Puzzle\*\*
+:::
+
+-   Can far-right parties successfully transform from extremist to mainstream?
+
+::: {.fragment .fade-in}
+2.  The Welfare Paradox
+:::
+
+-   Do generous universal welfare states contain or fuel far-right support?
+
+::: {.fragment .fade-in}
+3.  The Government Curse
+:::
+
+-   Does entering government harm far-right parties and under what conditions??
+::::::
+
+:::::: {.column width="50%"}
+::: {.fragment .fade-in}
+4.  The Position Theft Puzzle
+:::
+
+-   Under what conditions mainstream parties eliminate far-right by adopting their positions?
+
+::: {.fragment .fade-in}
+5.  The Moderation Trap
+:::
+
+-   Does moderation in office weaken far-right parties—or make them more acceptable?
+
+::: {.fragment .fade-in}
+6.  The Permanence Question
+:::
+
+-   Are far-right parties crisis-driven protest vehicles, or durable party-system players?
+::::::
+:::::::::::
+
+## Next Week: Southern Europe
+
+**The crisis puzzle:**
+
+::: incremental
+-   Greece: Severe crisis → Golden Dawn surge
+-   Spain: Severe crisis → No far-right until 2018 (10-year delay)
+-   Portugal: Crisis → Far-right decline initially
+-   Italy: Different pattern (post-fascist trajectory)
+:::
+
+. . .
+
+**Questions:** Why did economic crisis produce such different outcomes?
+
+**Seminar:** Country team presentations + discuss organizational development and government participation patterns
+
+## Questions?

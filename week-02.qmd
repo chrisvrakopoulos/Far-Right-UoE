@@ -1,0 +1,100 @@
+---
+title: "Week 2: Western Europe"
+description: "The rebirth of the extreme right in Western Europe."
+---
+
+::: {.panel-tabset}
+
+## Materials
+
+### Lecture
+*   [Download Lecture Slides](lectures/Lecture_Week2_Western_Europe_Condensed_1.qmd){target="_blank"}
+
+### Seminar
+
+#### In-Class Activities
+
+You will be assigned to analyze one country from Western Europe: France, Germany, Austria, Netherlands, or Belgium.
+
+The lecture identifies five major puzzles in Western European far-right trajectories (timing differences, government effects, cordon sanitaire paradoxes, etc.). **Your task is to investigate these puzzles by developing preliminary explanations** for your country, which we'll test against other regions in Weeks 3-6.
+
+Using the lecture and assigned readings, explore your country's trajectory to develop three working hypotheses:
+
+On Teams Whiteboard, record your analysis using the following structure:
+
+**Country**: [Name]
+
+**Voter hypothesis**: Who voted far-right and why?
+
+**Party strategy**: What made this party succeed or fail?
+
+**Mainstream strategy**: How should mainstream parties have responded?
+
+Present your findings to the seminar (3 minutes). Then consider the broader pattern: *Do all five countries follow the same logic, or do different factors seem to explain different cases?* Record your observations on Whiteboard.
+
+
+#### What's next
+
+Your hypotheses will be tested against other regions (Weeks 3-6). As we accumulate evidence, we'll refine and generalize our working theory. In Weeks 7-10, we'll compare your findings to academic theories to see how we should explain Far Right support.
+
+## Readings
+
+### Essential Readings
+
+1) [Arzheimer, Kai. 2009. ‘Contextual Factors and the Extreme Right Vote in Western Europe, 1980-2002’. American journal of political science 53(2): 259–75. doi:10.1111/j.1540-5907.2009.00369.x.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_miscellaneous_59883338&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Arzheimer%20%20Kai.%202009.%20‘Contextual%20Factors%20and%20the%20Extreme%20Right%20Vote%20in%20Western%20Europe%20%201980-2002’.%20American%20journal%20of%20political%20science%2053(2):%20259–75.%20doi:10.1111%2Fj.1540-5907.2009.00369.x.)
+
+2) [Golder, Matt. 2003. ‘Explaining Variation In The Success Of Extreme Right Parties In Western Europe’. Comparative political studies 36(4): 432–66. doi:10.1177/0010414003251176.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_miscellaneous_60672541&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Golder,%20Matt.%202003.%20‘Explaining%20Variation%20In%20The%20Success%20Of%20Extreme%20Right%20Parties%20In%20Western%20Europe’.%20Comparative%20political%20studies%2036(4):%20432–66.%20doi:10.1177%2F0010414003251176.&offset=0)
+
+
+### Seminar Readings
+
+As mentioned in the previous lecture, each of you should read at least ONE essential reading (see above) and at least ONE of the recommended readings for your assigned country (listed below). If you can coordinate within your group to avoid reading the same article, that would be ideal.
+
+Austria:
+
+1) [Rathgeb, P. (2021). Makers against takers: the socio-economic ideology and policy of the Austrian Freedom Party. West European Politics, 44(3), 635–660. https://doi.org/10.1080/01402382.2020.1720400](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_informaworld_taylorfrancis_310_1080_01402382_2020_1720400&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Makers%20against%20takers:%20the%20socio-economic%20ideology%20and%20policy%20of%20the%20Austrian%20Freedom%20Party.%20West%20European%20Politics%20%2044(3)%20%20635–660.%20https:%2F%2Fdoi.org%2F10.1080%2F01402382.2020.1720400)
+
+2) [Fallend, F., & Heinisch, R. (2016). Collaboration as successful strategy against right-wing populism? The case of the centre-right coalition in Austria, 2000–2007. Democratization, 23(2), 324–344. https://doi.org/10.1080/13510347.2015.1060223](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_crossref_primary_10_1080_13510347_2015_1060223&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Fallend,%20F.,%20%26%20Heinisch,%20R.%20(2016).%20Collaboration%20as%20successful%20strategy%20against%20right-wing%20populism%3F%20The%20case%20of%20the%20centre-right%20coalition%20in%20Austria,%202000–2007.%20Democratization,%2023(2),%20324–344.%20https:%2F%2Fdoi.org%2F10.1080%2F13510347.2015.1060223&offset=0)
+
+3) [Stockemer, D., & Lamontagne, B. (2014). Pushed to the Edge: Sub-National Variations in Extreme Right-Wing Support in Austria. Journal of Contemporary European Studies, 22(1), 39–56. https://doi.org/10.1080/14782804.2014.887892](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_miscellaneous_1660017175&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Stockemer,%20D.,%20%26%20Lamontagne,%20B.%20(2014).%20Pushed%20to%20the%20Edge:%20Sub-National%20Variations%20in%20Extreme%20Right-Wing%20Support%20in%20Austria.%20Journal%20of%20Contemporary%20European%20Studies,%2022(1),%2039–56.%20https:%2F%2Fdoi.org%2F10.1080%2F14782804.2014.887892&offset=0)
+
+Belgium:
+
+1) [Delespaul, D., Meeusen, C., Abts, K., & Swyngedouw, M. (2025). Two worlds, one nation? Comparing the political spaces of Flanders and Francophone Belgium. European Political Science Review, 17(2), 279–296. doi:10.1017/S1755773924000274](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_webofscience_primary_001337951300001&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Two%20worlds,%20one%20nation%3F%20Comparing%20the%20political%20spaces%20of%20Flanders%20and%20Francophone%20Belgium&offset=0) 
+
+2) [Stiers, D. &  Hooghe, M. (2022).  Ethnic Diversity, Anti-Immigrant Sentiments, and Radical Right Voting in the Flemish Region of Belgium. Swiss Political Science Review,  28,  496–515. https://doi.org/10.1111/spsr.12512](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2714291105&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Ethnic%20Diversity,%20Anti-Immigrant%20Sentiments,%20and%20Radical%20Right%20Voting%20in%20the%20Flemish%20Region%20of%20Belgium.%20Swiss%20Political%20Science%20Review,%20%2028,%20%20496–515.%20https:%2F%2Fdoi.org%2F10.1111%2Fspsr.12512&offset=0)
+
+3) [de Jonge, L. (2021). The Curious Case of Belgium: Why is There no Right-Wing Populism in Wallonia? Government and Opposition, 56(4), 598–614. doi:10.1017/gov.2020.8](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2569556639&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,The%20Curious%20Case%20of%20Belgium:%20Why%20is%20There%20no%20Right-Wing%20Populism%20in%20Wallonia%3F&offset=0)
+
+France:
+
+1) [Mayer, N. The closing of the radical right gender gap in France?. Fr Polit 13, 391–414 (2015). https://doi.org/10.1057/fp.2015.18](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_hal_primary_oai_HAL_hal_02186363v1&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,The%20closing%20of%20the%20radical%20right%20gender%20gap%20in%20France%3F.%20Fr%20Polit%2013,%20391–414%20(2015).%20https:%2F%2Fdoi.org%2F10.1057%2Ffp.2015.18&offset=0)
+
+2) [Bastow, Steve. “The Front National under Marine Le Pen: A Mainstream Political Party?” French politics 16.1 (2018): 19–37. Web.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2011927912&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,The%20Front%20national%20under%20Marine%20Le%20Pen:%20a%20mainstream%20political%20party%3F&offset=0)
+
+3) [Stockemer, D., Amengay, A. The voters of the FN under Jean-Marie Le Pen and Marine Le Pen: Continuity or change?. Fr Polit 13, 370–390 (2015). https://doi.org/10.1057/fp.2015.16](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_hal_primary_oai_HAL_hal_02186365v1&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Stockemer,%20D.,%20Amengay,%20A.%20The%20voters%20of%20the%20FN%20under%20Jean-Marie%20Le%20Pen%20and%20Marine%20Le%20Pen:%20Continuity%20or%20change%3F.%20Fr%20Polit%2013,%20370–390%20(2015).%20https:%2F%2Fdoi.org%2F10.1057%2Ffp.2015.16&offset=0)
+
+Germany:
+
+1) [Arzheimer, K. (2015). The AfD: Finally a Successful Right-Wing Populist Eurosceptic Party for Germany? West European Politics, 38(3), 535–556. https://doi.org/10.1080/01402382.2015.1004230](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2059516686&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,The%20AfD:%20Finally%20a%20Successful%20Right-Wing%20Populist%20Eurosceptic%20Party%20for%20Germany%3F%20West%20European%20Politics,%2038(3),%20535–556.%20https:%2F%2Fdoi.org%2F10.1080%2F01402382.2015.1004230&offset=0) 
+
+2) [ZIBLATT, D., HILBIG, H., & BISCHOF, D. (2024). Wealth of Tongues: Why Peripheral Regions Vote for the Radical Right in Germany. American Political Science Review, 118(3), 1480–1496. doi:10.1017/S0003055423000862](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_crossref_citationtrail_10_1017_S0003055423000862&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Wealth%20of%20Tongues:%20Why%20Peripheral%20Regions%20Vote%20for%20the%20Radical%20Right%20in%20Germany.%20American%20Political%20Science%20Review,%20118(3),%201480–1496.%20doi:10.1017%2FS0003055423000862&offset=0) 
+
+Netherlands:
+
+1) [Smeekes A and Lubbers M (2024) Our gloomy future and glorious past: societal discontent, national nostalgia and support for populist radical-right parties in the Netherlands. Front. Polit. Sci. 6:1390662. doi: 10.3389/fpos.2024.1390662](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_crossref_citationtrail_10_3389_fpos_2024_1390662&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Our%20gloomy%20future%20and%20glorious%20past:%20societal%20discontent,%20national%20nostalgia%20and%20support%20for%20populist%20radical-right%20parties%20in%20the%20Netherlands.%20Front.%20Polit.%20Sci.%206:1390662.%20doi:%2010.3389%2Ffpos.2024.1390662&offset=0) 
+
+2) [Harteveld, E., Van Der Brug, W., De Lange, S., & Van Der Meer, T. (2022). Multiple roots of the populist radical right: Support for the Dutch PVV in cities and the countryside. European Journal of Political Research, 61(2), 440–461. doi:10.1111/1475-6765.12452](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2647921739&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Multiple%20roots%20of%20the%20populist%20radical%20right:%20Support%20for%20the%20Dutch%20PVV%20in%20cities%20and%20the%20countryside.%20European%20Journal%20of%20Political%20Research,%2061(2),%20440–461.%20doi:10.1111%2F1475-6765.12452&offset=0)  
+
+## Whiteboard
+
+*Western Europe - Seminar Notes:*
+
+| Country | Key Discussion Points |
+|:---|:---|
+| **Netherlands** | • **Voters:** Lower-educated, anti-immigration, dissatisfied with economic change<br>• **Strategy:** Jumped on high media attention; centralized leadership to avoid internal conflict |
+| **Belgium** | • **Flanders:** Success rooted in national cause; cordon sanitaire failure<br>• **Wallonia:** FR seen as violent/amateur; redirected to centrist parties |
+| **Austria (FPÖ)** | • **Strategy:** Shifted from neoliberal to welfare chauvinism; "Makers vs Takers" framework<br>• **Governance:** Became less popular once in government; more attractive as opposition |
+| **France (FN)** | • **Demographics:** Attracting young voters and equal number of men/women<br>• **Reframing:** Marine Le Pen reframed republicanism to be more inclusive/modern |
+
+:::

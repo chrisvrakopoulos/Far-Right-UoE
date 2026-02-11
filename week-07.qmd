@@ -1,0 +1,66 @@
+---
+title: "Week 7: Demand-Side Theories"
+description: "Who votes for the far-right and why? Grievances and attitudes."
+---
+
+::: panel-tabset
+## Materials
+
+### Lecture
+
+-   [Download Lecture Slides](lectures/Lecture_Week7_Demand_Side_Theory_v2.html){target="_blank"}
+
+### Seminar
+
+**Objective**: To translate your initial "Voter Hypotheses" (from Weeks 2-6) into formal theoretical categories (Economic Grievance, Cultural Backlash, Status Anxiety) and identify regional patterns in Demand.
+
+#### Seminar Preparation
+
+Look at the "Voter Hypothesis" column from your original regional weeks. What did you write? (e.g., "People were angry about the 2008 crisis" or "Older people didn't like the new values").
+
+#### In Class activities
+
+1)  Using the theories from today's lecture, "code" your original observations. Place your country on the "Drivers of Demand" Matrix (draw this on the whiteboard):
+
+Consider for example: If a low-educated person in Hungary and a low-educated person in Sweden both vote far-right, are they doing it for the same reason?
+
+| Original Observation | Theory Label | Best Mechanism |
+|--------------------------------|----------------------|------------------|
+| e.g. "anti-immigration sentiment" | Cultural / Identity | Social Identity Theory |
+| e.g. "working-class" | Economic / Modernisation Losers | Realistic Group Conflict / Modernisation Losers |
+| e.g. "left behind" | Social Mobility | Downward Mobility |
+| e.g. "low educated" | Ambiguous | Social Identity or Cultural Conflict? |
+
+2) Identify one observation (country) from your original notes from your region that cannot be fully explained by Demand-Side theory. *Example*: "In the UK in 2005, the demand (immigration concern) was high, but the vote was low. Why?"
+
+3) Each group presents their "Dominant Mechanism." We build a live map:
+
+Western/UK: ?
+
+Scandinavia:?
+
+Eastern Europe?
+
+Southern Europe?
+
+4) Does our 'Single Theory' (e.g., Modernisation Losers) explain the variation between the UK and Scandinavia, or does it only explain the similarities?
+
+## Readings
+
+### Essential and Recommended Readings
+
+Read TWO of the provided readings below
+
+1) [Mudde, Cas. 2007. Populist Radical Right Parties in Europe . Cambridge: Cambridge University Press. Chapter 9 - Demand-side: in search of the perfect breeding ground](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_istex_primary_ark_67375_NB3_M91SBFH1_Z&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Mudde,%20Cas.%202007.%20Populist%20Radical%20Right%20Parties%20in%20Europe%20.%20Cambridge:%20Cambridge%20University%20Press.%20Chapter%209%20-%20Demand-side:%20in%20search%20of%20the%20perfect%20breeding%20ground&offset=0)
+
+2) [Arzheimer, Kai. 2009. ‘Contextual Factors and the Extreme Right Vote in Western Europe, 1980-2002’. American journal of political science 53(2): 259–75. doi:10.1111/j.1540-5907.2009.00369.x.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_miscellaneous_59883338&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Arzheimer,%20Kai.%202009.%20‘Contextual%20Factors%20and%20the%20Extreme%20Right%20Vote%20in%20Western%20Europe,%201980-2002’.%20American%20journal%20of%20political%20science%2053(2):%20259–75.%20doi:10.1111%2Fj.1540-5907.2009.00369.x.&offset=0)
+
+3) [VAN DER BRUG, WOUTER, MEINDERT FENNEMA, and JEAN TILLIE. 2000. ‘Anti-Immigrant Parties in Europe: Ideological or Protest Vote?’ European journal of political research 37(1): 77–102. doi:10.1111/1475-6765.00505.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_crossref_primary_10_1111_1475_6765_00505&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,VAN%20DER%20BRUG,%20WOUTER,%20MEINDERT%20FENNEMA,%20and%20JEAN%20TILLIE.%202000.%20‘Anti-Immigrant%20Parties%20in%20Europe:%20Ideological%20or%20Protest%20Vote%3F’%20European%20journal%20of%20political%20research%2037(1):%2077–102.%20doi:10.1111%2F1475-6765.00505.&offset=0)
+
+4) [Golder, M. (2016). Far Right Parties in Europe. Annual Review of Political Science, 19(1), 477–497. https://doi.org/10.1146/annurev-polisci-042814-012441](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_1826494252&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Golder%20Far%20Right%20in%20Europe)
+
+
+## Whiteboard
+
+*Upload photos of your seminar whiteboard work here.*
+:::

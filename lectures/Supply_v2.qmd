@@ -1,0 +1,272 @@
+---
+title: "Explaining Variation in Far-Right Support"
+subtitle: "Supply-Side Theory (Week 8)"
+author: "Dr. Christos Vrakopoulos"
+format:
+  revealjs:
+    theme: solarized
+    slide-number: true
+    incremental: true
+    
+    transition: fade
+    fontsize: 26px
+    css: custom.css
+    preview-links: auto
+editor: visual
+---
+
+## Today's Roadmap
+
+::: incremental
+-   **Part 1:** Recap – The Limits of Demand-Side Explanations
+-   **Part 2:** The Theoretical Pivot – Structure vs. Agency
+-   **Part 3:** External Supply (Structure) – POS & Spatial Competition
+-   **Part 4:** Discursive Supply (Structure) – DOS & Framing
+-   **Part 5:** Internal Supply (Agency) – Organization & Strategy
+-   **Part 6:** Synthesis – Solving the Case Puzzles
+-   **Conclusion:** The Path to Normalisation
+:::
+
+# Part 1: Recap – The Limits of Demand
+
+## Beyond Latent Demand
+
+::::::: columns
+:::: {.column width="50%"}
+**Demand-side (Week 7)**
+
+::: incremental
+-   Grievances (Economic, Cultural, Status)
+-   Stable anti-immigrant potential (\~40–60%)
+-   **Individual-level** readiness to vote far-right
+:::
+::::
+
+:::: {.column width="50%"}
+**Supply-side (Week 8)**
+
+::: incremental
+-   **Context (Structure):** Electoral rules, party competition, media salience
+-   **Party (Agency):** Credible organization, leadership, strategic framing
+:::
+::::
+:::::::
+
+. . .
+
+**Theoretical Reality:** Grievances can remain "latent" for decades without political representation (e.g., Germany 1990-2013).
+
+## The Core Puzzle: Demand without Supply?
+
+::: incremental
+-   **UK (1990s-2010s):** High Euroskepticism and Nativism → **0 MPs** due to FPTP system.
+-   **Spain (2008-2018):** Severe Economic Crisis → **No Far Right breakthrough** until 2018.
+-   **Germany (1980s-2013):** High Authoritarian Potential → **Blocked** by historical stigma and failed parties.
+-   **Scandinavia:** Similar levels of cultural threat → **Varied Breakthrough Timing** (Denmark 1990s vs Sweden 2010).
+:::
+
+. . .
+
+→ Demand is a **necessary condition**, but Supply is the **sufficient condition**.
+
+# Part 2: The Theoretical Pivot
+
+## From Normal Pathology to Pathological Normalcy
+
+::: incremental
+-   **Old View (Scheuch & Klingemann 1967):** Far right as an "abnormal" pathology of extreme crisis.
+    -   *Logic:* Crisis → Far Right. No Crisis → No Far Right.
+-   **New View (Mudde 2010): "Pathological Normalcy"**
+    -   Far-right values (Nativism, Authoritarianism) are **radicalised versions of mainstream values**.
+    -   These values are always present in the electorate.
+-   **The Supply-Side Shift:**
+    -   Variation is explained by **political opportunity structures** and **party agency**, not the emergence of "new" grievances.
+:::
+
+# Part 3: External Supply (Structure)
+
+## Political Opportunity Structures (POS)
+
+**1. Institutional Factors (The Rules of the Game)**
+
+::: incremental
+-   **Electoral Systems:**
+    -   **Proportional Representation (PR):** Low entry barriers (e.g., Netherlands) → Easy entry.
+    -   **Majoritarian Systems:** High barriers (e.g., UK) → "Wasted vote" logic suppresses supply.
+-   **State Funding & Media Access:**
+    -   Institutional support helps stabilize new parties (e.g., Germany, Belgium).
+:::
+
+## 2. Spatial Competition & The Vacant Flank
+
+**Kitschelt (1995):** Mainstream convergence creates opportunities.
+
+::::: columns
+::: {.column width="50%"}
+```{mermaid}
+%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '18px', 'background': '#ffffff'}}}%%
+graph TD
+    ML[Mainstream Left] -- Converges --> C((Center))
+    MR[Mainstream Right] -- Converges --> C
+    C -.-> VF["<b>Vacant Flank</b><br/>(Authoritarian-Nationalist)"]
+    VF --> FR[Far Right Entry]
+    
+    style ML fill:#e0e0e0,stroke:#333,color:#000
+    style MR fill:#e0e0e0,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,stroke-width:4px,color:#000
+    style VF fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,stroke-dasharray: 5 5,color:#000
+    style FR fill:#d32f2f,stroke:#b71c1c,stroke-width:2px,color:#fff
+```
+:::
+
+::: {.column width="50%"}
+**The "Convergence" Mechanism:**
+
+-   When Left and Right become indistinguishable on economics/EU.
+
+-   The **Authoritarian-Right** flank is left open.
+
+-   **Result:** Far Right becomes the "only alternative" for voters seeking cultural protection.
+:::
+:::::
+
+## 3. Mainstream Strategies (Meguid 2005)
+
+Mainstream parties control the **issue salience**.
+
+| Strategy | Action | Outcome for Niche Party |
+|------------------------|------------------------|------------------------|
+| **Dismissal** | Ignore the issue | **Hurts** (if issue remains non-salient). |
+| **Accommodation** | Adopt their position | **Hurts** (if *Proximal* party does it → Theft).<br>**Helps** (if *Distal* party does it → Legitimises). |
+| **Adversarial** | Attack the position | **Helps** (Increases visibility & salience). |
+
+. . .
+
+$\rightarrow$ **The Danger:** Engaging (even attacking) gives the "Oxygen" of publicity.
+
+# Part 4: Discursive Supply (Structure)
+
+## Discursive Opportunity Structures (DOS)
+
+It is not just about rules, but about **Public Visibility**. **Koopmans & Olzak (2004):**
+
+::: incremental
+1.  **Visibility:** Does the media prioritize the party's issues? (e.g., immigration).
+2.  **Resonance:** Does the party's frame "make sense" given everyday reality?
+3.  **Legitimacy:** Is the actor treated as a valid participant in debate?
+:::
+
+. . .
+
+::: fragment
+**Issue Ownership & Salience:** - Far-right parties "own" immigration.
+
+-   **Breakthroughs** happen when external shocks (e.g., 2015 Refugee Crisis) spike issue salience.
+:::
+
+# Part 5: Internal Supply (Agency)
+
+## Agency: The "Winning Formula"
+
+Far-right parties must choose a strategic profile to maximize votes.
+
+**Evolution of the Formula (Kitschelt 1995; De Lange 2007):**
+
+| Dimension | **The 1990s Strategy** | **The Modern Strategy** |
+|:-----------------------|:-----------------------|:-----------------------|
+| **Cultural (The Core)** | **Hyper-Conservative** (Nativist/Authoritarian) | **Hyper-Conservative** (Nativist/Authoritarian) |
+| **Economic (The Variable)** | **Neoliberal** (Anti-Tax, Small State) | **Centrist / Left-Leaning** (Welfare Chauvinist) |
+| **Target Voter** | Small business / Petty Bourgeoisie | **Working Class** / Precariat |
+| **Master Case** | Early FN (FR), Early FPÖ (AT) | RN (FR), SD (SE), Finns (FI) |
+
+## The Economic Shift: Centrist Move via Welfare Chauvinism
+
+::: incremental
+-   **Strategic Repositioning:** To expand beyond their "petty bourgeois" base, parties moved toward the **economic center/left**.
+-   **The Mechanism:** Welfare is not presented as "redistribution" (Left) but as a **National Asset**.
+-   **Broadened Appeal:** By defending the welfare state (for citizens only), they neutralize the traditional advantage of Social Democratic parties.
+-   **The Paradox:** They are "Centrist" on economics to better sell "Hyper-Conservative" cultural policies.
+:::
+
+## Welfare Chauvinism as Strategic Innovation
+
+> "Danish welfare for the Danes." — DPP Slogan
+
+::: incremental
+-   **The Innovation:** Reframing the welfare state as a **national patrimony** rather than a socialist project.
+-   **Strategic Benefit:** Allows the Far Right to attract traditional Left voters while maintaining a radical cultural profile.
+-   **Diffusion:** This model was pioneered in Scandinavia and has now spread across Western Europe.
+:::
+
+## Models of Organisation (Art 2011)
+
+Stability is determined by the **Internal Agency** of the party.
+
+| Feature | **Institutionalised Party** (RN, SD, FPÖ) | **Entrepreneurial Party** (PVV, LPF, Reform UK) |
+|:-----------------------|:-----------------------|:-----------------------|
+| **Structure** | Branches, Members, Congresses | Leader-owned, Top-down, Low membership |
+| **Stability** | **High** (survives leadership changes) | **Fragile** (volatility/collapse risks) |
+| **Mobilisation** | Local networks / Ground game | Media-driven / "Air war" |
+| **Survival** | Persists through setbacks | Often "Flash" success followed by collapse |
+
+. . .
+
+$\rightarrow$ **Institutionalisation** is the single best predictor of whether a party survives its first election.
+
+## The "Detoxification" Strategy
+
+**The Moderation Dilemma:** How to grow without losing the core?
+
+```{mermaid}
+%%{init: {'themeVariables': { 'fontSize': '20px'}}}%%
+flowchart LR
+    A[Radical Roots] --> B{Strategic Choice}
+    B --> C["Keep Radical <br/> Purity"]
+    B --> D["Detoxification <br/> (Dediabolisation)"]
+    C --> E["Stigma & Isolation <br/> (e.g., NPD, GD)"]
+    D --> F["Reputational Shield"]
+    F --> G["Coalition Potential <br/> (e.g., RN, SD, Meloni)"]
+    
+    style D fill:#d4e157,stroke:#333,color:#000
+    style G fill:#66bb6a,stroke:#333,color:#fff
+    style E fill:#ef5350,stroke:#333,color:#fff
+```
+
+-   **Marine Le Pen's Strategy:** Purging extremists and rebranding while maintaining the nativist core.
+-   **The Goal:** Moving from a "protest party" to a "government-in-waiting."
+
+# Part 6: Synthesis
+
+## Solving the Puzzles: Structure + Agency {style="font-size: 0.85em;"}
+
+| Case | The Puzzle | The Supply-Side Explanation |
+|:-----------------------|:-----------------------|:-----------------------|
+| **UK** | High Demand, No Seats | **Electoral Rules:** FPTP blocked representation despite high Euroskepticism. |
+| **Spain** | Crisis but no Far Right | **Agency/Timing:** No credible party until Vox framed the **Catalan Crisis** as a threat to national unity. |
+| **Germany** | 30-Year Delay | **Stigma & Entry:** Stigma blocked the extreme right; AfD entered as "respectable" before radicalising. |
+| **Netherlands** | High Volatility | **Organisation:** Dominance of **Entrepreneurial** (leader-centric) parties like LPF and PVV. |
+| **Scandinavia** | Welfare State Support | **Innovation:** Early and successful adoption of the **Welfare Chauvinist** winning formula. |
+
+## The Non-Inevitability of Success
+
+Far-right breakthroughs are **not** structurally guaranteed. Success can be halted by:
+
+::: incremental
+-   **Strategic Containment:** When mainstream right parties successfully absorb far-right factions (e.g., Spain's PP before 2013).
+-   **Supply Implosion:** Incompetence or scandal destroying the vehicle (e.g., **BNP** in UK, **Republicans** in Germany).
+-   **The "Government Curse":** Moderation in office leading to collapse (e.g., **LAOS** in Greece, **Blue Reform** in Finland).
+-   **Institutional Stigma:** Strong civic education or judicial intervention (e.g., Golden Dawn).
+:::
+
+# Conclusions
+
+## Summary & Open Questions
+
+::: incremental
+1.  **Demand creates potential**, but Supply determines its **political reality**.
+2.  **No Single Recipe:** Different regions require different supply-side adaptations (e.g., Welfare Chauvinism in the North vs. Sovereignty/National Unity in the South).
+3.  **The Interaction:** Supply factors (Rules, Strategy, Organisation) explain why similar demand profiles produce wildly different outcomes.
+4.  **Is Normalisation inevitable?** If the Far Right adopts the "Modern Formula," can mainstream parties ever push them back?
+:::
+
+## Questions?

@@ -1,0 +1,858 @@
+---
+title: "Explaining variation in far-right support: Demand side"
+subtitle: "The Far Right (Week 7)"
+author: "Dr. Christos Vrakopoulos"
+format:
+  revealjs:
+    theme: solarized
+    slide-number: true
+    incremental: true
+    
+    transition: slide
+    fontsize: 26px
+    css: custom.css
+editor: visual
+---
+
+```{r setup, include=FALSE}
+# Load required packages
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(marginaleffects)
+library(ggthemes)
+library(haven)  
+library(plotly)
+
+# You'll need to load your actual data here
+# This is a placeholder structure
+
+# Load Manifesto Project data (for replicating Week 2 plot)
+library(manifestoR)
+mp_setapikey(key = "193c54d64b1189c526214074350ead07")
+mp_data <- manifestoR::mp_maindataset()
+
+mp_data_eu <- mp_data |>
+  filter(countryname %in% c(
+    "Sweden", "Norway", "Denmark", "Finland",
+    "Belgium", "Netherlands", "France", "Italy",
+    "Spain", "Greece", "Portugal", "Germany",
+    "Austria", "Switzerland", "United Kingdom",
+    "Northern Ireland", "Ireland", "Cyprus",
+    "Bulgaria", "Czech Republic", "Estonia",
+    "Hungary", "Latvia", "Lithuania", "Poland",
+    "Romania", "Slovakia", "Slovenia"
+  ))
+
+```
+
+## Today's Lecture
+
+::: incremental
+-   **Part 1:** Recap - The Empirical Puzzles
+-   **Part 3:** Micro-Level Demand - Who Votes Far-Right?
+-   **Part 4:** Macro-Level Demand - Economic Theories
+-   **Part 5:** Macro-Level Demand - Cultural Theories
+-   **Part 6:** Integration - Why Demand Alone Insufficient
+:::
+
+# Part 1: The Empirical Puzzles
+
+## What We've Learned (Weeks 2-6)
+
+::::::: columns
+:::: {.column width="50%"}
+**Breakthroughs happened:**
+
+::: incremental
+-   France (1984), Austria (1986)
+-   Sweden (2010), Finland (2011)
+-   Germany (2017), Spain (2018)
+-   Scandinavia: 15-20%
+-   Western Europe: 15-25%
+:::
+::::
+
+:::: {.column width="50%"}
+**But many puzzles:**
+
+::: incremental
+-   Germany 30-year delay
+-   Spain/Portugal: Crisis but no far-right (until 2018/2019)
+-   Eastern Europe: Mainstream radicalized instead
+:::
+::::
+:::::::
+
+::: notes
+Start by reminding students of the empirical patterns they've observed.
+
+Don't explain yet - just present the puzzles. This creates tension and makes theory feel necessary rather than abstract.
+
+Key teaching point: These aren't random variations - they're systematic patterns that demand theoretical explanation.
+:::
+
+## The Core Research Questions
+
+"Why do *some people* develop far-right attitudes?"
+
+"Why far right parties are successful in some countries but not in others?"
+
+## How to answer these questions?
+
+::::::: columns
+:::: {.column width="50%"}
+**Demand-side**
+
+::: incremental
+-   Attitudinal/ mass related/ contextual factors
+-   ‘Normal pathology thesis’
+-   Macro/Micro Level Explanations
+:::
+::::
+
+:::: {.column width="50%"}
+**Supply-side**
+
+::: incremental
+-   External: Political Opportunity Structures (POS) and Internal: Discursive Opportunity Structures (DOS)
+-   Party organization: canvassing/tactics
+-   Ideological
+-   ‘Pathological normalcy’
+:::
+::::
+:::::::
+
+## The "Normal Pathology" Thesis
+
+::: fragment
+**Key Premise**
+
+Far-right parties represent *abnormal* values alien to Western democratic culture
+:::
+
+. . .
+
+::: fragment
+**Research question derived:**
+
+"Under what extreme conditions do abnormal attitudes emerge?"
+
+-   Economic crisis
+-   Social breakdown
+-   Immigration surge
+-   Political corruption
+:::
+
+. . .
+
+::: fragment
+**Implication:**
+
+Far-right success = systemic crisis, pathological deviation from democratic norms
+:::
+
+::: notes
+This was the dominant approach until Mudde (2010).
+
+Key features: 1. Far-right attitudes seen as deviant 2. Success requires extreme conditions 3. Focus on why SOME people develop these attitudes 4. Crisis as necessary condition
+
+Examples: - Golden Dawn = crisis (fits) - But: Austria FPÖ 1999 = no crisis (doesn't fit) - Sweden SD 2010 = prosperity (doesn't fit)
+
+The evidence from Weeks 2-6 challenges this framework.
+:::
+
+# Part 2: Theories of Demand
+
+## Unit of Analysis
+
+-   Micro-level
+    -   Individual level characteristics/theorisation about why
+    -   Who is more likely to vote for the far-right
+-   Macro-level
+    -   Contextual characteristics: economy, immigration, historical and social developments
+    -   Allow for explaining cross-national or cross-regional within country variation
+    -   Allow for explaining similar developments in different conditions
+
+## Types of Voting
+
+Before delving into the theories we first need to understand broadly speaking how people vote
+
+```{mermaid}
+%%{init: {
+  'themeVariables': {
+    'fontSize': '24px',
+    'nodePadding': 20,
+    'nodeSpacing': 60,
+    'rankSpacing': 60
+  }
+}}%%
+flowchart TB
+A[Types of<br/>Voting] --> B[Clientelist<br/>Voting]
+A --> C[Idealistic<br/>Voting]
+A --> D[Strategic<br/>Voting]
+A --> E[Protest<br/>Voting]
+B --> F[Southern Europe <br/> Corruption <br/> Personal interests]
+C --> G[Ideological <br/> Policy Agreement]
+D --> H[Electability <br/> Policy Proximity]
+E --> I[Weak Proximity <br/> Large parties?]
+
+```
+
+-   **Far-right as protest**: Why? Far-right parties targeted as dangerous outliers, so if someone wants to protest they would vote for them
+
+## BUT...
+
+```{r}
+load("/Users/cvrakopo/My Drive/Publications/ESS Data 1-10/Final Creation/ess_analysis_full.RData")  
+
+m1 <- glm(far_right ~ lrscale + gender + agea + educ_level
+          + oesch8 + urban_rural + trstplt + p_immi_index + country,
+          data=ess_analysis,
+          family = binomial("logit"))
+
+library(marginaleffects)
+
+plot_predictions(m1, condition = "lrscale") +
+  theme_solarized() +
+  labs(
+    title = "Predicted Probabilities of Voting for Far Right parties",
+    subtitle = "European Social Survey Rounds 1-11",
+    x = "Left-right self-placement (0-Extreme Left, 10-Extreme Right)",
+    y = NULL,
+        caption = "Notes: Estimates from a binary logistic regression controlling for gender, class, education, age, trust in politicians, residence, and attitudes towards immigration."
+  )
+
+```
+
+::: {.fragment .highlight}
+**Left-right self-placement one of the strongest predictors**
+:::
+
+## BUT... (cont.)
+
+```{r far-right-table, echo=FALSE}
+# 1. Install and load necessary libraries
+if (!require("tidyverse")) install.packages("tidyverse")
+if (!require("giscoR")) install.packages("giscoR")
+if (!require("sf")) install.packages("sf")
+
+library(tidyverse)
+library(giscoR)
+library(sf)
+
+# 2. Create the dataset (Approximate 2024-2025 far-right cumulative vote share)
+# Parties included: RN (FR), AfD (DE), FPO (AT), PVV (NL), Chega (PT), etc.
+far_right_data <- data.frame(
+  NAME_ENGL = c(
+    "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", 
+    "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", 
+    "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", 
+    "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", 
+    "Slovenia", "Spain", "Sweden", "United Kingdom", "Norway", "Switzerland"
+  ),
+  percentage = c(
+    28.9, 13.8, 13.4, 9.6, 6.8, 49.1, 
+    10.7, 16.1, 20.1, 29.3, 20.8, 12.7, 
+    60.0, 1, 34.8, 9.3, 2.9, 9.3, 
+    1.0, 29.8, 42.6, 22.6, 18, 11.2, 
+    25, 12.4, 20.5, 14.3, 23.8, 30.2
+  )
+)
+
+# 3. Get European map data (excluding remote territories for better focus)
+europe_map <- gisco_get_countries(
+  region = "Europe",
+  resolution = "20",
+  epsg = "3035" # Projection centered on Europe
+)
+
+# 4. Merge map with data
+map_data <- europe_map %>%
+  inner_join(far_right_data, by = "NAME_ENGL")
+
+# 5. Plot the map
+ggplot(data = map_data) +
+  geom_sf(aes(fill = percentage), color = "beige", size = 0.1) +
+  # Custom scale: Yellow (low) to Purple (high)
+  scale_fill_gradient(
+    low = "#FFEB3B", 
+    high = "#4A148C", 
+    name = "Vote Share (%)",
+    labels = scales::percent_format(scale = 1)
+  ) +
+  coord_sf(xlim = c(2500000, 6500000), ylim = c(1500000, 5200000)) +
+  labs(
+    title = "Far-Right Cumulative Vote Share in Europe",
+    subtitle = "Based on most recent National and European Parliament election results"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    legend.position = "right"
+  )
+```
+
+## Who Votes Far-Right? The Predictions
+
+-   The so-called *usual suspects*
+
+::: {.fragment style="font-size: 1.1em;"}
+*But who are they?*
+:::
+
+::: {.fragment style="font-size: 1.1em;"}
+-   **Age** → Younger
+-   **Class** → Working class
+-   **Education** → Lower
+-   **Gender** → Male
+-   **Residence** → Rural/Peripheral
+:::
+
+## What do they have in common?
+
+::: {.fragment .fade-in-then-semi-out}
+### Common characteristic
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+```{r}
+# 1. Prepare data and calculate proportions
+immi_effect <- ess_analysis %>%
+  mutate(
+    # Create the categories
+    immi_cat = case_when(
+      p_immi_index < 30 ~ "Liberal",
+      p_immi_index >= 30 & p_immi_index < 70 ~ "Neutral",
+      p_immi_index >= 70 ~ "Restrictive"
+    ),
+    # Ensure far_right is a 0/1 numeric for mean calculation
+    far_right_num = as.numeric(far_right == "Far-right")
+  ) %>%
+  filter(!is.na(immi_cat), !is.na(far_right_num)) %>%
+  # Calculate % of far-right voters within each category
+  group_by(immi_cat) %>%
+  summarise(
+    pct_far_right = mean(far_right_num) * 100,
+    n = n()
+  ) %>%
+  # Calculate difference from the 'Liberal' baseline
+  mutate(
+    baseline = pct_far_right[immi_cat == "Liberal"],
+    diff_from_liberal = pct_far_right - baseline,
+    immi_cat = factor(immi_cat, levels = c("Liberal", "Neutral", "Restrictive"))
+  )
+
+# 2. Plot the "Strength of Association"
+ggplot(immi_effect, aes(x = immi_cat, y = diff_from_liberal, fill = immi_cat)) +
+  geom_col(width = 0.6) +
+  geom_text(aes(label = paste0("+", round(diff_from_liberal, 1), " pp")), 
+            vjust = -0.5, fontface = "bold") +
+  scale_fill_manual(values = c("Liberal" = "#3498DB", "Neutral" = "#F1C40F", "Restrictive" = "#E74C3C")) +
+  labs(
+    title = "Strength of Association: Immigration & Far-Right Vote",
+    subtitle = "Increase in likelihood of far-right voting compared to 'Liberal' voters",
+    x = "Immigration Attitude",
+    y = "Percentage Point Difference",
+    fill = "Attitude"
+  ) +
+  theme_solarized()
+
+```
+:::
+
+-   **Key question**: Why?
+
+## Economic Grievance Model
+
+::: {.fragment .fade-in-then-semi-out}
+### Realistic Group Conflict
+:::
+
+::: {.fragment style="font-size: 1.1em;"}
+```{mermaid}
+%%{init: {
+  'themeVariables': {
+    'fontSize': '26px',
+    'nodePadding': 22,
+    'nodeSpacing': 62,
+    'rankSpacing': 62
+  }
+}}%%
+flowchart LR
+A[Economic Scarcity] --> B[Competition over <br/> resources]
+B --> C[In-group vs <br/> out-group]
+C --> D[Far Right <br/> mobilisation]
+D --> E[Higher support]
+
+%% Define a class for black text
+    classDef blackText color:#000;
+
+    %% Apply the class to all nodes
+    class A,B,C,D,E blackText;
+
+%% Uniform Style for all nodes
+    classDef lightGrey fill:#F5F5F5,stroke:#333,stroke-width:2px,color:#000;
+    class A,B,C,D,E lightGrey;
+
+```
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+### Modernisation Losers
+:::
+
+::: {.fragment style="font-size: 1.1em;"}
+```{mermaid}
+%%{init: {
+  'themeVariables': {
+    'fontSize': '26px',
+    'nodePadding': 22,
+    'nodeSpacing': 62,
+    'rankSpacing': 62
+  }
+}}%%
+flowchart LR
+A[Globalisation <br/> Deindustrialisation] --> B[Skill-biased chages]
+B --> C[Losers vs Winners]
+C --> D[Status and <br/> economic <br/> insecurity]
+D --> E[Resentment]
+E --> F[Higher Support]
+
+%% Define a class for black text
+    classDef blackText color:#000;
+
+    %% Apply the class to all nodes
+    class A,B,C,D,E,F blackText;
+
+%% Uniform Style for all nodes
+    classDef lightGrey fill:#F5F5F5,stroke:#333,stroke-width:2px,color:#000;
+    class A,B,C,D,E,F lightGrey;
+
+```
+:::
+
+## Economic Grievances (cont.)
+
+**If economic crisis drives far-right success, we should see uniform surge after 2008**
+
+::: fragment
+```{r crisis-plot}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 6
+#| message: false
+#| warning: false
+
+
+# Calculate far-right vote share per election (parfam=70)
+far_right_elections <- mp_data_eu |>
+  mutate(year = year(as.Date(edate))) |>
+  filter(year >= 2004 & year <= 2014, parfam == 70) |>
+  group_by(countryname, year, edate) |>
+  summarise(far_right = sum(pervote, na.rm = TRUE), .groups = "drop") |>
+  group_by(countryname, year) |>
+  slice_min(edate, n = 1) |>
+  ungroup()
+
+# Pre-crisis: last election 2004-2008
+pre_crisis <- far_right_elections |>
+  filter(year >= 2004 & year <= 2008) |>
+  group_by(countryname) |>
+  slice_max(year, n = 1) |>
+  select(countryname, year_pre = year, far_right_pre = far_right) |>
+  ungroup()
+
+# Post-crisis: last election 2009-2013
+post_crisis <- far_right_elections |>
+  filter(year >= 2009 & year <= 2013) |>
+  group_by(countryname) |>
+  slice_max(year, n = 1) |>
+  select(countryname, year_post = year, far_right_post = far_right) |>
+  ungroup()
+
+# Compare and add tooltips
+crisis_comparison <- pre_crisis |>
+  inner_join(post_crisis, by = "countryname") |>
+  filter(countryname != "Cyprus") |>
+  mutate(
+    change = far_right_post - far_right_pre,
+    region = case_when(
+      countryname %in% c("Denmark", "Finland", "Norway", "Sweden") ~ "Nordic",
+      countryname %in% c("Austria", "Belgium", "France", "Germany", 
+                         "Netherlands", "Switzerland", "United Kingdom") ~ "Western",
+      countryname %in% c("Greece", "Italy", "Portugal", "Spain") ~ "Southern",
+      TRUE ~ "Eastern"
+    ),
+    tooltip_text = paste0(
+      "<b>", countryname, "</b><br>",
+      "Pre-crisis (", year_pre, "): ", round(far_right_pre, 1), "%<br>",
+      "Post-crisis (", year_post, "): ", round(far_right_post, 1), "%<br>",
+      "<b>Change: ", ifelse(change > 0, "+", ""), round(change, 1), " pp</b>"
+    )
+  )
+
+# Create interactive plot
+p <- ggplot(crisis_comparison, 
+       aes(x = reorder(countryname, change), y = change, fill = region,
+           text = tooltip_text)) +
+  geom_col(width = 0.7) +
+  coord_flip() +
+  geom_hline(yintercept = 0, linetype = "dashed", linewidth = 0.8, color = "gray30") +
+  scale_fill_brewer(palette = "Set2", name = NULL) +
+  labs(
+    title = "Change in Far-Right Vote Share Around Financial Crisis",
+    subtitle = "Last election 2004-2008 vs. last election 2009-2013",
+    x = NULL,
+    y = "Percentage Point Change",
+    caption = "Data: Manifesto Project (parfam=70)"
+  ) +
+  theme_solarized(base_size = 14) +
+  theme(
+    legend.position = "bottom",
+    panel.grid.major.y = element_blank(),
+    plot.title = element_text(face = "bold", size = 15)
+  )
+
+# Convert to interactive
+ggplotly(p, tooltip = "text") %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+:::
+
+## The Southern European Puzzle (Again!)
+
+::::: columns
+::: {.column width="50%"}
+![](images/hali1.png)
+:::
+
+::: {.column width="50%"}
+![](images/hali2.png)
+:::
+:::::
+
+Halikiopoulou, D., and Vasilopoulou, S. 2018. Breaching the Social Contract: Crises of Democratic Representation and Patterns of Extreme Right Party Support. Government and Opposition 53 (1): 26–50. doi:10.1017/gov.2015.43
+
+## Welfare State Matters (Vlandas and Halikiopoulou, 2016)
+
+::: fragment
+**Key insight: It's not about aggregate crisis severity**
+:::
+
+::: fragment
+**It's about institutional structures that create vulnerability**
+:::
+
+::::::: columns
+:::: {.column width="50%"}
+**Their argument:**
+
+::: incremental
+-   Focus on **labour market risk**
+-   And **welfare state generosity**
+-   Interaction creates vulnerability
+-   Some workers more exposed than others
+:::
+::::
+
+:::: {.column width="50%"}
+**The mechanism:**
+
+::: incremental
+-   High labour market flexibility = high risk
+-   Low welfare generosity = low protection
+-   **High risk + Low welfare** = vulnerability
+-   Vulnerable workers → far-right
+:::
+::::
+:::::::
+
+## The Psychology of Vulnerability: Status & Decline
+
+
+::: {.fragment .fade-in}
+#### 1. Subjective Social Status
+
+**Gidron & Hall (2017):** It's not just money; it's **social respect**. Low subjective rank drives the demand.
+:::
+
+::: {.fragment .fade-in}
+#### 2. Downward Mobility
+
+**Gugushvili et al. (2025):** The **trajectory** matters. Moving from high to low class creates acute resentment.
+:::
+
+::: {.fragment .fade-in}
+#### 3. The Fear of Falling
+
+**Engler & Weisstanner (2021):** Inequality creates a "threat of decline" that mobilizes even the **middle class**.
+:::
+
+::: {.fragment .fade-in}
+```{mermaid}
+%%{init: {
+  'themeVariables': {
+    'fontSize': '22px',
+    'nodePadding': 20,
+    'nodeSpacing': 50,
+    'rankSpacing': 50
+  }
+}}%%
+flowchart LR
+    A[Inequality & <br/> Structural Change] --> B{The Trajectory}
+    B -->|Downward| C[Experience of <br/> Social Decline]
+    B -->|Risk of| D[Fear of <br/> Falling]
+    C --> E[Status Anxiety & <br/> Resentment]
+    D --> E
+    E --> F[Far-Right <br/> Support]
+
+    classDef highlight fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef paper fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#01579b;
+    class E,F highlight;
+    class A,B,C,D paper;
+```
+:::
+
+
+## Cultural Grievances
+
+::: {.fragment .fade-in-then-semi-out}
+### Social Identity Theory
+:::
+
+::: {.fragment style="font-size: 1.1em;"}
+```{mermaid}
+%%{init: {
+  'themeVariables': {
+    'fontSize': '26px',
+    'nodePadding': 22,
+    'nodeSpacing': 62,
+    'rankSpacing': 62
+  }
+}}%%
+flowchart LR
+A[Immigration] --> B[Competition over <br/> culture]
+B --> C[In-group vs <br/> out-group]
+C --> D[Rising far-right <br/> attitudes]
+D --> E[Higher support]
+
+%% Define a class for black text
+    classDef blackText color:#000;
+
+    %% Apply the class to all nodes
+    class A,B,C,D,E blackText;
+
+%% Uniform Style for all nodes
+    classDef lightGrey fill:#F5F5F5,stroke:#333,stroke-width:2px,color:#000;
+    class A,B,C,D,E lightGrey;
+
+```
+:::
+
+::: {.fragment style="font-size: 1.1em;"}
+*But who are they?*
+:::
+
+::: {.fragment style="font-size: 1.1em;"}
+-   **Age** → Older
+-   **Class** → Not necessarily working class
+-   **Education** → Lower
+-   **Gender** → Male
+-   **Residence** → Peripheral
+-   **Values** → Authoritarian/Egoist
+:::
+
+## BUT...
+
+![](images/AfD_paradox.png)
+
+## BUT...(cont.)
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+load("/Users/cvrakopo/My Drive/Publications/ESS Data 1-10/Final Creation/ess_analysis_full.RData")
+
+# First, let's calculate the actual metrics by region
+immigration_comparison <- ess_analysis %>%
+  # Filter for relevant countries and create region grouping
+  filter(!is.na(region_eu)) %>%
+  group_by(region_eu) %>%
+  summarise(
+    # Average net migration rate
+    net_migration = mean(net_mig_wpp, na.rm = TRUE),
+    
+    # Anti-immigration attitudes (using immigration attitudes from ESS)
+    # Lower values = more restrictive, so we'll reverse to show "anti-immigration"
+    anti_immigration_attitude =  mean(p_immi_index, na.rm = TRUE), # Scale to percentage
+    
+    # Average far-right vote share
+    far_right_vote = mean(fr_vote_actual, na.rm = TRUE),
+    
+    .groups = "drop"
+  ) %>%
+  # Pivot longer for faceting
+  pivot_longer(
+    cols = c(net_migration, anti_immigration_attitude, far_right_vote),
+    names_to = "variable",
+    values_to = "value"
+  ) %>%
+  # Create nice labels
+  mutate(
+    variable = case_when(
+      variable == "net_migration" ~ "Net Migration Rate (per 1000)",
+      variable == "anti_immigration_attitude" ~ "Anti-Immigration Attitudes (%)",
+      variable == "far_right_vote" ~ "Far-Right Vote Share (%)"
+    ),
+    variable = factor(variable, levels = c(
+      "Net Migration Rate (per 1000)",
+      "Anti-Immigration Attitudes (%)",
+      "Far-Right Vote Share (%)"
+    ))
+  )
+
+# Create the plot
+p_immigration <- ggplot(immigration_comparison, 
+                        aes(x = region_eu, y = value, fill = region_eu)) +
+  geom_col(width = 0.7) +
+  facet_wrap(~variable, scales = "free_y", ncol = 3) +
+  scale_fill_manual(
+    values = c(
+      "Eastern Europe" = "#E67E22",
+      "Western Europe" = "#3498DB",
+      "Southern Europe" = "#E74C3C",
+      "Nordic" = "#27AE60"
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "Value",
+    title = "The Immigration Paradox in Eastern Europe",
+    subtitle = "Lower immigration but high anti-immigration attitudes"
+  ) +
+  theme_solarized(base_size = 14) +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(face = "bold", size = 11),
+    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+    plot.title = element_text(face = "bold", size = 16),
+    plot.subtitle = element_text(color = "gray40", size = 11)
+  )
+
+ggplotly(p_immigration)  %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+## How to Explain these?
+
+::: {.fragment .fade-in-then-semi-out}
+### Contact Theory
+:::
+
+::: {.fragment style="font-size: 1.1em;"}
+```{mermaid}
+%%{init: {
+  'themeVariables': {
+    'fontSize': '26px',
+    'nodePadding': 22,
+    'nodeSpacing': 62,
+    'rankSpacing': 62
+  }
+}}%%
+flowchart LR
+A[High out-group] --> B[positive experience]
+B --> C[Greater knowledge]
+C --> D[Reduced anxiety]
+D --> E[More tolerance]
+
+%% Define a class for black text
+    classDef blackText color:#000;
+
+    %% Apply the class to all nodes
+    class A,B,C,D,E blackText;
+
+%% Uniform Style for all nodes
+    classDef lightGrey fill:#F5F5F5,stroke:#333,stroke-width:2px,color:#000;
+    class A,B,C,D,E lightGrey;
+
+```
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+### Cosmopolitanism (see Maxwell)
+:::
+
+::: {.fragment style="font-size: 1.1em;"}
+```{mermaid}
+%%{init: {
+  'themeVariables': {
+    'fontSize': '26px',
+    'nodePadding': 22,
+    'nodeSpacing': 62,
+    'rankSpacing': 62
+  }
+}}%%
+flowchart LR
+A[High immigration <br/> Urban settings] --> B[Global skills <br/> identities]
+B --> C[Exposure to diversity]
+C --> D[Cosmopolitanism]
+D --> E[Tolerance]
+
+
+%% Define a class for black text
+    classDef blackText color:#000;
+
+    %% Apply the class to all nodes
+    class A,B,C,D,E,F blackText;
+
+%% Uniform Style for all nodes
+    classDef lightGrey fill:#F5F5F5,stroke:#333,stroke-width:2px,color:#000;
+    class A,B,C,D,E,F lightGrey;
+
+```
+:::
+
+-   Cultural grievances are real but mediated by contact, local context, and cosmopolitan–communitarian divides.
+
+## So, what about when Immigration is high but economy poor?
+
+![](images/golder.png)
+
+# Conclusions
+
+## Summary: The Drivers of Far-Right Support {vertical-align="center"}
+
+::::::: {layout="[[1,1], [1, 1]]"}
+::: {.fragment .fade-up style="border: 1px solid #ddd; padding: 15px; border-radius: 8px;"}
+#### 1. Beyond "Protest"
+
+Far-right voting reflects stable **ideological preferences**rather than just temporary frustration.
+:::
+
+::: {.fragment .fade-up style="border: 1px solid #ddd; padding: 15px; border-radius: 8px;"}
+#### 2. Economic vs. Cultural Grievances
+
+-   *Economic:* Insecurity and relative deprivation fuel support.
+-   *Cultural:* Values regarding gender, cosmopolitanism, and multiculturalism are often the primary drivers.
+:::
+
+::: {.fragment .fade-up style="border: 1px solid #ddd; padding: 15px; border-radius: 8px;"}
+#### 3. Cultural Grievances vs. Contact
+
+-   *Cultural Threat:* Perceptions of threat can drive support.
+-   *Contact/Cosmopolitanism:* Local interaction can reduce prejudice.
+-   *Geographic Variance:* Patterns in Eastern Europe and Germany suggest complex "threat" stories.
+:::
+
+::: {.fragment .fade-in style="text-align: center; background-color: #f8f9fa; padding: 20px; border-radius: 8px;"}
+#### 4. So what then?
+
+**Demand is necessary, but is it sufficient?**
+:::
+:::::::

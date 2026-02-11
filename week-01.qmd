@@ -1,0 +1,66 @@
+---
+title: "Week 1: Introduction"
+description: "What is the Far-Right? Definitions and Core Concepts."
+---
+
+::: {.panel-tabset}
+
+## Materials
+
+### Lecture
+*   [Download Lecture Slides](lectures/Lecture-01.qmd){target="_blank"}
+
+### Seminar
+
+#### In-Class Activities
+
+You will be assigned to one region just for this week: Western Europe, UK-Ireland, Scandinavia, Southern Europe, or Eastern Europe.
+
+Explore the interactive graph from the lecture slides for your region and identify what patterns you notice. When did far-right support rise? Which countries led and which lagged? What are the key differences in trajectories across your region?
+
+Write down the pattern you observed in the data, propose an explanation for it (consider economic factors, immigration/cultural change, political failures, historical legacies, welfare state dynamics, or other factors), and explain your reasoning for why you think this explanation fits.
+
+Then consider the bigger picture: what explains the variation between regions? Why does Scandinavia's pattern differ from Southern Europe's, or Eastern Europe from Western Europe? Record your cross-regional explanation on the Whiteboard.
+
+#### What's Next
+
+Your hypotheses will be documented and tested against actual country evidence in Weeks 2-6, then revisited and refined in theory seminars (Weeks 7-10).
+
+## Readings
+
+### Key Readings
+
+```{r}
+#| echo: false
+#| results: asis
+#| warning: false
+#| message: false
+
+library_base_url <- "https://eu01.alma.exlibrisgroup.com/leganto/nui/lists/59600524660002466"
+generate_link <- function(title) {
+  query <- URLencode(title, reserved = TRUE) 
+  url <- paste0(library_base_url, query)
+  paste0("[", title, "](", url, ")")
+}
+
+readings <- data.frame(
+  Author = c("Jens Rydgren (ed.)", "Matt Golder", "Cas Mudde"),
+  Title = c("The Oxford Handbook of the Radical Right (Introduction)", 
+            "Far Right Parties in Europe", 
+            "The Far Right Today (Introduction)"),
+  Type = c("Book Chapter", "Article", "Book")
+)
+
+readings$Title <- sapply(readings$Title, generate_link)
+knitr::kable(readings)
+```
+
+## Whiteboard
+
+| Eastern Europe | Scandinavia | UK & Ireland | Western Europe | Southern Europe |
+| :--- | :--- | :--- | :--- | :--- |
+| **Countries/Parties:** <br>• Hungary: Fidesz <br>• Bulgaria: Revival <br>• Romania: Alliance for Union of Romanians <br>• Poland: PiS <br>• Slovakia: SMER <br>• Slovenia: SDP | **Core Features:** <br>• RR Populism, national conservatism, Euroscepticism <br>• Not necessarily against socially liberal ideals (gay marriage, etc.) <br>• Anti-immigration is the overall feature | **Rise in Scotland:** <br>• Idea of Scottish people being more inclusive <br>• Outgroup: English people (vs. ethnic minorities in England) <br>• Reform in England adds legitimacy in Scotland | **Core Features:** <br>• **Firewall:** Idea of avoiding/refusing to engage with the far right <br>• Political disrepute/instability <br>• Anti-immigration (migration crisis) | **Portugal & Spain:** <br>• High levels since early 2020s <br>• Backlash to COVID mismanagement, housing crisis, environmental disasters <br>• Spain: Reaction to pardoning Catalan separatists |
+| **Hungary:** <br>• 1988: Fidesz created <br>• 1998: Formed centre right govt <br>• 2021: Shifted right and won majority | **Parties:** <br>• **Sweden Democrats:** 20.5% vote share; welfare state for natives (welfare chauvinism) <br>• **Progress Party (Norway):** Reduce state power/taxes; economically conservative | **Media & Language:** <br>• Weaponisation of fear (GB News, June 2021) <br>• Normalisation of rhetoric <br>• Move from class to cultural/moralised politics | **France:** <br>• Support began 1986 <br>• 2022-2023 high-point: 25.2% vote share <br>**Netherlands / Germany** | **Greece:** <br>• Rise during sovereign debt crisis <br>• 2% in 2006 → 14% in 2014 <br>**Italy:** <br>• 1990s rise: "Mani pulite" scandal (demise of established parties) |
+| **Bulgaria:** <br>• Postpone Euro adoption <br>• Far-right vote > 20% <br>• Yearning for ‘saviour like’ figures | **Trends:** <br>• Denmark: 18% in early 70s, dropped, then rose in 00s <br>• Sweden: Steady growth since 2010 <br>• Finland: Opposed to EU bailing out Portugal; Russia border support | **Brexit/UKIP:** <br>• 2008 financial crash <br>• Looking for scapegoats <br>• Misinformation/propaganda <br>• Appeal to working class | **Belgium:** <br>• Emerged as Flemish secessionist party in late 70s <br>• Now opposes immigration (Muslim immigration) and focuses on law and order | **Italy (Recent):** <br>• Mid 2010s: Regional separatism (Salvini’s Lega) <br>• Early 2020s: Fratelli d’Italia (Meloni) - mismanagement of COVID & arrival of refugees |
+| **Patterns/Geopolitics:** <br>• Desire to expand (Romania/Moldova, Yugoslavia) <br>• Soviet legacy influences Pro/Anti Russian stance | **Voters:** <br>• Older people don't tend to vote for FR <br>• Higher support from younger people | **Hypothesis:** <br>• Removal of "economic cleavage" through working-class appeal | **Hypothesis:** <br>• Support driven by disaffected voters (economic/cultural reasons) | **Voters:** <br>• Spain/Portugal: Young people, especially young men |
+| **Patterns/Sociology:** <br>• Big support from young men <br>• Focused on homogenous nation and 'anti-woke' agenda | **Insights:** <br>• Link between Sweden & Denmark support <br>• Danish survey: sentiment that immigrants commit crime | | | **Exposure:** <br>• Greece and Italy are most exposed to immigration (Dublin regulations) |

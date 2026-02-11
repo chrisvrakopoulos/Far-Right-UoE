@@ -1,0 +1,772 @@
+---
+title: "Far-Right in Eastern Europe"
+subtitle: "The Far Right (Week 6)"
+author: "Dr. Christos Vrakopoulos"
+format:
+  revealjs:
+    theme: solarized
+    slide-number: true
+    incremental: true
+    transition: slide
+    chalkboard: true    
+    fontsize: 26px
+    css: custom.css
+editor: visual
+---
+
+```{r setup, include=FALSE}
+# Load required packages
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(tidyverse)
+library(manifestoR)
+library(lubridate)
+library(ggthemes)
+
+# Set Manifesto Project API key
+mp_setapikey(key = "193c54d64b1189c526214074350ead07")
+
+# Load Manifesto Project data 
+# Note: We append manual data for 2023-2025 to ensure recent trends are visible.
+# In a real scenario, you would use mp_maindataset() + this patch.
+
+# mp_data <- manifestoR::mp_maindataset() # Commented out to rely on manual construction for stability
+
+# --- DATA CONSTRUCTION ---
+# Simulating the structure for the merged lecture
+# UPDATED: Removed 2025 "Polls" from the plot data as requested.
+far_right_raw <- tribble(
+  ~countryname, ~year, ~edate, ~party_label, ~pervote,
+  # Hungary
+  "Hungary", 2010, "2010-04-11", "Jobbik", 16.7,
+  "Hungary", 2014, "2014-04-06", "Jobbik", 20.2,
+  "Hungary", 2018, "2018-04-08", "Jobbik", 19.1,
+  "Hungary", 2022, "2022-04-03", "Jobbik", 3.3,
+  "Hungary", 2022, "2022-04-03", "Mi Hazánk", 5.9,
+  "Hungary", 2010, "2010-04-11", "Fidesz", 52.7,
+  "Hungary", 2014, "2014-04-06", "Fidesz", 44.9,
+  "Hungary", 2018, "2018-04-08", "Fidesz", 49.3,
+  "Hungary", 2022, "2022-04-03", "Fidesz", 54.1,
+
+  # Poland
+  "Poland", 2005, "2005-09-25", "LPR", 8.0,
+  "Poland", 2007, "2007-10-21", "LPR", 1.3,
+  "Poland", 2015, "2015-10-25", "PiS", 37.6,
+  "Poland", 2019, "2019-10-13", "PiS", 43.6,
+  "Poland", 2023, "2023-10-15", "PiS", 35.4,
+  "Poland", 2019, "2019-10-13", "Konfederacja", 6.8,
+  "Poland", 2023, "2023-10-15", "Konfederacja", 7.2,
+  
+  # Romania
+  "Romania", 2000, "2000-11-26", "PRM", 19.5,
+  "Romania", 2008, "2008-11-30", "PRM", 3.2,
+  "Romania", 2012, "2012-12-09", "PRM", 1.2,
+  "Romania", 2016, "2016-12-11", "PRM", 0.0, # Absent
+  "Romania", 2020, "2020-12-06", "AUR", 9.1,
+  "Romania", 2024, "2024-12-01", "AUR", 18.0, 
+  "Romania", 2024, "2024-12-01", "SOS Romania", 7.7,
+
+  # Slovakia
+  "Slovakia", 2016, "2016-03-05", "SNS", 8.6,
+  "Slovakia", 2016, "2016-03-05", "ĽSNS", 8.0,
+  "Slovakia", 2020, "2020-02-29", "SNS", 3.2,
+  "Slovakia", 2020, "2020-02-29", "ĽSNS", 8.0,
+  "Slovakia", 2023, "2023-09-30", "SNS", 5.6,
+  "Slovakia", 2023, "2023-09-30", "ĽSNS", 0.8,
+  "Slovakia", 2023, "2023-09-30", "Republika", 4.7,
+  "Slovakia", 2023, "2023-09-30", "Smer-SD", 22.9,
+
+  # Czech Republic
+  "Czech Republic", 2013, "2013-10-25", "Úsvit", 6.9,
+  "Czech Republic", 2017, "2017-10-20", "SPD", 10.6,
+  "Czech Republic", 2021, "2021-10-08", "SPD", 9.6
+) %>%
+  mutate(edate = as.Date(edate))
+
+# Individual country datasets for plotting
+hungary_data <- far_right_raw %>% filter(countryname == "Hungary")
+poland_data <- far_right_raw %>% filter(countryname == "Poland")
+romania_data <- far_right_raw %>% filter(countryname == "Romania")
+slovakia_data <- far_right_raw %>% filter(countryname == "Slovakia")
+czech_data <- far_right_raw %>% filter(countryname == "Czech Republic")
+
+```
+
+## Today's Lecture
+
+::: incremental
+-   **Part 1:** The Eastern European Puzzle
+-   **Part 2:** Five Trajectories
+-   **Part 3:** Comparative Synthesis
+-   **Part 4:** Implications
+:::
+
+# Part 1: The Eastern European Puzzle
+
+## The Inverted Puzzle
+
+:::::::::: columns
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+**Should favor far-right breakthrough:**
+:::
+
+::: incremental
+-   Economic transition shock (1990s)
+-   High corruption & weak institutions
+-   Brain drain & demographic decline
+-   Refugee crisis (2015-16)
+:::
+:::::
+
+:::::: {.column width="50%"}
+::: {.fragment .fade-in}
+**Yet historically (2000-2020):**
+:::
+
+::: incremental
+-   Separate far-right parties were weak or collapsed (e.g., LPR in Poland, Jobbik in Hungary).
+-   **Paradox:** Nationalism was high, but "Far-Right Parties" were low.
+-   **Mechanism:** Mainstream parties (Fidesz, PiS) radicalized and "stole" the space.
+:::
+
+::: {.fragment .fade-in}
+**The New Reality (2023+):** The "containment" has failed. New, insurrectionary forces are breaking through (Romania, Poland's Konfederacja).
+:::
+::::::
+::::::::::
+
+# Part 2: Five Trajectories
+
+## Hungary: Fidesz & The Radical Flank
+
+:::::::: columns
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Trajectory:
+:::
+
+-   **Fidesz:** Started as liberal (1988), radicalized (2002-2010), Regime Hegemony (2010-Present).
+-   **Jobbik:** Radical paramilitary (2010) → Moderated (2018) → Collapsed.
+-   **Mi Hazánk:** The new radical flank (2022+).
+
+::: {.fragment .fade-in}
+#### Strategy & Framing:
+:::
+
+-   **State Capture:** Rewriting constitution, media control ("Illiberal Democracy").
+-   **Constructive Opposition:** Mi Hazánk pushes radical ideas (anti-vax, anti-WHO), Fidesz adopts the popular ones.
+:::::
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Core Ideology (Fidesz):
+:::
+
+-   **Nativism:** "Great Replacement" rhetoric; Anti-Soros; "Christian Fortress."
+-   **Economic:** Economic Nationalism (Statist); Welfare for "families" (Pro-natalism).
+-   **Social:** Hardline Conservative (Anti-LGBT, traditional gender roles).
+-   **EU:** Sovereigntist ("Stop Brussels"); "Peace" narrative (Pro-Russia leanings).
+::::
+::::::::
+
+## Hungary: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_hungary <- ggplot(hungary_data, aes(x = year, y = pervote, color = party_label)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = 2010, linetype = "dashed", alpha = 0.5) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 6)) +
+  annotate("text", x = 2010, y = 55, label = "Fidesz Supermajority\n(Regime begins)", 
+           hjust = -0.1, size = 4, fontface = "bold") +
+  annotate("text", x = 2018, y = 22, label = "Jobbik\nmoderates", hjust = 1, size = 3.5) +
+  annotate("text", x = 2022, y = 8, label = "Mi Hazánk\nEntry", hjust = -0.1, size = 3.5, fontface = "bold") +
+  scale_color_manual(values = c("Jobbik" = "#E74C3C", "Fidesz" = "#F39C12", "Mi Hazánk" = "#8B0000")) +
+  labs(x = "Year", y = "Vote Share (%)", title = "Hungary: Regime + Radical Flank") +
+  theme_solarized(base_size = 16) +
+  theme(legend.position = "bottom")
+
+ggplotly(p_hungary, tooltip = c("x", "y", "colour")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+## Poland: PiS vs. The New Right
+
+:::::::: columns
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Trajectory:
+:::
+
+-   **PiS (Law & Justice):** Dominant 2015-2023. Lost power in 2023 (Democratic Reconquest).
+-   **Konfederacja:** Stable challenger (\~7%) resisting PiS absorption.
+
+::: {.fragment .fade-in}
+#### Strategy & Framing:
+:::
+
+-   **PiS:** "Redistribution of Dignity" (Welfare + Pride).
+-   **Konfederacja:** "Anti-System" & "Tik-Tok Mobilization." Highly effective digital strategy targeting Gen Z men.
+:::::
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Core Ideology (PiS vs Konf):
+:::
+
+-   **Nativism:** Both strong. PiS: Anti-German/Refugee. Konf: Anti-Ukrainian aid ("Stop Ukrainization").
+-   **Economic:**
+    -   *PiS:* Statist/Welfare chauvinism (500+).
+    -   *Konf:* Hard Neoliberal (Anti-tax, anti-welfare).
+-   **Social:** Both Catholic/Traditionalist.
+-   **EU:**
+    -   *PiS:* Soft Euroskeptic (Rule of Law conflicts).
+    -   *Konf:* Hard Euroskeptic (Polexit rhetoric).
+::::
+::::::::
+
+## Poland: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_poland <- ggplot(poland_data, aes(x = year, y = pervote, color = party_label)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = 2023, linetype = "dashed", alpha = 0.5) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 6)) +
+  annotate("text", x = 2023, y = 38, label = "PiS loses power\n(2023)", 
+           hjust = 1.1, size = 4, fontface = "bold") +
+  annotate("text", x = 2019, y = 10, label = "Konfederacja\n(Challenger)", 
+           hjust = -0.1, size = 3.5) +
+  scale_color_manual(values = c("LPR" = "gray", "PiS" = "#2980B9", "Konfederacja" = "#1A1A1A")) +
+  labs(x = "Year", y = "Vote Share (%)", title = "Poland: Hegemon vs Challenger") +
+  theme_solarized(base_size = 16) +
+  theme(legend.position = "bottom")
+
+ggplotly(p_poland, tooltip = c("x", "y", "colour")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+## Romania: The Insurrection (Second Wave)
+
+:::::::: columns
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Trajectory:
+:::
+
+-   **The Gap (2008-2020):** Absence of far-right (PRM died).
+-   **The Surge (2020-2024):** AUR (18%) + SOS Romania (7.7%) explosion.
+
+::: {.fragment .fade-in}
+#### Strategy & Framing:
+:::
+
+-   **Digital Insurgency:** Bypassed mainstream media via Facebook/TikTok.
+-   **"Anti-System" Vote:** Only opposition to the "Grand Coalition" (PSD+PNL).
+-   **Diaspora:** Massive mobilization of Romanians abroad.
+:::::
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Core Ideology (AUR):
+:::
+
+-   **Nativism:** Union with Moldova; "Romanian Sovereignty" vs Foreign Corporations.
+-   **Economic:** Protectionist; Anti-Green Deal; Support for "domestic producers."
+-   **Social:** Religious Nationalism (Orthodox Church alliance); Traditional Family.
+-   **EU:** "Sovereign Europe" (Reform not Exit); Strong anti-Ukraine aid rhetoric (SOS Romania especially).
+::::
+::::::::
+
+## Romania: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_romania <- ggplot(romania_data, aes(x = year, y = pervote, color = party_label)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 3) +
+  annotate("rect", xmin = 2012, xmax = 2020, ymin = 0, ymax = 20, alpha = 0.1, fill = "gray") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 6)) +
+  annotate("text", x = 2016, y = 10, label = "The 'Gap'\n(No Far Right)", size = 4, color = "gray40") +
+  scale_color_manual(values = c("PRM" = "#2C3E50", "AUR" = "#F1C40F", "SOS Romania" = "#E74C3C")) +
+  labs(x = "Year", y = "Vote Share (%)", title = "Romania: From Zero to 25%") +
+  theme_solarized(base_size = 16) +
+  theme(legend.position = "bottom")
+
+ggplotly(p_romania, tooltip = c("x", "y", "colour")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+## Slovakia: The "Red-Brown" Coalition
+
+:::::::: columns
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Trajectory:
+:::
+
+-   **Fico's Return (2023):** Smer-SD (Left) adopted far-right rhetoric to win.
+-   **Government:** Coalition of Smer + Hlas + SNS (Far-Right).
+
+::: {.fragment .fade-in}
+#### Strategy & Framing:
+:::
+
+-   **Peace Narrative:** "Not one bullet to Ukraine."
+-   **Stability:** "Order" against the "Chaos" of the previous liberal coalition.
+-   **Institutional War:** Attacks on NGOs, media, and special prosecutors.
+:::::
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Core Ideology (Smer/SNS):
+:::
+
+-   **Nativism:** Anti-Ukrainian; Historical anti-Hungarian/Roma sentiment (SNS).
+-   **Economic:** Left-Populism; High welfare spending; Price controls.
+-   **Social:** Conservative "Social Democracy" (Anti-liberal rights).
+-   **EU:** Pragmatic/Transactional (Conflict on Rule of Law, but need funds).
+::::
+::::::::
+
+## Slovakia: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_slovakia <- ggplot(slovakia_data, aes(x = year, y = pervote, color = party_label)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 3) +
+  geom_hline(yintercept = 5, linetype = "dashed", color = "gray") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 6)) +
+  scale_color_manual(values = c("SNS" = "#0B4EA2", "ĽSNS" = "#000000", "Republika" = "#8B0000", "Smer-SD" = "#C0392B")) +
+  labs(x = "Year", y = "Vote Share (%)", title = "Slovakia: The Return of National-Populism") +
+  theme_solarized(base_size = 16) +
+  theme(legend.position = "bottom")
+
+ggplotly(p_slovakia, tooltip = c("x", "y", "colour")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+## Czech Republic: The "Resistance" Cracks
+
+:::::::: columns
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Trajectory:
+:::
+
+-   **SPD (Okamura):** Stagnant at \~10% (Cordon Sanitaire).
+-   **New Actors (2024):** Motoristé sobě & Přísaha (Rising in EU elections).
+-   **ANO (Babiš):** Full radicalization.
+
+::: {.fragment .fade-in}
+#### Strategy & Framing:
+:::
+
+-   **Lifestyle Populism:** Motoristé defends the "driver" against "Green madness."
+-   **Technocratic to Nativist:** Babiš shifted from "Manager" to "Protector of Sovereignty."
+-   **Polls (2025):** Motoristé & SPD polling \~15% combined; ANO dominant.
+:::::
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Core Ideology (SPD/Motoristé):
+:::
+
+-   **Nativism:** Anti-Islam (SPD); "Czechs First" (Motoristé).
+-   **Economic:** Populist; Anti-Green Deal is the #1 issue.
+-   **Social:** Anti-Woke; Defending "Normalcy."
+-   **EU:**
+    -   *SPD:* Czexit.
+    -   *Motoristé:* Reform/Sovereignty.
+::::
+::::::::
+
+## Czech Republic: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_czech <- ggplot(czech_data, aes(x = year, y = pervote, color = party_label)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 3) +
+  geom_hline(yintercept = 5, linetype = "dashed", color = "gray") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 6)) +
+  scale_color_manual(values = c("Úsvit" = "gray", "SPD" = "#11457E")) +
+  labs(x = "Year", y = "Vote Share (%)", title = "Czechia: Rising Fragmentation") +
+  theme_solarized(base_size = 16) +
+  theme(legend.position = "bottom")
+
+ggplotly(p_czech, tooltip = c("x", "y", "colour")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+# Part 3: Comparative Synthesis
+
+## The Mainstream Radicalization Mechanism
+
+| Country | Mainstream Actor | Far-Right Response | Outcome |
+|------------------|------------------|------------------|------------------|
+| **Hungary** | Fidesz | Jobbik moderate → Die | **Regime Consolidation** |
+| **Poland** | PiS | Konfederacja survives | **Polarized Democracy** |
+| **Slovakia** | Smer (Left) | SNS joins Govt | **Red-Brown Coalition** |
+| **Romania** | Grand Coalition | AUR surges | **Insurrectionary Wave** |
+
+::: {.fragment .fade-in}
+**Key Insight:** Where mainstream parties "steal" the far-right's issues (Hungary, Slovakia), they stay in power. Where they ignore them or form "Grand Coalitions" (Romania), the far-right explodes.
+:::
+
+## The Immigration Paradox
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+load("/Users/cvrakopo/My Drive/Publications/ESS Data 1-10/Final Creation/ess_analysis_full.RData")
+
+# First, let's calculate the actual metrics by region
+immigration_comparison <- ess_analysis %>%
+  # Filter for relevant countries and create region grouping
+  filter(!is.na(region_eu)) %>%
+  group_by(region_eu) %>%
+  summarise(
+    # Average net migration rate
+    net_migration = mean(net_mig_wpp, na.rm = TRUE),
+    
+    # Anti-immigration attitudes (using immigration attitudes from ESS)
+    # Lower values = more restrictive, so we'll reverse to show "anti-immigration"
+    anti_immigration_attitude =  mean(p_immi_index, na.rm = TRUE), # Scale to percentage
+    
+    # Average far-right vote share
+    far_right_vote = mean(fr_vote_actual, na.rm = TRUE),
+    
+    .groups = "drop"
+  ) %>%
+  # Pivot longer for faceting
+  pivot_longer(
+    cols = c(net_migration, anti_immigration_attitude, far_right_vote),
+    names_to = "variable",
+    values_to = "value"
+  ) %>%
+  # Create nice labels
+  mutate(
+    variable = case_when(
+      variable == "net_migration" ~ "Net Migration Rate (per 1000)",
+      variable == "anti_immigration_attitude" ~ "Anti-Immigration Attitudes (%)",
+      variable == "far_right_vote" ~ "Far-Right Vote Share (%)"
+    ),
+    variable = factor(variable, levels = c(
+      "Net Migration Rate (per 1000)",
+      "Anti-Immigration Attitudes (%)",
+      "Far-Right Vote Share (%)"
+    ))
+  )
+
+# Create the plot
+p_immigration <- ggplot(immigration_comparison, 
+                        aes(x = region_eu, y = value, fill = region_eu)) +
+  geom_col(width = 0.7) +
+  facet_wrap(~variable, scales = "free_y", ncol = 3) +
+  scale_fill_manual(
+    values = c(
+      "Eastern Europe" = "#E67E22",
+      "Western Europe" = "#3498DB",
+      "Southern Europe" = "#E74C3C",
+      "Nordic" = "#27AE60"
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "Value",
+    title = "The Immigration Paradox in Eastern Europe",
+    subtitle = "Lower immigration but high anti-immigration attitudes"
+  ) +
+  theme_solarized(base_size = 14) +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(face = "bold", size = 11),
+    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+    plot.title = element_text(face = "bold", size = 16),
+    plot.subtitle = element_text(color = "gray40", size = 11)
+  )
+
+ggplotly(p_immigration)  %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+## Who Votes Far-Right in Eastern Europe?
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 12
+#| fig-height: 8
+
+load("/Users/cvrakopo/My Drive/Publications/ESS Data 1-10/Final Creation/ess_analysis_full.RData")
+
+# Filter Eastern European countries
+ess_eastern <- ess_analysis %>%
+  filter(country %in% c("Poland", "Hungary", "Czech Republic", "Slovakia"))
+
+# Prepare data with age categories and calculate differences from reference
+demo_comparison <- ess_eastern %>%
+  mutate(
+    # Create age categories
+    age_cat = case_when(
+      agea < 35 ~ "18-34",
+      agea >= 35 & agea < 55 ~ "35-54",
+      agea >= 55 & agea < 70 ~ "55-69",
+      agea >= 70 ~ "70+"
+    ),
+    
+    # Immigration attitudes
+    immi_cat = case_when(
+      is.na(p_immi_index) ~ NA_character_,
+      p_immi_index < 30 ~ "Liberal",
+      p_immi_index >= 30 & p_immi_index < 70 ~ "Neutral",
+      p_immi_index >= 70 ~ "Restrictive"
+    ),
+    
+    # Trust in politicians (0-10 scale)
+    trust_cat = case_when(
+      is.na(trstplt) ~ NA_character_,
+      trstplt <= 3 ~ "Low trust",
+      trstplt >= 4 & trstplt <= 6 ~ "Medium trust",
+      trstplt >= 7 ~ "High trust"
+    ),
+    
+    # Left-Right scale (0-10 scale)
+    lr_cat = case_when(
+      is.na(lrscale) ~ NA_character_,
+      lrscale <= 3 ~ "Left",
+      lrscale >= 4 & lrscale <= 6 ~ "Center",
+      lrscale >= 7 ~ "Right"
+    ),
+    
+    # Household income feelings (1-4 scale)
+    income_cat = case_when(
+      is.na(hincfel) ~ NA_character_,
+      hincfel == 1 ~ "Comfortable",
+      hincfel == 2 ~ "Coping",
+      hincfel == 3 ~ "Difficult",
+      hincfel == 4 ~ "Very difficult"
+    ),
+    
+    # Simplify education
+    education_simple = case_when(
+      educ_level %in% c("Less than lower secondary", "Lower secondary") ~ "Low",
+      educ_level %in% c("Lower tier upper secondary", "Upper tier upper secondary", 
+                        "Advanced vocational, sub-degree") ~ "Medium",
+      educ_level %in% c("Lower tertiary education, BA level", 
+                        "Higher tertiary education, >= MA level") ~ "High"
+    ),
+    
+    # Simplify class
+    class_simple = case_when(
+      oesch8 %in% c("Production workers", "Service workers") ~ "Working class",
+      oesch8 %in% c("Clerks", "Small business owners") ~ "Lower middle",
+      oesch8 %in% c("Technical (semi-)professionals", "(Associate) managers") ~ "Upper middle",
+      oesch8 %in% c("Socio-cultural (semi-)professionals", 
+                    "Self-employed professionals and large employers") ~ "Professional/Managers"
+    )
+  ) %>%
+  # Convert far_right to numeric if it's not already
+  mutate(far_right_num = as.numeric(far_right == "Far-right"))
+
+# Calculate proportions for each category
+calc_props <- function(data, var) {
+  data %>%
+    filter(!is.na(.data[[var]])) %>%  # Remove NAs for this variable
+    group_by(across(all_of(var))) %>%
+    summarise(
+      prop = mean(far_right_num, na.rm = TRUE) * 100,
+      n = n(),
+      se = sd(far_right_num, na.rm = TRUE) / sqrt(n()) * 100,
+      .groups = "drop"
+    ) %>%
+    rename(category = 1)
+}
+
+# Get proportions for each demographic
+gender_props <- calc_props(demo_comparison, "gender") %>% mutate(variable = "Gender")
+age_props <- calc_props(demo_comparison, "age_cat") %>% mutate(variable = "Age")
+immi_props <- calc_props(demo_comparison, "immi_cat") %>% mutate(variable = "Immigration attitudes")
+trust_props <- calc_props(demo_comparison, "trust_cat") %>% mutate(variable = "Political trust")
+lr_props <- calc_props(demo_comparison, "lr_cat") %>% mutate(variable = "Left-Right position")
+income_props <- calc_props(demo_comparison, "income_cat") %>% mutate(variable = "Economic situation")
+edu_props <- calc_props(demo_comparison, "education_simple") %>% mutate(variable = "Education")
+urban_props <- calc_props(demo_comparison, "urban_rural") %>% mutate(variable = "Location")
+class_props <- calc_props(demo_comparison, "class_simple") %>% mutate(variable = "Class")
+
+# Combine all
+all_props <- bind_rows(
+  gender_props, age_props, immi_props, trust_props, lr_props, income_props,
+  edu_props, urban_props, class_props
+) %>%
+  filter(!is.na(category))
+
+# Set reference categories and calculate differences
+reference_levels <- tribble(
+  ~variable, ~reference,
+  "Gender", "Female",
+  "Age", "18-34",
+  "Immigration attitudes", "Liberal",
+  "Political trust", "High trust",
+  "Left-Right position", "Center",
+  "Economic situation", "Comfortable",
+  "Education", "High",
+  "Location", "Urban",
+  "Class", "Professional/Managers"
+)
+
+# Get reference values
+reference_values <- all_props %>%
+  inner_join(reference_levels, by = "variable") %>%
+  filter(category == reference) %>%
+  select(variable, ref_prop = prop)
+
+# Calculate differences from reference
+plot_data <- all_props %>%
+  left_join(reference_values, by = "variable") %>%
+  mutate(
+    diff = prop - ref_prop,
+    ci_lower = diff - 1.96 * se,
+    ci_upper = diff + 1.96 * se,
+    is_reference = category %in% reference_levels$reference
+  ) %>%
+  # Order categories within each variable
+  mutate(
+    category = factor(category, levels = c(
+      # Gender
+      "Male", "Female",
+      # Age
+      "70+", "55-69", "35-54", "18-34",
+      # Immigration
+      "Restrictive", "Neutral", "Liberal",
+      # Trust
+      "Low trust", "Medium trust", "High trust",
+      # Left-Right
+      "Right", "Center", "Left",
+      # Economic situation
+      "Very difficult", "Difficult", "Coping", "Comfortable",
+      # Education
+      "Low", "Medium", "High",
+      # Location
+      "Rural", "Urban",
+      # Class
+      "Working class", "Lower middle", "Upper middle", "Professional/Managers"
+    )),
+    variable = factor(variable, levels = c(
+      "Gender", "Age", "Immigration attitudes", "Political trust", 
+      "Left-Right position", "Economic situation", "Education", "Location", "Class"
+    ))
+  ) %>%
+  arrange(variable, category)
+ggplot(plot_data, aes(x = diff, y = category)) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "gray40", linewidth = 0.8) +
+  geom_segment(aes(x = 0, xend = diff, y = category, yend = category, 
+                   color = diff > 0, alpha = !is_reference), 
+               linewidth = 4) +
+  geom_errorbar(aes(xmin = ci_lower, xmax = ci_upper, alpha = !is_reference), 
+                orientation = "y", width = 0.2, linewidth = 0.8) +
+  geom_point(aes(alpha = !is_reference), size = 2.5, color = "black") +
+  geom_text(data = plot_data %>% filter(is_reference),
+            aes(label = "Reference"), x = 0.5, size = 3, hjust = 0, 
+            fontface = "italic", color = "gray50") +
+  facet_wrap(~variable, ncol = 1, scales = "free_y", strip.position = "left") +
+  scale_color_manual(values = c("TRUE" = "#E74C3C", "FALSE" = "#3498DB"), guide = "none") +
+  scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.3), guide = "none") +
+  scale_x_continuous(
+    breaks = seq(-10, 15, 5),
+    labels = function(x) paste0(ifelse(x > 0, "+", ""), x, " pp")
+  ) +
+  labs(
+    title = "Far-Right Support: Differences from Reference Categories",
+    subtitle = "Czech Republic, Hungary, Poland, Slovakia (ESS data)",
+    x = "← Less likely to support far-right          More likely to support far-right →",
+    y = NULL
+  ) +
+  theme_solarized(base_size = 14) +
+  theme(
+    strip.placement = "outside",
+    strip.text.y.left = element_text(face = "bold", angle = 0, hjust = 1, size = 13),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.title = element_text(face = "bold", size = 15),
+    plot.subtitle = element_text(color = "gray40", size = 12),
+    axis.text.y = element_text(size = 12),
+    axis.title.x = element_text(margin = margin(t = 10), size = 12)
+  )
+```
+
+## Key Puzzles from Eastern Europe
+
+::::::::::: columns
+:::::: {.column width="50%"}
+::: {.fragment .fade-in}
+1.  The Radicalization Puzzle
+:::
+
+-   Why does power enable mainstream parties (Fidesz, PiS) to radicalize, whereas in the West it usually moderates them?
+
+::: {.fragment .fade-in}
+2.  The "Vacuum" Effect
+:::
+
+-   Does the formation of "Grand Coalitions" (Romania, Czechia) inevitably fuel far-right breakthroughs?
+
+::: {.fragment .fade-in}
+3.  The Legacy Question
+:::
+
+-   Do communist legacies (weak civil society, distrust) make illiberalism more acceptable?
+::::::
+
+:::::: {.column width="50%"}
+::: {.fragment .fade-in}
+4.  The "Orban Model"
+:::
+
+-   Is state capture the inevitable endpoint of successful far-right governance in this region?
+
+::: {.fragment .fade-in}
+5.  The Re-Democratization Puzzle
+:::
+
+-   Can elections reverse illiberal state capture? (Poland suggests Yes; Hungary suggests No).
+
+::: {.fragment .fade-in}
+6.  The Immigration Paradox
+:::
+
+-   Why is anti-immigration rhetoric so successful in countries with almost no immigrants?
+::::::
+:::::::::::
+
+## Next Week: Demand-Side Theory
+

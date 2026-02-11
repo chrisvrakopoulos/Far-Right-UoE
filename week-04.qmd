@@ -1,0 +1,112 @@
+---
+title: "Week 4: The Far-Right in Scandinavia"
+description: "The Nordic model and the rise of right-wing populism."
+---
+
+::: {.panel-tabset}
+
+## Materials
+
+### Lecture
+*   [Download Lecture Slides](lectures/Lecture_Week4_Scandinavia_Condensed.qmd){target="_blank"}
+
+### Seminar
+
+You will be assigned to analyze one country from Scandinavia: Sweden, Denmark, Norway, or Finland.
+
+The lecture identifies major puzzles in Scandinavian far-right trajectories (organizational transformation, government participation effects, welfare chauvinism, moderation paradoxes, etc.). Your task is to investigate these puzzles by developing preliminary explanations for your country, which we'll test against other regions in Weeks 5-6.
+
+Using the lecture and assigned readings, explore your country's trajectory to develop three working hypotheses:
+
+On Teams Whiteboard, record your analysis using the following structure:
+
+Record your analysis:
+
+**Country**: [Name]
+
+**Voter hypothesis**: Who voted far-right and why?
+
+**Party strategy**: What made this party succeed or fail?
+
+**Mainstream strategy**: How should mainstream parties have responded?
+
+Present your findings to the seminar (3 minutes). Then consider the broader pattern: *Do all five countries follow the same logic, or do different factors seem to explain different cases?* Record your observations on Whiteboard.
+
+
+#### What's next
+
+Your hypotheses will be tested against other regions (Weeks 2,3, 5 & 6). As we accumulate evidence, we'll refine and generalize our working theory. In Weeks 7-10, we'll compare your findings to academic theories to see how we should explain Far Right support.
+
+## Readings
+
+### Essential and Recommended Readings
+
+1) [Rydgren, Jens, ed. 2018. The Oxford Handbook of the Radical Right . New York: Oxford University Press. Chapter 27 - The Radical Right in the Nordic Countries](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=alma9924351253002466&context=L&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,Rydgren%20%20Jens%20%20ed.%202018.%20The%20Oxford%20Handbook%20of%20the%20Radical%20Right%20)
+
+2) [Hainsworth, Paul, ed. 2018. The Politics of the Extreme Right : From the Margins to the Mainstream . 1st ed. London: Bloomsbury Publishing. doi:10.5040/9781474290975. Chapter 9 - Radical right-wing populism in Scandinavia: from tax revolt to Neo-liberalism and xenophobia](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_miscellaneous_38521709&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Hainsworth,%20Paul,%20ed.%202018.%20The%20Politics%20of%20the%20Extreme%20Right%E2%80%AF:%20From%20the%20Margins%20to%20the%20Mainstream%20.%201st%20ed.%20London:%20Bloomsbury%20Publishing.%20doi:10.5040%2F9781474290975.%20%5BChapter%209%20-%20Radical%20right-wing%20populism%20in%20Scandinavia:%20from%20tax%20revolt%20to%20Neo-liberalism%20and%20xenophobia%5D&offset=0)
+
+3) [Heinze, Anna-Sophie. 2018. ‘Strategies of Mainstream Parties towards Their Right-Wing Populist Challengers: Denmark, Norway, Sweden and Finland in Comparison’. West European politics 41(2): 287–309. doi:10.1080/01402382.2017.1389440.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_crossref_citationtrail_10_1080_01402382_2017_1389440&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Heinze,%20Anna-Sophie.%202018.%20‘Strategies%20of%20Mainstream%20Parties%20towards%20Their%20Right-Wing%20Populist%20Challengers:%20Denmark,%20Norway,%20Sweden%20and%20Finland%20in%20Comparison’.%20West%20European%20politics%2041(2):%20287–309.%20doi:10.1080%2F01402382.2017.1389440.&offset=0)
+
+
+### Seminar Readings
+
+As mentioned in the previous lecture, each of you should read at least ONE essential reading (see above) and at least ONE of the recommended readings for your assigned country (listed below). If you can coordinate within your group to avoid reading the same article, that would be ideal.
+
+Cross‑Nordic / general
+
+1) [Keskinen, S., Norocel, O. C., & Jørgensen, M. (2016). “The politics and policies of welfare chauvinism under the economic crisis.” Critical Social Policy.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_1797456937&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Keskinen,%20S.,%20Norocel,%20O.%20C.,%20%26%20Jørgensen,%20M.%20(2016).%20“The%20politics%20and%20policies%20of%20welfare%20chauvinism%20under%20the%20economic%20crisis.”%20Critical%20Social%20Policy.&offset=0)
+
+2) [Abts, K. et al. (2021). “The Welfare Agenda of the Populist Radical Right in Western Europe.” Swiss Political Science Review.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2509258128&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,“The%20Welfare%20Agenda%20of%20the%20Populist%20Radical%20Right%20in%20Western%20Europe.”%20Swiss%20Political%20Science%20Review&offset=0)
+
+Sweden 
+
+1) [Rydgren, J. & van der Meiden, S. (2018). “The radical right and the end of Swedish exceptionalism.” European Political Science.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_swepub_primary_oai_DiVA_org_su_172974&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Rydgren,%20J.%20%26%20van%20der%20Meiden,%20S.%20(2018).%20“The%20radical%20right%20and%20the%20end%20of%20Swedish%20exceptionalism.”%20European%20Political%20Science.&offset=0)
+
+2) [Dal Bó, E. et al. (2022). “Economic and Social Outsiders but Political Insiders: Sweden's Populist Radical Right.” Review of Economic Studies.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_swepub_primary_oai_DiVA_org_uu_501763&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,“Economic%20and%20Social%20Outsiders%20but%20Political%20Insiders:%20Sweden%27s%20Populist%20Radical%20Right.”%20Review%20of%20Economic%20Studies.&offset=0)
+
+3) [Jylhä, Kirsti M, Jens Rydgren, and Pontus Strimling. “Xenophobia among Radical and Mainstream Right-Wing Party Voters: Prevalence, Correlates and Influence on Party Support.” Ethnic and racial studies 45.16 (2022): 261–286. Web.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_informaworld_taylorfrancis_310_1080_01419870_2022_2061866&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Jylhä,%20Rydgren%20%26%20Strimling%20(2022)%20–%20Xenophobia%20among%20radical%20and%20mainstream%20right%20voters&offset=0) 
+
+Denmark 
+
+1) [Etzerodt, S. F. & Kongshøj, K. (2022). “The implosion of radical right populism and the path forward for social democracy.” Scandinavian Political Studies.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2699566761&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,“The%20implosion%20of%20radical%20right%20populism%20and%20the%20path%20forward%20for%20social%20democracy.”%20Scandinavian%20Political%20Studies.&offset=0)
+
+2) [Careja, R. et al. (2016). “Direct and indirect welfare chauvinism as party strategies: an analysis of the Danish People's Party.” Scandinavian Political Studies.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_1831182266&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,“Direct%20and%20indirect%20welfare%20chauvinism%20as%20party%20strategies:%20an%20analysis%20of%20the%20Danish%20People%27s%20Party.”%20Scandinavian%20Political%20Studies.&offset=0)
+
+Finland
+
+1) [Patana, P. (2020). “Changes in Local Context and Electoral Support for the Populist Radical Right: Evidence From Finland.” Party Politics 26(6): 718–729.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2457545660&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,“Changes%20in%20Local%20Context%20and%20Electoral%20Support%20for%20the%20Populist%20Radical%20Right:%20Evidence%20From%20Finland.”%20Party%20Politics%2026(6):%20718–729.&offset=0)
+
+2) [Kestilä-Kekkonen, E. & Söderlund, P. (2014). “Party, Leader Or Candidate? Dissecting the Right-wing Populist Vote in Finland.” European Political Science Review 6(4): 641–662.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_1566936773&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,“Party,%20Leader%20Or%20Candidate%3F%20Dissecting%20the%20Right-wing%20Populist%20Vote%20in%20Finland.”%20European%20Political%20Science%20Review%206(4):%20641–662.&offset=0)
+
+Norway
+
+1) [Haugsgjerd, A. & Bergh, J. (2023). “Explaining the Surge of the Populist Radical Right: A Time-Series Analysis of the Effects of Immigration and the Economy in Norway.” Political Behavior.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_webofscience_primary_001047733200001&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Haugsgjerd,%20A.%20%26%20Bergh,%20J.%20(2023).%20“Explaining%20the%20Surge%20of%20the%20Populist%20Radical%20Right:%20A%20Time-Series%20Analysis%20of%20the%20Effects%20of%20Immigration%20and%20the%20Economy%20in%20Norway.”%20Political%20Behavior.&offset=0)
+
+2) [Bjånesøy, L. (2023). “Negative Partisanship and the Populist Radical Right: The Case of Norway.” Scandinavian Political Studies 46(1–2): 99–120.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2800023615&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,“Negative%20Partisanship%20and%20the%20Populist%20Radical%20Right:%20The%20Case%20of%20Norway.”%20Scandinavian%20Political%20Studies%2046(1–2):%2099–120.&offset=0)
+
+3) [Auerbach, K. R., Eidheim, M. R., & Fimreite, A. L. (2024). “Rural but Not Radical Right: The Rural-Urban Cleavage in Norway.” Scandinavian Political Studies (online first).](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_webofscience_primary_001315063000001CitationCount&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,“Rural%20but%20Not%20Radical%20Right:%20The%20Rural-Urban%20Cleavage%20in%20Norway.”%20Scandinavian%20Political%20Studies%20(online%20first).&offset=0)
+
+
+## Whiteboard
+
+*Scandinavia - Seminar Notes:*
+
+### General Themes
+*   **Immigration:** Uniting trend across the region.
+*   **Voters:** Male-dominated, older (55+), low-mid educational attainment.
+*   **Strategy:** Denmark used adoption/accommodation (led to party collapse); Sweden used exclusion (cordon sanitaire).
+
+### Regional Comparison
+
+| Feature | Scandinavia | Western Europe |
+|:---|:---|:---|
+| **Voter Age** | Middle-aged | Older (70+) |
+| **Cordon Sanitaire** | Absent (except Sweden) | Prevalent |
+| **Breakthrough** | Later (2000s-2010s) | Earlier (1980s-1990s) |
+| **Focus** | Welfare Chauvinism | Economic/General Protest |
+
+### Student Group Observations
+*   **Group 3:** Irreversibility of engagement; once mainstream parties adopt FR policies, they rarely go back.
+*   **Group 4:** Manual routine workers; emphasis on preserving post-materialist Western values in rhetoric vs traditional views in manifestos.
+
+:::

@@ -1,0 +1,178 @@
+---
+title: "The Normalisation of the Far-Right"
+subtitle: "Strategic Interaction, Media, and Legitimacy (Week 9)"
+author: "Dr. Christos Vrakopoulos"
+format:
+  revealjs:
+    theme: solarized
+    slide-number: true
+    incremental: true
+    
+    transition: fade
+    fontsize: 26px
+    css: custom.css
+    preview-links: auto
+editor: visual
+---
+
+## The Core Puzzle
+
+::: incremental
+-   **The Observation:** Across Europe, Mainstream Parties (MSPs) have tried everything to stop the Far-Right.
+-   **The Strategies:** They have ignored them, attacked them, and copied them.
+-   **The Outcome:** The Far-Right has moved from the "lunatic fringe" to the centre of power.
+-   **The Question:** Why do "rational" strategies by powerful mainstream parties fail to stop—and often accelerate—this process?
+:::
+
+## Analytical Framework
+
+::: incremental
+-   We will examine three core dimensions of the normalization process.
+-   **Dimension I: Strategic Competition** (The Rational Actor vs. Empirical Reality)
+-   **Dimension II: Information Environments** (The Role of Media in Shaping Preferences)
+-   **Dimension III: Temporal Dynamics** (Stigmatization and Path Dependence)
+:::
+
+# Dimension I: Strategic Competition
+
+## Theory A: The Spatial Logic (Meguid 2005, 2008)
+
+::: incremental
+-   **Premise:** Politics is a market. Parties compete for voters on issues.
+-   **The Problem:** A niche party (Far-Right) owns a new issue (Immigration).
+-   **The Solution (Accommodation):** The Mainstream Centre-Right (MCR) should **adopt** the niche party's position.
+-   **The Mechanism:**
+    1.  MCR steals "ownership" of the issue.
+    2.  Voters, seeing identical policies, choose the large, competent MCR over the risky niche party.
+    3.  **Result:** Niche party collapses.
+:::
+
+## The Empirical Reality Check (Krause et al. 2023)
+
+::: incremental
+-   **The Test:** Analyzed 350+ mainstream strategies across 12 Western European countries (1976-2017).
+-   **The Question:** Does adopting anti-immigration positions reduce Far-Right votes?
+-   **The Finding:** **No.**
+    -   Accommodation does *not* reduce Radical Right support.
+    -   In fact, it often **increases** voter transfers *to* the Radical Right.
+-   **The Mechanism:** Voters prefer the "original" to the "copy" (Jean-Marie Le Pen).
+-   **Key Takeaway:** You cannot beat the Far-Right by becoming them.
+:::
+
+## Does it work? The Case of the UK
+
+::: incremental
+-   **Scenario:** UKIP threatens the Conservative Party (2010s).
+-   **Strategy:** Conservatives adopt UKIP's core demand (EU Referendum/Brexit).
+-   **Electoral Outcome:** UKIP vote collapses (2017/2019).
+-   **Verdict:** Meguid appears right *only* if we look at the party label.
+-   **BUT:** As Krause et al. suggest, this is the exception, not the rule. And the ideological cost was total.
+:::
+
+## Theory B: The Legitimacy Trap (Daur 2024)
+
+::: incremental
+-   **The Counter-Argument:** Accommodating a "Pariah" (outcast) party isn't just a policy shift; it's a moral signal.
+-   **The Experiment:** Daur (2024) shows that when MSPs adopt Far-Right positions or cooperate, they signal that the Far-Right is **"appropriate, proper, and just."**
+-   **The "Validation" Effect:**
+    -   Voters update their beliefs: "If the Prime Minister says it, it can't be racist."
+    -   Legitimacy extends beyond the MSP's own voters.
+:::
+
+## Synthesis: The "Success" Paradox
+
+::: incremental
+-   **The Double Failure:**
+    1.  **Electoral:** You often fail to destroy the party. Krause et al. (2023) show accommodation often *helps* the Far-Right.
+    2.  **Normative:** Even if the party dies (e.g., UKIP), you normalise the **ideology** (Brexit is law).
+-   **The Trap:** By accommodating, you lower the "reputational cost" of Far-Right ideas.
+-   **Valentim (2021):** This is amplified by **Representation**.
+    -   Crossing the threshold (5%) into Parliament acts as an institutional "Seal of Approval."
+    -   Radical views become publicly acceptable *because* they are present in the House.
+:::
+
+# Dimension II: Information Environments
+
+## Theory A: The "Mirror" Hypothesis
+
+::: incremental
+-   **Premise:** Media and parties just "reflect" what the people want (Demand-Side).
+-   **Argument:** The Far-Right rises because people are *already* worried about immigration. The media just reports it.
+-   **Implication:** Censoring the Far-Right or the media wouldn't change the underlying demand.
+:::
+
+## Theory B: The Media as "Maker" (Foos & Bischof 2022)
+
+::: incremental
+-   **The Study:** A natural experiment in the UK.
+-   **The Event:** The Liverpool boycott of *The Sun* (tabloid) after the Hillsborough disaster (1989).
+-   **The Findings:**
+    -   Merseyside (boycott area) became significantly **less Eurosceptic** than comparable areas.
+    -   Why? Because they weren't exposed to decades of anti-EU crusade by *The Sun*.
+-   **The Implication:** The media doesn't just mirror demand; it **manufactures** it.
+:::
+
+## Connect to Normalisation
+
+::: incremental
+-   If media campaigns can drive Euroscepticism (as Foos & Bischof show), what happens when mainstream media treats the Far-Right as "normal"?
+-   **Media Mainstreaming:**
+    -   Giving them a platform (BBC "Question Time" effect).
+    -   Adopting their frames ("Mass Migration" vs. "Refugee Crisis").
+-   **Conclusion:** Normalisation happens *before* the vote is even cast, in the pages of the tabloids.
+:::
+
+# Dimension III: Temporal Dynamics
+
+## Theory A: The "Thermostat" (Re-Stigmatisation)
+
+::: incremental
+-   **Premise:** If accommodation fails, MSPs can just switch back to **Isolation** (Cordon Sanitaire).
+-   **Logic:** "We tried talking to them, it didn't work, now we will ostracise them again."
+-   **Assumption:** Stigma is a switch you can turn on and off.
+:::
+
+## Theory B: The "One-Way Street" (Balcells et al. 2025)
+
+::: incremental
+-   **The Experiment:** Can you re-stigmatise a party (like Vox in Spain) after it has been normalised?
+-   **The Finding:** **No.**
+-   Once the taboo is broken, attempts to re-impose stigma fail or backfire.
+-   **Why?**
+    -   Voters have already seen the party as a legitimate partner.
+    -   Calling them "undemocratic" now sounds like a strategic lie, not a moral truth.
+:::
+
+## The "Stimulus" Effect (Ammassari 2024)
+
+::: incremental
+-   **Pre-Normalisation:** Stigma works. It scares off moderate voters (Social Desirability Bias).
+-   **Post-Normalisation:** Stigma fails.
+    -   For core supporters, attacks from the mainstream act as a **stimulus**.
+    -   "They hate us because we tell the truth."
+-   **The Result:** The "Cordon Sanitaire" only works if you never break it. Once broken, it cannot be repaired.
+:::
+
+# Synthesis & Seminar Prep
+
+## The Grand Puzzle for Discussion
+
+::: incremental
+-   **The Rational Trap:**
+    -   If you ignore them → Media might amplify them (Foos & Bischof).
+    -   If you accommodate them → You legitimise their ideas (Daur) and often lose votes (Krause et al.).
+    -   If you attack them → You might stimulate their base (Ammassari).
+-   **Discussion Q1:** Is there *any* successful strategy for a Mainstream Party today?
+-   **Discussion Q2:** Look at your case study. Did the "Cordon Sanitaire" break? If so, did it follow the "One-Way Street" logic?
+:::
+
+## Key Takeaways
+
+::: incremental
+1.  **Meguid's Model is flawed:** Empirical evidence shows accommodation rarely works (Krause et al.) and ignores normative legitimacy.
+2.  **Media matters:** It shapes the battlefield before the battle begins (Foos & Bischof).
+3.  **Irreversibility:** Normalisation is a ratchet mechanism. It creates a new baseline for what is "acceptable" in democracy.
+:::
+
+## Next Week
+

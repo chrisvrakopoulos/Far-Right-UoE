@@ -1,0 +1,26 @@
+---
+title: "Week 10: Global Patterns & Summary"
+description: "Non-European cases, democratic implications, and course wrap-up."
+---
+
+::: {.panel-tabset}
+
+## Materials
+
+### Lecture
+*   [Download Lecture Slides](lectures/Lecture-10.qmd){target="_blank"}
+
+### Seminar
+*   **Topic:** Is the Far-Right a Global Phenomenon?
+*   **Activity:** Summary discussion and exam/essay preparation.
+
+## Readings
+
+### Key Readings
+*Readings for this week will be updated based on your specific global case studies.*
+
+## Whiteboard
+
+*Upload photos of your seminar whiteboard work here.*
+
+:::

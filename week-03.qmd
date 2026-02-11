@@ -1,0 +1,40 @@
+---
+title: "Week 3: The Far-Right in the UK"
+description: "From the BNP to UKIP and Brexit."
+---
+
+::: {.panel-tabset}
+
+## Materials
+
+### Lecture
+*   [Download Lecture Slides](lectures/Lecture_Week3_UK_Restructured-2.qmd){target="_blank"}
+
+### Seminar
+
+This week, we are shifting our focus to a live case study of the **Reform Party** in Scotland.
+
+We will be joined by [**Dr. Fraser McMillan**](https://www.sps.ed.ac.uk/staff/fraser-mcmillan) from PIR who is associated with [**Scottish Election Study**](https://scottishelections.ac.uk). He will discuss Reform's recent surge and their prospects for the upcoming **2026 Scottish Election**, where current polling shows them neck-and-neck with Labour for second place.
+
+Please make sure you read the following paper. The paper is forthcoming at Political Studies and the authors (our very own [Davide Vampa](https://www.sps.ed.ac.uk/staff/davide-vampa), [Alan Convery](https://www.sps.ed.ac.uk/staff/alan-convery) and Fraser McMillan) kindly accepted to share the accepted version with you. Please though do not share or distribute the paper beyond this course. You can use the information of this paper in the Q&A session with Fraser.
+
+## Readings
+
+### Essential Readings
+
+1) [Rydgren, Jens, ed. 2018. The Oxford Handbook of the Radical Right . New York: Oxford University Press. Chapter 26 - The Radical Right in the United Kingdom](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=alma9924351253002466&context=L&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,Rydgren%20%20Jens%20%20ed.%202018.%20The%20Oxford%20Handbook%20of%20the%20Radical%20Right%20)
+
+2) [Ford, Robert, and Matthew J Goodwin. 2010. ‘Angry White Men: Individual and Contextual Predictors of Support for the British National Party’. Political studies 58(1): 1–25. doi:10.1111/j.1467-9248.2009.00829.x.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_miscellaneous_743811124&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Ford,%20Robert,%20and%20Matthew%20J%20Goodwin.%202010.%20‘Angry%20White%20Men:%20Individual%20and%20Contextual%20Predictors%20of%20Support%20for%20the%20British%20National%20Party&offset=0)
+
+
+### Seminar Readings
+
+
+[Vampa, D., Convery, A., & McMillan, F. (2026). Symbiotic Polarization as a Barrier to Populist Radical Right Success: Scottish Exceptionalism in Comparative Context. Political Studies, 0(0). https://doi.org/10.1177/00323217251410750](https://journals.sagepub.com/doi/full/10.1177/00323217251410750)
+
+
+## Whiteboard
+
+
+
+:::

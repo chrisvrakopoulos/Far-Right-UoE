@@ -1,0 +1,46 @@
+---
+title: "Far Right Politics"
+---
+
+## Instructor Information
+
+**Instructor:** [Christos Vrakopoulos](https://www.sps.ed.ac.uk/staff/christos-vrakopoulos)
+
+**Email:** [christos.vrakopoulos@ed.ac.uk](mailto:christos.vrakopoulos@ed.ac.uk) 
+
+## Course Description
+
+This course offers a comprehensive exploration of the rise and persistence of far-right politics globally, with a primary focus on Europe but extending to comparative analysis of cases from, for example, the United States, Brazil, India, and Argentina. The course examines the structural transformations within democratic systems and their impact on representative politics. Through a thematic approach, students will engage with cutting-edge research to understand the complex factors driving far-right electoral success across different political and cultural contexts.
+
+
+## Learning Outcomes
+
+On completion of this course, the student will be able to:
+
+1. Demonstrate a knowledge and understanding of the debates surrounding the contemporary far right in Europe and the ability to evaluate the different perspectives on the far right
+
+2. Develop an understanding of the conceptual and definitional issues involved in the discussion of the far right
+
+3. Appreciate the challenges presented to contemporary theories by the surge in support for the far right in the 1990s
+
+4. Assess the impact of the far right on politics in Europe
+
+5. Apply insights from the contemporary analysis of the far right and interpret the evidence in a range of country studies drawn from Europe
+
+## Course Structure
+
+| Week | Date | Topic | Lecturer |
+|:---:|:---:|:---:|:---|:---|
+| 1 | 12/01/2026 | Introduction to the Course and What is the Far-Right? | Christos Vrakopoulos |
+| 2 | 19/01/2026 | Far-Right in Western Europe | Christos Vrakopoulos |
+| 3 | 26/01/2026 | Far-Right in the United Kingdom | Christos Vrakopoulos |
+| 4 | 02/02/2026 | Far-Right in Scandinavia | Christos Vrakopoulos |
+| 5 | 23/02/2026 | Far-Right in Southern Europe | Christos Vrakopoulos |
+| 6 | 02/03/2026 | Far-Right in Eastern Europe | Christos Vrakopoulos |
+| 7 | 09/03/2026 | Explaining variation in far-right support: Demand side | Christos Vrakopoulos |
+| 8 | 16/03/2026 | Explaining variation in far-right support: Supply side | Christos Vrakopoulos |
+| 9 | 23/03/2026 | Party Competition & Normalization of the Far-Right | Christos Vrakopoulos |
+| 10 | 30/03/2026 | Global Patterns, Democratic Implications & Summary | Christos Vrakopoulos |
+
+: Course Schedule {tbl-colwidths="[5,15,50,20]"}
+

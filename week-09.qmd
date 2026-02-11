@@ -1,0 +1,25 @@
+---
+title: "Week 9: Normalisation"
+description: "Strategic Interaction, Media, and Legitimacy."
+---
+
+::: {.panel-tabset}
+
+## Materials
+
+### Lecture
+*   [Download Lecture Slides](lectures/lecture_week9_v4.html){target="_blank"}
+
+### Seminar
+
+TBC
+
+## Readings
+
+
+
+## Whiteboard
+
+*Upload photos of your seminar whiteboard work here.*
+
+:::

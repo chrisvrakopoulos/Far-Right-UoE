@@ -1,0 +1,106 @@
+---
+title: "Week 6: Eastern Europe"
+description: "Illiberal conservatism and authoritarian populism."
+---
+
+::: {.panel-tabset}
+
+## Materials
+
+### Lecture
+*   [Download Lecture Slides](lectures/Lecture_Week6_Eastern_Europe_Merged.qmd){target="_blank"}
+
+### Seminar
+
+#### In-Class Activities
+
+You will be assigned to analyze one country from Eastern Europe: Hungary, Poland, Romania, Slovakia, or Czech Republic.
+
+The lecture identifies five major puzzles in Eastern European far-right trajectories (mainstream radicalization, historical legacy effects, immigration paradox, supply-demand relationships, regional variation, etc.). **Your task is to investigate these puzzles by developing preliminary explanations** for your country, which we'll test against other regions in Weeks 2, 3, 4, and 5.
+
+Using the lecture and assigned readings, explore your country's trajectory to develop three working hypotheses:
+
+On Teams Whiteboard, record your analysis using the following structure:
+
+**Country**: [Name]
+
+**Voter hypothesis**: Who voted far-right and why?
+
+**Party strategy**: What made this party succeed or fail?
+
+**Mainstream strategy**: How should mainstream parties have responded?
+
+Present your findings to the seminar (3 minutes). Then consider the broader pattern: *Do all five countries follow the same logic, or do different factors seem to explain different cases?* Record your observations on Whiteboard.
+
+
+#### What's next
+
+Your hypotheses will be tested against other regions (Weeks 2, 3, 4, and 5). As we accumulate evidence, we'll refine and generalize our working theory. In Weeks 7-10, we'll compare your findings to academic theories to see how we should explain Far Right support.
+
+
+## Readings
+
+### Essential and Recommended Readings
+
+1) [Rydgren, Jens, ed. 2018. The Oxford Handbook of the Radical Right . New York: Oxford University Press. Chapter 28 - The Radical Right in Eastern Europe](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=alma9924351253002466&context=L&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,Rydgren%20%20Jens%20%20ed.%202018.%20The%20Oxford%20Handbook%20of%20the%20Radical%20Right%20)
+
+2) [Bustikova, Lenka. 2014. ‘Revenge of the Radical Right’. Comparative political studies 47(12): 1738–65. doi:10.1177/0010414013516069.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_miscellaneous_1748864386&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Bustikova,%20Lenka.%202014.%20‘Revenge%20of%20the%20Radical%20Right’.%20Comparative%20political%20studies%2047(12):%201738–65.%20doi:10.1177%2F0010414013516069.&offset=0)
+
+
+
+
+### Seminar Readings
+
+As mentioned in the previous lecture, each of you should read at least ONE essential reading and at least ONE of the recommended readings for your assigned country (listed below). If you can coordinate within your group to avoid reading the same article, that would be ideal.
+
+Cross‑Country / general
+
+
+1) [Neumann, Eszter and Paweł Rudnicki. “Populist Radical-Right Governments in Central-Eastern Europe And Education Policy-Making: A Comparison of Hungary and Poland.” Journal of Contemporary European Studies online first (2023): 1–14.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_webofscience_primary_000984184000001CitationCount&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Neumann,%20Eszter%20and%20Paweł%20Rudnicki.%20“Populist%20Radical-Right%20Governments%20in%20Central-Eastern%20Europe%20And%20Education%20Policy-Making:%20A%20Comparison%20of%20Hungary%20and%20Poland.”%20Journal%20of%20Contemporary%20European%20Studies%20online%20first%20(2023):%201–14.&offset=0)
+
+2) [Pytlas, Bartek. “Radical-right Narratives in Slovakia and Hungary: Historical Legacies, Mythic Overlaying and Contemporary Politics.” Patterns of Prejudice 47.2 (2013): 162–183. doi:10.1080/0031322X.2013.786199](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_informaworld_taylorfrancis_310_1080_0031322X_2013_786199&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Pytlas,%20Bartek.%20“Radical-right%20Narratives%20in%20Slovakia%20and%20Hungary:%20Historical%20Legacies,%20Mythic%20Overlaying%20and%20Contemporary%20Politics.”%20Patterns%20of%20Prejudice%2047.2%20(2013):%20162–183.%20doi:10.1080%2F0031322X.2013.786199&offset=0)
+
+Hungary 
+
+1) [Enyedi, Zsolt. “Illiberal Conservatism, Civilisationalist Ethnocentrism, And Paternalist Populism in Orbán’s Hungary.” Contemporary Politics 30.4 (2024): 494–511. doi:10.1080/13569775.2023.2296742](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_3082712138&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Enyedi,%20Zsolt.%20“Illiberal%20Conservatism,%20Civilisationalist%20Ethnocentrism,%20And%20Paternalist%20Populism%20in%20Orbán’s%20Hungary.”%20Contemporary%20Politics%2030.4%20(2024):%20494–511.%20doi:10.1080%2F13569775.2023.2296742&offset=0)
+
+2) [Gessler, Theresa, Gergő Tóth, and Johannes Wachs. “No Country for Asylum Seekers? How Short-Term Exposure to Refugees Influences Attitudes and Voting Behavior in Hungary.” Political Behavior 44.4 (2022): 1813–1841. doi:10.1007/s11109-021-09682-1](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_pubmedcentral_primary_oai_pubmedcentral_nih_gov_9674742&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,%5BGessler,%20Theresa,%20Gergő%20Tóth,%20and%20Johannes%20Wachs.%20“No%20Country%20for%20Asylum%20Seekers%3F%20How%20Short-Term%20Exposure%20to%20Refugees%20Influences%20Attitudes%20and%20Voting%20Behavior%20in%20Hungary.”%20Political%20Behavior%2044.4%20(2022):%201813–1841.%20doi:10.1007%2Fs11109-021-09682-1%5D&offset=0)
+
+3) [Pirro, Andrea L. P. and Dániel Róna. “Far-Right Activism in Hungary. Youth Participation in Jobbik and Its Network.” European Societies 21.4 (2019): 603–626. doi:10.1080/14616696.2018.1494292](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2269358059&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Pirro,%20Andrea%20L.%20P.%20and%20Dániel%20Róna.%20“Far-Right%20Activism%20in%20Hungary.%20Youth%20Participation%20in%20Jobbik%20and%20Its%20Network.”%20European%20Societies%2021.4%20(2019):%20603–626.%20doi:10.1080%2F14616696.2018.1494292&offset=0)
+
+
+Poland 
+
+1) [Gwiazda, Anna. “Right-wing Populism and Feminist Politics: The Case of Law and Justice in Poland.” International Political Science Review 42.5 (2021): 580–595. doi:10.1177/0192512120948917](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2608048587&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Gwiazda,%20Anna.%20“Right-wing%20Populism%20and%20Feminist%20Politics:%20The%20Case%20of%20Law%20and%20Justice%20in%20Poland.”%20International%20Political%20Science%20Review%2042.5%20(2021):%20580–595.%20doi:10.1177%2F0192512120948917&offset=0)
+
+2) [Ślarzyński, Marcin. “The Emergence of Right-Wing Partisanship in Poland, 1993-2018: Reconciling Demand-Side Explanations of the Success Of Illiberalism.” Perspectives on Politics (2023): 1–25. doi:10.1017/S153759272300275X](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_webofscience_primary_001104781100001&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Ślarzyński,%20Marcin.%20“The%20Emergence%20of%20Right-Wing%20Partisanship%20in%20Poland,%201993-2018:%20Reconciling%20Demand-Side%20Explanations%20of%20the%20Success%20Of%20Illiberalism.”%20Perspectives%20on%20Politics%20(2023):%201–25.%20doi:10.1017%2FS153759272300275X&offset=0)
+
+
+Romania
+
+1) [Armeanu, Oana I.. “The Fast Rise of Populist Radical Right Parties: Evidence From The Alliance for the Union of Romanians.” Government and Opposition (2025): 1–17. doi:10.1017/gov.2024.35](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_3238988057&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Armeanu,%20Oana%20I..%20“The%20Fast%20Rise%20of%20Populist%20Radical%20Right%20Parties:%20Evidence%20From%20The%20Alliance%20for%20the%20Union%20of%20Romanians.”%20Government%20and%20Opposition%20(2025):%201–17.%20doi:10.1017%2Fgov.2024.35&offset=0)
+
+2) [Crăciun, Claudiu and Andrei Țăranu. “AUR – The Electoral Geography of Romanian Conservative Nationalism.” Political Studies Review online first (2023). doi:10.1177/14789299231217876](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_sage_journals_10_1177_14789299231217876&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Crăciun,%20Claudiu%20and%20Andrei%20Țăranu.%20“AUR%20–%20The%20Electoral%20Geography%20of%20Romanian%20Conservative%20Nationalism.”%20Political%20Studies%20Review%20online%20first%20(2023).%20doi:10.1177%2F14789299231217876&offset=0)
+
+
+Slovakia
+
+1) [Kazharski, A. (2018). The End of “Central Europe”? The Rise of the Radical Right and the Contestation of Identities in Slovakia and the Visegrad Four. Geopolitics, 23(4), 754–780. https://doi.org/10.1080/14650045.2017.1389720](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2139171256&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,The%20End%20of%20‘Central%20Europe’%3F%20The%20Rise%20of%20the%20Radical%20Right%20and%20the%20Contestation%20of%20Identities%20in%20Slovakia%20and%20the%20Visegrad%20Four&offset=0)
+
+2) [Whittington, W., & Piatkowska, S. J. (2025). Far-right extremism, elections and hate crime: A temporal evaluation of bias- motivated violence in Slovakia. British Journal of Criminology, 65(1), 126–146. https://doi.org/10.1093/bjc/azae032](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_rmit_agispt_search_informit_org_doi_10_3316_informit_T2025020600019302139609746&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Far-Right%20Extremism,%20Elections%20and%20Hate%20Crime:%20A%20Temporal%20Evaluation%20of%20Bias-%20Motivated%20Violence%20in%20Slovakia&offset=0)
+
+Czech Republic
+
+1) [Dvořák, T., Zouhar, J., & Bíba, J. (2025). How and why does demographic decline lead to support for populist parties? The case of the Czech Republic. Political Geography, 117, Article 103261. https://doi.org/10.1016/j.polgeo.2024.103261](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_webofscience_primary_001403313500001&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,How%20and%20why%20does%20demographic%20decline%20lead%20to%20support%20for%20populist%20parties%3F%20The%20case%20of%20the%20Czech%20Republic)
+
+2) [Dvořák, Tomáš and Jan Zouhar. “Peripheralization Processes as a Contextual Source of Populist Vote Choices: Evidence from the Czech Republic and Eastern Germany.” East European Politics and Societies (2022): online first.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_sage_journals_10_1177_08883254221131590&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Dvořák,%20Tomáš%20and%20Jan%20Zouhar.%20“Peripheralization%20Processes%20as%20a%20Contextual%20Source%20of%20Populist%20Vote%20Choices:%20Evidence%20from%20the%20Czech%20Republic%20and%20Eastern%20Germany.”%20East%20European%20Politics%20and%20Societies%20(2022):%20online%20first.&offset=0)
+
+3) [Suchánek, Jonáš and Jiří Hasman. “Nativist With(out) a Cause: A Geographical Analysis of the Populist Radical Right in the 2017 and 2021 Czech Parliamentary Elections.” Territory, Politics, Governance online first (2022): 1–22. doi:10.1080/21622671.2022.2150287](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_webofscience_primary_000898042400001CitationCount&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Suchánek,%20Jonáš%20and%20Jiří%20Hasman.%20“Nativist%20With(out)%20a%20Cause:%20A%20Geographical%20Analysis%20of%20the%20Populist%20Radical%20Right%20in%20the%202017%20and%202021%20Czech%20Parliamentary%20Elections.”%20Territory,%20Politics,%20Governance%20online%20first%20(2022):%201–22.%20doi:10.1080%2F21622671.2022.2150287&offset=0)
+
+4) [Wondreys, Jakub. “The “Refugee Crisis” and the Transformation of the Far Right And The Political Mainstream: The Extreme Case of the Czech Republic.” East European Politics 37.4 (2021): 722–746. doi:10.1080/21599165.2020.1856088](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_informaworld_taylorfrancis_310_1080_21599165_2020_1856088&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Wondreys,%20Jakub.%20“The%20“Refugee%20Crisis”%20and%20the%20Transformation%20of%20the%20Far%20Right%20And%20The%20Political%20Mainstream:%20The%20Extreme%20Case%20of%20the%20Czech%20Republic.”%20East%20European%20Politics%2037.4%20(2021):%20722–746.%20doi:10.1080%2F21599165.2020.1856088&offset=0)
+
+## Whiteboard
+
+*Upload photos of your seminar whiteboard work here.*
+
+:::

@@ -1,0 +1,111 @@
+---
+title: "Week 5: Southern Europe"
+description: "Crisis, Golden Dawn, and the rise of Vox/Chega."
+---
+
+::: {.panel-tabset}
+
+## Materials
+
+### Lecture
+*   [Download Lecture Slides](lectures/Lecture_Week5_Southern_Europe_Condensed_correct.qmd){target="_blank"}
+
+### Seminar
+
+#### In-Class Activities
+
+You will be assigned to analyze one country from Southern Europe: Italy, Spain, Greece, or Portugal.
+
+The lecture identifies five major puzzles in Southern European far-right trajectories (crisis timing variation, historical durability, supply-demand relationships, mainstream strategy effects, etc.). **Your task is to investigate these puzzles by developing preliminary explanations** for your country, which we'll test against other regions in Weeks 2-6.
+
+Using the lecture and assigned readings, explore your country's trajectory to develop three working hypotheses:
+
+On Teams Whiteboard, record your analysis using the following structure:
+
+**Country**: [Name]
+
+**Voter hypothesis**: Who voted far-right and why?
+
+**Party strategy**: What made this party succeed or fail?
+
+**Mainstream strategy**: How should mainstream parties have responded?
+
+Present your findings to the seminar (3 minutes). Then consider the broader pattern: *Do all four countries follow the same logic, or do different factors seem to explain different cases?* Record your observations on Whiteboard.
+
+
+#### What's next
+
+Your hypotheses will be tested against other regions (Weeks 2,3, 4 & 6). As we accumulate evidence, we'll refine and generalize our working theory. In Weeks 7-10, we'll compare your findings to academic theories to see how we should explain Far Right support.
+
+#### Seminar Groups
+
+[Groups for Seminar](https://www.learn.ed.ac.uk/ultra/courses/_125581_1/outline/edit/document/_11961816_1?courseId=_125581_1&linkContentId=_11961816_1)
+
+
+## Readings
+
+### Essential and Recommended Readings
+
+1) [Rydgren, Jens, ed. 2018. The Oxford Handbook of the Radical Right . New York: Oxford University Press. Chapter 25 - The Radical Right in Southern Europe](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=alma9924351253002466&context=L&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,Rydgren%20%20Jens%20%20ed.%202018.%20The%20Oxford%20Handbook%20of%20the%20Radical%20Right%20)
+
+2) [Halikiopoulou, Daphne, and Sofia Vasilopoulou. 2018. ‘Breaching the Social Contract: Crises of Democratic Representation and Patterns of Extreme Right Party Support’. Government and opposition (London) 53(1): 26–50. doi:10.1017/gov.2015.43.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_1971744173&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Halikiopoulou,%20Daphne,%20and%20Sofia%20Vasilopoulou.%202018.%20‘Breaching%20the%20Social%20Contract:%20Crises%20of%20Democratic%20Representation%20and%20Patterns%20of%20Extreme%20Right%20Party%20Support’.%20Government%20and%20opposition%20(London)%2053(1):%2026–50.%20doi:10.1017%2Fgov.2015.43.&offset=0)
+
+
+
+
+### Seminar Readings
+
+As mentioned in the previous lecture, each of you should read at least ONE essential reading and at least ONE of the recommended readings for your assigned country (listed below). If you can coordinate within your group to avoid reading the same article, that would be ideal.
+
+Cross‑Country / general
+
+
+1) [Mendes, Mariana S, and James Dennison. “Explaining the Emergence of the Radical Right in Spain and Portugal: Salience, Stigma and Supply.” West European politics 44.4 (2021): 752–775. Web.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_crossref_citationtrail_10_1080_01402382_2020_1777504&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Explaining%20the%20emergence%20of%20the%20radical%20right%20in%20Spain%20and%20Portugal:%20salience%20%20stigma%20and%20supply)
+
+Greece 
+
+1) [Ellinas, Antonis A. “The Rise of Golden Dawn: The New Face of the Far Right in Greece.” South European society & politics 18.4 (2013): 543–565. Web.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_crossref_citationtrail_10_1080_13608746_2013_782838&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,The%20Rise%20of%20Golden%20Dawn.%20The%20New%20Face%20of%20the%20Far%20Right%20in%20Greece)
+
+2) [Dinas, Elias et al. “From Dusk to Dawn: Local Party Organization and Party Success of Right-Wing Extremism.” Party politics 22.1 (2016): 80–92. Web.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_miscellaneous_1771458133&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,From%20dusk%20to%20dawn%20dinas&offset=0)
+
+3) [Lamprianou, Iasonas, and Antonis A Ellinas. “Institutional Grievances and Right-Wing Extremism: Voting for Golden Dawn in Greece.” South European society & politics 22.1 (2017): 43–60. Web.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_informaworld_taylorfrancis_310_1080_13608746_2016_1207302&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Institutional%20Grievances%20and%20Right-Wing%20Extremism:%20Voting%20for%20Golden%20Dawn%20in%20Greece)
+
+4) [ELLINAS, ANTONIS A, and IASONAS LAMPRIANOU. “Movement versus Party: The Electoral Effects of Anti-Far Right Protests in Greece.” The American political science review 118.2 (2024): 687–705. Web.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_unpaywall_primary_10_1017_s0003055423000588&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Movement%20versus%20Party:%20The%20Electoral%20Effects%20of%20Anti-Far%20Right%20Protests%20in%20Greece)
+
+Italy 
+
+1) [Cremaschi, Simone et al. “Geographies of Discontent: Public Service Deprivation and the Rise of the Far Right in Italy.” American journal of political science 69.4 (2025): 1581–1599. Web.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_webofscience_primary_001370424200001CitationCount&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Geographies%20of%20Discontent:%20Public%20Service%20Deprivation%20and%20the%20Rise%20Of%20the%20Far%20Right%20in%20Italy.)
+
+2) [Lorimer, Marta, and Matteo Cavallaro. “Post-’Post-Fascism’ and Far Right Mainstreaming in Italy: Assessing Continuity Between the Italian Social Movement, National Alliance and Brothers of Italy.” Political studies (2025): n. pag. Web.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_webofscience_primary_001519703900001&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Post-‘post-Fascism’%20and%20Far%20Right%20Mainstreaming%20in%20Italy:%20Assessing%20Continuity%20Between%20the%20Italian%20Social%20Movement%20%20National%20Alliance%20and%20Brothers%20of%20Italy)
+
+3) [Melito, Francesco, and Mattia Zulianello. “The Organization of Brothers of Italy: An Activist and Centralized Party Led by a ‘Mother in the Family.’” South European society & politics 29.3 (2024): 299–324. Web.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_webofscience_primary_001432849700001CitationCount&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,The%20Organization%20of%20Brothers%20of%20Italy:%20An%20Activist%20and%20Centralized%20Party%20Led%20by%20a%20“Mother%20in%20the%20Family)
+
+
+
+Portugal
+
+1) [Afonso, Alexandre. “Correlates of Aggregate Support for the Radical Right in Portugal.” Research & politics 8.3 (2021): n. pag. Web.](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_sage_journals_10_1177_20531680211029416&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Correlates%20of%20aggregate%20support%20for%20the%20radical%20right%20in%20Portugal)
+
+2) [Carvalho, J. (2023). Understanding the Emergence of Extreme Right Parties in Portugal in the Late 2010s. Parliamentary Affairs, 76(4), 879–899. https://doi.org/10.1093/pa/gsac001](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_webofscience_primary_000792138100001CitationCount&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Understanding%20the%20Emergence%20of%20Extreme%20Right%20Parties%20in%20Portugal%20in%20the%20Late%202010s&offset=0)
+
+3) [Magalhães, P. C., & Cancela, J. (2025). Political neglect and support for the radical right: The case of rural Portugal. Political Geography, 116, Article 103224. https://doi.org/10.1016/j.polgeo.2024.103224](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_crossref_primary_10_1016_j_polgeo_2024_103224&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Political%20neglect%20and%20support%20for%20the%20radical%20right:%20The%20case%20of%20rural%20Portugal&offset=0)
+
+4) [Mendes, M. S. (2021). “Enough” of What? An Analysis of Chega’s Populist Radical Right Agenda. South European Society & Politics, 26(3), 329–353. https://doi.org/10.1080/13608746.2022.2043073](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_scopus_primary_2_s2_0_85126520984&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,‘Enough’%20of%20What%3F%20An%20Analysis%20of%20Chega’s%20Populist%20Radical%20Right%20A&offset=0)
+
+
+
+Spain
+
+1) [Alonso, S., & Rovira Kaltwasser, C. (2015). Spain: No Country for the Populist Radical Right? South European Society & Politics, 20(1), 21–45. https://doi.org/10.1080/13608746.2014.985448](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_scopus_primary_2_s2_0_84916900296&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Spain:%20No%20Country%20for%20the%20Populist%20Radical%20Right%3F&offset=0)
+
+2) [Turnbull-Dugarte, S. J. (2019). Explaining the end of Spanish exceptionalism and electoral support for Vox. Research & Politics, 6(2), Article 2053168019851680. https://doi.org/10.1177/2053168019851680](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2375712546&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Explaining%20the%20end%20of%20Spanish%20exceptionalism%20and%20electoral%20support%20for%20Vox&offset=0)
+
+3) [Barrio, A., Alonso Sáenz de Oger, S., & Field, B. N. (2021). VOX Spain: The Organisational Challenges of a New Radical Right Party. Politics and Governance, 9(4), 240–251. https://doi.org/10.17645/pag.v9i4.4396](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_2609705538&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,VOX%20Spain:%20The%20Organisational%20Challenges%20of%20a%20New%20Radical%20Right%20Party&offset=0)
+
+
+
+## Whiteboard
+
+To be uploaded
+
+:::

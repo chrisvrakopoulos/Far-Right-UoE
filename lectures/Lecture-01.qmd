@@ -1,0 +1,632 @@
+---
+title: "The Far Right (PLIT10172)"
+subtitle: "Introduction and What is the Far-Right?"
+author: "Dr. Christos Vrakopoulos"
+format:
+  revealjs:
+    theme: solarized
+    fontsize: 26px
+    slide-number: true
+    incremental: true
+    transition: fade
+    css: custom.css
+    mermaid:
+      theme: neutral
+editor: visual
+---
+
+## Today's Lecture
+
+::: nonincremental
+-   **Part 1:** Course Introduction & Why Study the Far-Right?
+
+-   **Part 2:** The Empirical Reality - Rise of Far-Right Parties
+
+-   **Part 3:** Definitional Challenges - What is the Far-Right?
+
+-   **Part 4:** Course Roadmap - Where We're Heading
+:::
+
+## Course Introduction
+
+::::: columns
+::: {.column width="50%"}
+**Format:**\
+- 10 lectures (1 hour each)\
+- 10 seminars (1 hour each)\
+
+**Assessment:**\
+- Essay Plan (10%) - Week 9, Thursday 19th March at 23:59\
+- Mid-term Opinion Piece (30%) - Week 7, Thursday 7th March at 23:59\
+- Final Essay (60%) - Thursday 16th April at 23:59
+:::
+
+::: {.column width="50%"}
+**Focus:**\
+- Comprehensive exploration of far-right politics globally\
+- Primarily Europe but extending to comparative cases
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Course Aims
+
+::: nonincremental
+-   **Concepts:** Key terms like far-right, populism, radical right, and 'new nationalism'
+
+-   **Analytical skills:** Different political and international dimensions of the far-right
+
+-   **Theoretical tools:** Understanding current rise through comparative analysis across cases and time
+
+-   **Critical thinking:** Assess theories explaining origins and persistence of far-right populism
+:::
+
+## Learning Outcomes
+
+::: nonincremental
+*By the end of this course you should be able to*:
+
+-   Demonstrate a knowledge and understanding of the debates surrounding the contemporary far right in Europe and the ability to evaluate the different perspectives on the far right
+
+-   Develop an understanding of the conceptual and definitional issues involved in the discussion of the far right
+
+-   Appreciate the challenges presented to contemporary theories by the surge in support for the far right in the 1990s
+
+-   Assess the impact of the far right on politics in Europe
+
+-   Apply insights from the contemporary analysis of the far right and interpret the evidence in a range of country studies drawn from Europe
+:::
+
+# What's the problem?
+
+```{r setup, include=FALSE}
+# Load required packages
+library(ggplot2)
+library(plotly)
+library(tidyverse)
+library(haven)
+library(htmltools)
+library(ggthemes)
+
+# Load data
+cpds <- read_dta("data/CPDS_1960-2023_Update_2025.dta")
+
+# Compute bloc-level totals
+cpds <- cpds %>%
+  rowwise() %>%
+  mutate(
+    far_right_total = sum(c_across(starts_with("right")), na.rm = TRUE),
+    centre_right_total = sum(c_across(starts_with("conserv")), na.rm = TRUE),
+    centre_left_total = sum(c_across(starts_with("social")), na.rm = TRUE)
+  ) %>%
+  ungroup()
+
+# Create long format
+cpds_long <- cpds %>%
+  select(country, year, far_right_total, centre_right_total, centre_left_total) %>%
+  pivot_longer(
+    cols = c(far_right_total, centre_right_total, centre_left_total),
+    names_to = "bloc",
+    values_to = "vote_share"
+  ) %>%
+  mutate(
+    bloc_label = case_when(
+      bloc == "far_right_total" ~ "Far-Right",
+      bloc == "centre_right_total" ~ "Centre-Right",
+      bloc == "centre_left_total" ~ "Centre-Left"
+    )
+  )
+```
+
+## The Aggregate Picture
+
+```{r}
+#| echo: false
+#| warning: false
+
+# Calculate average far-right support by year
+avg_support <- cpds_long %>%
+  filter(bloc == "far_right_total", !is.na(vote_share)) %>%
+  group_by(year) %>%
+  summarise(
+    avg_vote_share = mean(vote_share, na.rm = TRUE),
+    n_countries = n()
+  ) %>%
+  filter(n_countries >= 5)  # Only years with at least 5 countries
+
+# Create plot
+p_avg <- ggplot(avg_support, aes(x = year, y = avg_vote_share)) +
+  geom_line(size = 1.2, color = "black") +
+  geom_point(size = 2, color = "black") +
+  labs(
+    x = "Year",
+    y = "Average Vote Share (%)",
+    title = "Average Far-Right Support Across Countries",
+    subtitle = "Trend line shows overall pattern"
+  ) +
+  theme_solarized(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 16),
+    plot.subtitle = element_text(color = "gray40")
+  )
+
+ggplotly(p_avg, tooltip = c("x", "y")) %>%
+  layout(hovermode = "x unified", autosize = FALSE, width = 900, height = 500)
+```
+
+::: notes
+Notice the gradual increase, particularly from the 1980s onwards.
+:::
+
+## Exploring by Country
+
+Click on country names in the legend to show/hide them. Double-click to isolate a single country.
+
+```{r}
+#| echo: false
+#| warning: false
+
+# Prepare far-right data by country
+far_right_country <- cpds_long %>%
+  filter(bloc == "far_right_total", !is.na(vote_share), vote_share > 0) %>%
+  arrange(country, year)
+
+# Calculate average across countries by year
+far_right_avg <- far_right_country %>%
+  group_by(year) %>%
+  summarise(vote_share = mean(vote_share, na.rm = TRUE)) %>%
+  mutate(country = "Average")
+
+# Combine with country data
+far_right_combined <- bind_rows(far_right_country, far_right_avg)
+
+# Create the base plot
+p_countries <- ggplot(far_right_combined, aes(x = year, y = vote_share, 
+                                              color = country, group = country)) +
+  geom_line(size = 1, alpha = 0.8) +
+  geom_point(size = 1.5, alpha = 0.6) +
+  scale_color_manual(
+    values = c("Average" = "black", 
+               setNames(scales::hue_pal()(length(unique(far_right_country$country))),
+                       unique(far_right_country$country)))
+  ) +
+  labs(
+    x = "Year",
+    y = "Vote Share (%)",
+    title = "Far-Right Support by Country",
+    subtitle = "Click legend items to toggle countries"
+  ) +
+  theme_solarized(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 16),
+    plot.subtitle = element_text(color = "gray40"),
+    legend.title = element_blank()
+  )
+
+# Convert to plotly and set visibility
+p_interactive <- ggplotly(p_countries, tooltip = c("colour", "x", "y"))
+
+# Set all traces except "Average" to be initially hidden
+for (i in seq_along(p_interactive$x$data)) {
+  if (p_interactive$x$data[[i]]$name != "Average") {
+    p_interactive$x$data[[i]]$visible <- 'legendonly'
+  }
+}
+
+p_interactive %>%
+  layout(
+    hovermode = "closest",
+    legend = list(
+      orientation = "v",
+      x = 1.02,
+      y = 1,
+      title = list(text = "Country<br>(click to toggle)")
+    )
+  )
+```
+
+::: notes
+Different countries show very different patterns. Some show steady growth, others show volatility.
+:::
+
+## Far-Right vs. Mainstream Parties
+
+How does far-right growth compare to traditional political blocs?
+
+```{r}
+#| echo: false
+#| warning: false
+
+# Calculate average by bloc and year
+bloc_comparison <- cpds_long %>%
+  filter(!is.na(vote_share)) %>%
+  group_by(year, bloc_label) %>%
+  summarise(
+    avg_vote_share = mean(vote_share, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Create comparison plot
+p_comparison <- ggplot(bloc_comparison, aes(x = year, y = avg_vote_share, 
+                                            color = bloc_label, group = bloc_label)) +
+  geom_line(size = 1.3, alpha = 0.8) +
+  geom_point(size = 2) +
+  scale_color_manual(
+    values = c("Far-Right" = "black", 
+               "Centre-Right" = "#1f77b4", 
+               "Centre-Left" = "red")
+  ) +
+  labs(
+    x = "Year",
+    y = "Average Vote Share (%)",
+    title = "Political Bloc Comparison",
+    subtitle = "Average support across countries",
+    color = "Political Bloc"
+  ) +
+  theme_solarized(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 16),
+    plot.subtitle = element_text(color = "gray40"),
+    legend.position = "bottom",
+    legend.title = element_text(face = "bold")
+  )
+
+ggplotly(p_comparison, tooltip = c("colour", "x", "y")) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(orientation = "h", x = 0.5, xanchor = "center", y = -0.2)
+  )
+```
+
+::: notes
+Notice the inverse relationship between far-right growth and centre-left decline in many periods.
+:::
+
+## Recent Developments (2024-2025)
+
+-   End of Spanish/Portugese exceptionalism
+
+-   Far-right in government (Italy, Netherlands, Austria, USA, India, Brazil, Argentina, etc.)
+
+-   UK? Scottish up coming election
+
+::: slide
+## Why does this happen?
+
+Scan the QR code or click the link to answer the poll:
+
+![](images/participation.png){width="200px"}
+
+[Take the survey](https://app.wooclap.com/EZEMDQ?from=status-bar)
+
+
+:::
+
+## The Immigration Paradox
+
+![](images/AfD_paradox.png)
+
+Key Question: Why do areas with low immigration often show high far-right support?
+
+## The Unemplyment Puzzle
+
+```{r}
+#| echo: false
+#| warning: false
+
+avg_trends <- cpds %>%
+  group_by(year) %>%
+  summarise(
+    mean_far_right = mean(far_right_total, na.rm = TRUE),
+    mean_unemp = mean(unemp, na.rm = TRUE)
+  )
+
+ggplot(avg_trends, aes(x = year)) +
+  geom_line(aes(y = mean_far_right), color = "black", size = 1) +
+  geom_line(aes(y = mean_unemp / 2), color = "blue", size = 1, linetype = "dashed") +
+  scale_y_continuous(
+    name = "Average Far-Right Vote Share",
+    sec.axis = sec_axis(~ . * 2, name = "Average Unemployment Rate (%)")
+  ) +
+  labs(
+    x = "Year",
+    title = "Average Far-Right Vote Share and Unemployment Over Time",
+    subtitle = "Dashed blue line: unemployment rate (scaled for visibility)"
+  ) +
+  theme_solarized()
+```
+
+# Definitional Framework
+
+## The Challenge: Who Belongs?
+
+::::: columns
+::: {.column width="50%"}
+### Radical Right?
+
+![Geert Wilders (PVV)](https://www.politico.eu/cdn-cgi/image/width=2640,quality=80,onerror=redirect,format=auto/wp-content/uploads/2024/01/24/geert-wilder-scaled.jpg){width="45%"} ![Marine Le Pen (RN)](https://d3i6fh83elv35t.cloudfront.net/static/2025/03/2025-03-31T181218Z_1000200403_RC2IODA9KRZ1_RTRMADP_3_FRANCE-POLITICS-LEPEN-1200x800.jpg){width="45%"} ![Giorgia Meloni (FdI)](https://cdn.britannica.com/86/236886-050-74E4B089/Prime-Minister-Italy-Handover-Ceremony-Giorgia-Meloni-October-23-2022.jpg){width="45%"}
+:::
+
+::: {.column width="50%"}
+### Extreme Right?
+
+![Nikos Michaloliakos (Golden Dawn)](https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/A8FB/production/_114795234_fascist.jpg.webp){width="45%"} ![Marian Kotleba (ĽSNS)](https://images.csmonitor.com/csm/2016/06/989300_1_0628-oslovakia_standard.jpg?alias=standard_1200x800nc){width="45%"} ![Tommy Robinson](https://img.lemde.fr/2025/11/04/0/0/2211/1474/1112/0/75/0/7e8ba3a_ftp-import-images-1-5fpjf87w4ur6-2025-11-04t111012z-729103074-rc2mphaolkge-rtrmadp-3-britain-court-robinson.JPG){width="45%"}
+:::
+:::::
+
+## Common Terminology Problems
+
+::::: columns
+::: {.column width="50%"}
+**Multiple terms used:**
+
+-   Right-wing populism
+-   Far-right populism
+-   Extreme right
+-   Radical right
+-   Populist radical right
+:::
+
+::: {.column width="50%"}
+**Challenge:**
+
+-   Do these terms mean the same thing?
+
+-   Should they?
+:::
+:::::
+
+## Mudde's Framework: Three Core Features
+
+```{mermaid}
+%%{init: {'themeVariables': { 'fontSize': '24px', 'nodeSpacing': 60, 'rankSpacing': 60}}}%%
+flowchart TB
+A[Far-Right] --> B[Nativism]
+A --> C[Authoritarianism]
+A --> D[Populism]
+```
+
+**Key insight:** **Nativism** is the driving force for their policies
+
+## Nativism: More Than Nationalism
+
+-   **Nationalism:** The belief that political boundaries should align with national boundaries, and that the nation-state should be the primary source of political identity and sovereignty
+-   **Nativism:** States should be inhabited **exclusively** by native group members
+-   **"Non-natives" defined by:** Race, ethnicity, religion, or lifestyle (e.g., LGBTI+)
+-   **Policy driver:** Immigration restriction, cultural protectionism, welfare chauvinism
+
+## Authoritarianism: Order and Punishment
+
+-   **Not anti-democratic:** Accept electoral democracy
+-   **Social order:** Strictly hierarchical society
+-   **Authority:** Strong adherence to in-group leaders
+-   **Punishment:** Severe consequences for rule-breaking
+-   **Traditional values:** Often religiously or culturally defined
+
+## Populism: People vs Elite
+
+-   **Core claim:** Society divided into "pure people" vs "corrupt elite"
+-   **Democratic legitimacy:** "Will of the people" is morally superior
+-   **Far-right populism:** People = in-group, Elite = those helping out-group
+-   **Different from left populism:** Class exploitation vs cultural threat
+
+## Is Far Right a homogenous party family?
+
+```{r}
+# Plot 1: Economic Position vs. GAL-TAN (Authoritarianism/Conservatism)
+ches <- read_dta("/Users/cvrakopo/Downloads/1999-2024_CHES_dataset_means.dta")
+
+library(tidyverse)
+library(ggrepel)
+library(ggthemes)
+
+ches |>
+  filter(family==1) |>
+  mutate(eastwest = as_factor(eastwest)) |>
+  group_by(party, eastwest) |>
+  summarise(
+    left_right_econ = mean(lrecon, na.rm=TRUE),
+    galtan = mean(galtan, na.rm=TRUE),
+    .groups = 'drop'
+  ) |>
+  ggplot(aes(x=left_right_econ, y=galtan, label=party, colour = eastwest)) +
+  geom_point(size=3, alpha=0.7) +
+  geom_text_repel(size=3) +
+  labs(
+    x="Economic Position (Left ← → Right)",
+    y="Authoritarianism (Liberal ← → Traditional)",
+    title="Plot 1: Economic Ideology Variation",
+    subtitle="Far-right parties show economic heterogeneity",
+    colour="Region"  # Clean up legend title
+  ) +
+  scale_color_manual(
+    values=c("east"="#DC322F", "west"="#268BD2"),  # Solarized red/blue
+    labels=c("east"="Eastern Europe", "west"="Western Europe")  # Nice names
+  ) +
+  theme_solarized(base_size=14) +
+  theme(
+    plot.title = element_text(face="bold"),
+    legend.position = "bottom",  # Move legend below
+    legend.title = element_text(face="bold", size=11)
+  )
+```
+
+## Is Far Right a homogenous party family cont?
+
+```{r}
+# Plot 2: Populism (People vs Elite) vs. GAL-TAN
+ches |>
+  filter(family==1) |>
+  mutate(eastwest = as_factor(eastwest)) |>
+  group_by(party, eastwest) |>
+  summarise(
+    people_vs_elite = mean(people_vs_elite, na.rm=TRUE),
+    galtan = mean(galtan, na.rm=TRUE),
+    .groups = 'drop'
+  ) |>
+  ggplot(aes(x=people_vs_elite, y=galtan, label=party, colour = eastwest)) +
+  geom_point(size=3, alpha=0.7) +
+  geom_text_repel(size=3) +
+  labs(
+    x="Populism (Elite ← → People)",
+    y="Authoritarianism (Liberal ← → Traditional)",
+    title="Plot 2: Populism Intensity Variation",
+    subtitle="Far-right parties show different levels of anti-elite rhetoric",
+    colour="Region"
+  ) +
+  scale_color_manual(
+    values=c("east"="#DC322F", "west"="#268BD2"),
+    labels=c("east"="Eastern Europe", "west"="Western Europe")
+  ) +
+  theme_solarized(base_size=14) +
+  theme(
+    plot.title = element_text(face="bold"),
+    legend.position = "bottom",
+    legend.title = element_text(face="bold", size=11)
+  )
+```
+
+## Is Far Right a homogenous party family cont?
+
+```{r}
+# Plot 3: Immigration Position vs. GAL-TAN (Convergence)
+ches |>
+  filter(family==1) |>
+  mutate(eastwest = as_factor(eastwest)) |>
+  group_by(party, eastwest) |>
+  summarise(
+    immigration = mean(immigrate_policy, na.rm=TRUE),
+    galtan = mean(galtan, na.rm=TRUE),
+    .groups = 'drop'
+  ) |>
+  ggplot(aes(x=immigration, y=galtan, label=party, colour = eastwest)) +
+  geom_point(size=3, alpha=0.7) +
+  geom_text_repel(size=3) +
+  labs(
+    x="Immigration Position (Open ← → Restrictive)",
+    y="Authoritarianism (Liberal ← → Traditional)",
+    title="Plot 3: Immigration Stance Convergence",
+    subtitle="Far-right parties cluster on anti-immigration",
+    colour="Region"
+  ) +
+  scale_color_manual(
+    values=c("east"="#DC322F", "west"="#268BD2"),
+    labels=c("east"="Eastern Europe", "west"="Western Europe")
+  ) +
+  theme_solarized(base_size=14) +
+  theme(
+    plot.title = element_text(face="bold"),
+    legend.position = "bottom",
+    legend.title = element_text(face="bold", size=11)
+  )
+```
+
+## Is Far Right a homogenous party family cont?
+
+```{r}
+# Plot 4: Nationalism vs. GAL-TAN (Core Convergence)
+ches |>
+  filter(family==1) |>
+  mutate(eastwest = as_factor(eastwest)) |>
+  group_by(party, eastwest) |>
+  summarise(
+    nationalism = mean(nationalism, na.rm=TRUE),
+    galtan = mean(galtan, na.rm=TRUE),
+    .groups = 'drop'
+  ) |>
+  ggplot(aes(x=nationalism, y=galtan, label=party, colour = eastwest)) +
+  geom_point(size=3, alpha=0.7) +
+  geom_text_repel(size=3) +
+  labs(
+    x="Nationalism/Nativism (Low ← → High)",
+    y="Authoritarianism (Liberal ← → Traditional)",
+    title="Plot 4: Core Far-Right Dimension",
+    subtitle="Far-right parties converge on nationalism and authoritarianism",
+    colour="Region"
+  ) +
+  scale_color_manual(
+    values=c("east"="#DC322F", "west"="#268BD2"),
+    labels=c("east"="Eastern Europe", "west"="Western Europe")
+  ) +
+  theme_solarized(base_size=14) +
+  theme(
+    plot.title = element_text(face="bold"),
+    legend.position = "bottom",
+    legend.title = element_text(face="bold", size=11)
+  )
+```
+
+## Radical vs Extreme: A Crucial Distinction
+
+```{mermaid}
+%%{init: {'themeVariables': { 'fontSize': '22px', 'nodeSpacing': 60, 'rankSpacing': 60}}}%%
+flowchart TB
+A[Far-Right] --> B[Radical-Right]
+A --> C[Extreme-Right]
+B --> D["Accepts procedural <br/>democracy<br/>Rejects violence"]
+C --> E["Rejects democracy <br/>entirely<br/>May accept violence"]
+```
+
+**Golder (2016):** "Radicalism is not a moderate form of extremism"
+
+## Course Structure
+
+::::: columns
+::: {.column width="50%"}
+**Week 2:** Western Europe
+
+**Week 3:** United Kingdom
+
+**Week 4:** Scandinavia
+
+**Week 5:** Southern Europe
+
+**Week 6:** Eastern Europe
+:::
+
+::: {.column width="50%"}
+**Week 7:** Demand-Side Theory
+
+**Week 8:** Supply-Side Theory
+
+**Week 9:** Party Competition & Normalization Mechanisms
+
+**Week 10:** Global Patterns & Democratic Futures
+:::
+:::::
+
+## Key Resources
+
+::::: columns
+::: {.column width="50%"}
+**Essential databases:**
+
+-   [PopuList](http://www.popu-list.org)
+-   [Manifesto Project](https://manifesto-project.wzb.eu/)
+-   [Kai Arzheimer's Bibliography](https://www.kai-arzheimer.com/)
+-   [CPDS](https://cpds-data.org)
+:::
+
+::: {.column width="50%"}
+**Fun reading:**
+
+Halikiopoulou: ["Far right groups may be diverse – but here's what they all have in common"](https://theconversation.com/far-right-groups-may-be-diverse-but-heres-what-they-all-have-in-common-101919)
+:::
+:::::
+
+## Key Takeaways
+
+-   Far-right support has **grown substantially** since the 1980s
+
+-   The trend is **not uniform** across countries
+
+-   This growth often coincides with **decline in traditional parties**
+
+. . .
+
+**Understanding these patterns is crucial for:**
+
+-   Democratic resilience
+-   Policy responses
+-   Theoretical development in political science

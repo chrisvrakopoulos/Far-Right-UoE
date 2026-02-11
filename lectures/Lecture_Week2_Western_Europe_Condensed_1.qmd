@@ -1,0 +1,1022 @@
+---
+title: "Far-Right in Western Europe"
+subtitle: "The Far Right (Week 2)"
+author: "Dr. Christos Vrakopoulos"
+format:
+  revealjs:
+    theme: solarized
+    slide-number: true
+    incremental: true
+    
+    transition: fade
+    fontsize: 24px
+    css: custom.css
+editor: visual
+---
+
+```{r setup, include=FALSE}
+# Load required packages
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(tidyverse)
+library(manifestoR)
+library(lubridate)
+library(ggthemes)
+
+# Set Manifesto Project API key
+mp_setapikey(key = "193c54d64b1189c526214074350ead07")
+
+# Load Manifesto Project data
+mp_data <- manifestoR::mp_maindataset()
+
+# Define party codes for far-right parties
+party_codes <- tribble(
+  ~party, ~party_label,
+  31720, "FN/RN",
+  41953, "AfD",
+  42420, "FPÖ",
+  42710, "BZÖ",
+  22710, "CP",
+  22711, "CD",
+  22720, "LPF",
+  22722, "PVV",
+  22730, "FvD",
+  21914, "VB",
+  21917, "VB"
+)
+
+# Extract far-right party data
+far_right_raw <- mp_data %>%
+  filter(party %in% party_codes$party) %>%
+  mutate(year = year(as.Date(edate))) %>%
+  left_join(party_codes, by = "party") %>%
+  select(countryname, year, edate, party_label, pervote, absseat) %>%
+  filter(!is.na(pervote)) %>%
+  arrange(countryname, year, edate)
+
+# Combine vote shares within same election
+far_right_combined <- far_right_raw %>%
+  group_by(countryname, year, edate) %>%
+  summarise(
+    vote_share = sum(pervote, na.rm = TRUE),
+    parties = paste(unique(party_label), collapse = " + "),
+    .groups = "drop"
+  ) %>%
+  group_by(countryname, year) %>%
+  slice_max(edate, n = 1, with_ties = FALSE) %>%
+  ungroup() %>%
+  select(country = countryname, year, vote_share)
+
+far_right_data <- far_right_combined
+
+# Individual country datasets
+france_data <- far_right_raw %>% 
+  filter(countryname == "France") %>%
+  group_by(countryname, year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(countryname, year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  select(country = countryname, year, vote_share)
+
+austria_data <- far_right_raw %>% 
+  filter(countryname == "Austria") %>%
+  group_by(countryname, year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(countryname, year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  select(country = countryname, year, vote_share)
+
+germany_data <- far_right_raw %>% 
+  filter(countryname == "Germany") %>%
+  group_by(year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  mutate(country = "Germany") %>%
+  select(country, year, vote_share)
+
+netherlands_data <- far_right_raw %>% 
+  filter(countryname == "Netherlands") %>%
+  group_by(year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  mutate(country = "Netherlands") %>%
+  select(country, year, vote_share)
+
+belgium_data <- far_right_raw %>% 
+  filter(countryname == "Belgium") %>%
+  group_by(year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  mutate(country = "Belgium") %>%
+  select(country, year, vote_share)
+```
+
+## Important Announcements {vertical-align="center"}
+
+::: {.callout-important appearance="default" icon="false"}
+## Session Cancellation
+
+The **Week 5 session** is cancelled.
+:::
+
+<br>
+
+::: {.callout-note appearance="simple"}
+## Course Schedule
+
+Please check the most up-to-date course schedule on **Learn**.
+:::
+
+## Today's Lecture
+
+::: incremental
+-   **Part 1:** The Puzzle
+-   **Part 2:** Five Trajectories
+-   **Part 3:** Comparative Synthesis
+:::
+
+# Part 1: The Puzzle
+
+## Why Western Europe?
+
+::::::::: columns
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### First region where modern far-right broke through
+:::
+
+::: incremental
+-   Established, wealthy democracies
+-   France, Germany, Austria, Netherlands, Belgium
+-   1980s-1990s: similar conditions
+:::
+:::::
+
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Yet timing varies dramatically:
+:::
+
+::: incremental
+-   France: 1984
+-   Austria: 1986
+-   Belgium: 1991
+-   Netherlands: 2002
+-   Germany: 2013/2017
+:::
+:::::
+:::::::::
+
+-   *Given broadly similar exposure to deindustrialisation, immigration, and European integration, why do radical-right parties become electorally relevant at such different times?*
+
+
+## The academic attention
+
+```{r}
+library(rvest)
+library(tidyverse)
+library(stringr)
+library(tidytext)
+library(wordcloud)
+library(RColorBrewer)
+
+# ============================================================================
+# Text Mining: Extreme Right Bibliography - Papers by Year and Country
+# ============================================================================
+
+# URL to the bibliography
+url <- "https://www.kai-arzheimer.com/extreme-right-western-europe-bibliography/"
+
+# Fetch and parse the HTML
+page <- read_html(url)
+
+# Get the main content div containing the bibliography
+# The bibliography appears to be in the main content area
+full_text <- page %>%
+  html_text2()
+
+# Remove the intro/header text (everything before the first author name entry)
+# Look for the start of actual bibliography entries (typically start with capital letter, then comma)
+text_start <- str_locate(full_text, "Aarøe, Lene")[1, 1]
+
+if (is.na(text_start)) {
+  # Fallback: find the first reference pattern
+  text_start <- 1
+}
+
+bibliography_text <- substr(full_text, text_start, nchar(full_text))
+
+# Split by [BibTeX] which marks the end of each reference entry
+references <- bibliography_text %>%
+  str_split("\\[BibTeX\\]") %>%
+  unlist() %>%
+  str_trim()
+
+# Keep only references that look like actual entries (contain a year in parentheses)
+references <- references[str_detect(references, "\\(\\d{4}\\)")]
+
+# Create dataframe
+ref_df <- tibble(reference = references)
+
+# Extract year - looks for (YYYY) pattern
+ref_df <- ref_df %>%
+  mutate(
+    year = str_extract(reference, "\\((\\d{4})\\)", group = 1),
+    year = as.numeric(year)
+  ) %>%
+  # Define the countries/regions of interest with expanded keywords
+  mutate(
+    western_europe = str_detect(reference, regex("Western Europe", ignore_case = TRUE)),
+    germany = str_detect(reference, regex("\\b(Germany|German|AfD|Alternative|Pegida|Identitaer|Identitarian)\\b", ignore_case = TRUE)),
+    austria = str_detect(reference, regex("\\b(Austria|Austrian|FPÖ|Haider|Hofer)\\b", ignore_case = TRUE)),
+    belgium = str_detect(reference, regex("\\b(Belgium|Belgian|Vlaams Belang|Vlaams|Antwerpen|Flanders)\\b", ignore_case = TRUE)),
+    france = str_detect(reference, regex("\\b(France|French|Front National|Marine Le Pen|Le Pen|Rassemblement National|RN)\\b", ignore_case = TRUE)),
+    netherlands = str_detect(reference, regex("\\b(Netherlands|Dutch|PVV|Geert Wilders|Wilders)\\b", ignore_case = TRUE))
+  ) %>%
+  # Create a flag for any mention of target regions/countries
+  mutate(
+    target_region = western_europe | germany | austria | belgium | france | netherlands
+  ) %>%
+  # Filter to only those with target regions
+  filter(target_region == TRUE & !is.na(year))
+
+# Summary: Count papers by year
+papers_by_year <- ref_df %>%
+  group_by(year) %>%
+  summarise(
+    count = n(),
+    .groups = "drop"
+  ) %>%
+  arrange(year)
+
+ggplot(papers_by_year, aes(x = year, y = count)) +
+  geom_col(fill = "steelblue", alpha = 0.8) +
+  geom_line(color = "darkred", linewidth = 1) +
+  geom_point(color = "darkred", size = 3) +
+  labs(
+    title = "Papers on Extreme Right in Western Europe by Year",
+    subtitle = "References to: Western Europe, Germany, Austria, Belgium, France, Netherlands",
+    x = "Year",
+    y = "Number of Papers",
+    caption = "Source: Kai Arzheimer Bibliography"
+  ) +
+  theme_solarized() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+
+
+```
+
+# Part 2: Five Trajectories
+
+## France: Front National / Rassemblement National {background-image="images/marine_jean.jpeg" background-size="cover" background-opacity="0.3"}
+
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Origins:
+:::
+
+-   Founded 1972 (Jean-Marie Le Pen)
+
+-   United nationalists, Poujadists, ex-OAS (Algeria)
+
+-   Fringe until 1983 (\<1%)
+
+-   Holocaust denial
+
+::: {.fragment .fade-in}
+#### Breakthrough:
+:::
+
+-   1983 Dreux: Centre-right coalition with FN
+
+-   1984: 11% European Parliament
+:::::
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Core Ideology:
+:::
+
+-   **Leadership:** Jean-Marie (1972-2011) → Marine (2011-present)
+
+-   **Nativism:** Anti-immigration (esp. North African)
+
+-   **Economic:** Left turn under Marine (welfare chauvinism)
+
+-   **Social:** Traditional/Catholic → Secular under Marine
+
+-   **EU:** Hard Eurosceptic → "Reform from within"
+::::
+
+
+
+## France: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_france <- ggplot(france_data, aes(x = year, y = vote_share)) +
+  geom_line(size = 1.5, color = "#E74C3C") +
+  geom_point(size = 3, color = "#E74C3C") +
+  geom_vline(xintercept = c(1984, 2011), linetype = "dashed", alpha = 0.5) +
+  annotate("text", x = 1986, y = 12, label = "Breakthrough (1984)", hjust = -0.1, size = 4) +
+  annotate("text", x = 2011, y = 17, label = "Marine", hjust = -0.1, size = 4) +
+  annotate("text", x = 2022, y = 23, label = "41.5%\nrunoff", hjust = -0.1, size = 4) +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16)
+
+ggplotly(p_france, tooltip = c("x", "y")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+
+
+## Austria: Freedom Party (FPÖ) & BZÖ {background-image="images/haider_fpo.jpg" background-size="cover" background-opacity="0.2"}
+
+:::::::: columns
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Origins:
+:::
+
+-   Founded 1956 (former Nazis, pan-German nationalists)
+
+-   Third "camp" in Austrian politics (alongside Social Democrats and Christian Democrats)
+
+-   Member of Liberal International (!!) → shows pre-Haider ideological ambiguity - Stable 5% (1956-1986)
+
+::: {.fragment .fade-in}
+#### 1986: Jörg Haider revolution
+:::
+
+-   Age 36, charismatic, provocative
+
+-   Shifts right: anti-immigration, anti-EU
+:::::
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Core Ideology:
+:::
+
+-   **Nativism:** Anti-immigration (Muslims, Eastern Europeans)
+
+-   **Economic:** Traditionally -\> Welfare chauvinism (Rathgeb 2021: ‘exclusive solidarity’)
+
+-   **Social:** Traditional Catholic
+
+-   **EU:** Soft Eurosceptic: critical of integration, but not outright exit
+
+-   **Key leaders:** Haider (1986-2005) → Split → Strache (2005-2019) → Kickl (2021-)
+::::
+::::::::
+
+
+## Austria: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_austria <- ggplot(austria_data, aes(x = year, y = vote_share)) +
+  geom_line(size = 1.5, color = "#E67E22") +
+  geom_point(size = 3, color = "#E67E22") +
+  annotate("rect", xmin = 2000, xmax = 2005, ymin = 0, ymax = 30, alpha = 0.15, fill = "red") +
+  annotate("rect", xmin = 2017, xmax = 2019, ymin = 0, ymax = 30, alpha = 0.15, fill = "red") +
+  annotate("text", x = 2002.5, y = 28, label = "In govt", size = 3.5, color = "red") +
+  annotate("text", x = 2018, y = 28, label = "In govt", size = 3.5, color = "red") +
+  geom_vline(xintercept = c(1986, 2005), linetype = "dashed", alpha = 0.5) +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16)
+
+ggplotly(p_austria, tooltip = c("x", "y")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+
+## Netherlands: Succession of Parties {background-image="images/wilders.jpeg" background-size="cover" background-opacity="0.2"}
+
+:::::::: columns
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Failed extreme parties (1980-2002):
+:::
+
+-   Centre Party (CP): Neo-Nazi, banned 1998
+
+-   Centre Democrats (CD): Radical-right; never more than 3 seats
+
+-   Marginalised as too racist for Dutch voters and competitors
+
+::: {.fragment .fade-in}
+#### 2002: Pim Fortuyn changes game
+:::
+
+-   Personally liberal on drugs, sexuality, gay rights (Fortuyn was openly gay)
+
+-   Simultaneously: sharply anti-Islam, anti-multiculturalism
+
+-   Assassinated 9 days before election
+
+-   LPF wins 17% but then rapidly collapses (internal chaos, leader loss)
+:::::
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### PVV - Wilders:
+:::
+
+-   Founded 2006 as Geert Wilders’ personal vehicle (no formal members).
+
+-   **Nativism:** Anti‑Islam, anti‑Muslim & some other migrants
+
+-   **Economic:** Welfare‑chauvinist, blurry but not clearly neoliberal
+
+-   **Social:** Liberal rhetoric, authoritarian in practice
+
+-   **EU:** Hard, identity‑driven Euroscepticism
+::::
+::::::::
+
+-   **Key insights**: far-right fragmented due to electoral system; new players entered the game Forum for Democracy (FvD), JA21, BBB
+
+
+## Netherlands: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+netherlands_annotated <- netherlands_data %>%
+  mutate(
+    period = case_when(
+      year <= 1998 ~ "CP/CD",
+      year > 1998 & year <= 2006 ~ "LPF",
+      year > 2006 ~ "PVV/FvD"
+    )
+  )
+
+p_netherlands <- ggplot(netherlands_annotated, aes(x = year, y = vote_share)) +
+  geom_line(size = 1.5, color = "#3498DB") +
+  geom_point(aes(shape = period), size = 3, color = "#3498DB") +
+  scale_shape_manual(values = c(1, 2, 16), name = "Period") +
+  annotate("text", x = 2002, y = 18, label = "Fortuyn", hjust = -0.1, size = 4) +
+  annotate("text", x = 2023, y = 24, label = "PVV wins", hjust = 1.1, size = 4) +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16) +
+  theme(legend.position = "bottom")
+
+ggplotly(p_netherlands, tooltip = c("x", "y")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+
+## Germany: Alternative for Germany (AfD) {background-image="images/afd.jpg" background-size="cover" background-opacity="0.1"}
+
+:::::::::: columns
+:::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### The 30-year puzzle:
+:::
+
+-   NPD/Republicans: neo‑Nazi / extreme right, never federal → stigma + cordon sanitaire
+
+-   2013 AfD: soft Euro‑sceptic, market‑liberal, conservative, “respectable” professors
+
+-   2015: refugee crisis + leadership split → radicalization, immigration central
+
+::: {.fragment .fade-in}
+#### 2013: AfD founded (NOT far-right initially)
+:::
+
+-   Soft Eurosceptic (anti-Euro bailout)
+
+-   Economists, professors
+
+-   Respectable image
+
+::: {.fragment .fade-in}
+#### 2015: TRANSFORMATION
+:::
+
+-   Internal conflict between Lucke’s moderate, economics‑driven wing and a national‑populist wing culminates in the 2015 split
+
+-   Refugee crisis (1 million arrivals)
+::::::
+
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Core Ideology (post-2015):
+:::
+
+-   **Nativism:** Anti‑immigration, anti‑Islam, refugee “threat”
+
+-   **Economic:** Mixed: market‑liberal + welfare chauvinism
+
+-   **Social:** Conservative/authoritarian, “liberal” rhetoric vs Islam
+
+-   **EU:** From soft to harder Eurosceptic, system‑critical
+
+::: {.fragment .fade-in}
+#### Why 30-year delay?
+:::
+
+-   Past + stigma + cordon sanitaire delayed a PRRP despite similar demand conditions
+
+-   A moderate, Euro‑issue entry + a salient crisis (refugees 2015/16) were needed to “normalize” the far right and crystallize a new cleavage
+:::::
+::::::::::
+
+## Germany: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_germany <- ggplot(germany_data, aes(x = year, y = vote_share)) +
+  geom_line(size = 1.5, color = "#34495E") +
+  geom_point(size = 3, color = "#34495E") +
+  geom_hline(yintercept = 5, linetype = "dashed", color = "red", alpha = 0.5) +
+  annotate("text", x = 2010, y = 5.5, label = "5% threshold", size = 3, color = "red") +
+  annotate("text", x = 2017, y = 14, label = "Breakthrough", hjust = -0.1, size = 4, fontface = "bold") +
+  annotate("text", x = 2015, y = 2, label = "Refugee\ncrisis", size = 3.5, color = "darkred") +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16)
+
+ggplotly(p_germany, tooltip = c("x", "y")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+
+## Belgium: Flemish Bloc/Interest (VB) {background-image="images/vb.jpg" background-size="cover" background-opacity="0.1"}
+
+::::::::: columns
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Unique context:
+:::
+
+-   Flanders (Dutch, 60%) vs. Wallonia (French, 40%)
+
+-   Separate party systems
+
+-   VB = Flemish-only party
+
+::: {.fragment .fade-in}
+#### Origins (Vlaams Blok):
+:::
+
+-   1978: Split from VU (moderate Flemish nationalists)
+
+-   Radical wing: independence NOW
+
+-   1991: "Black Sunday" breakthrough (6.6%)
+
+-   Banned (2004), immediately rebranded as "Flemish Interest"
+:::::
+
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### 1989-present: Cordon sanitaire
+:::
+
+-   All parties sign agreement
+
+-   NEVER form coalition with VB
+
+-   It limits power but also reinforces VB’s anti‑establishment populism
+
+::: {.fragment .fade-in}
+#### Core Ideology VB:
+:::
+
+-   **Nativism:** Anti‑immigration + anti‑Walloons
+
+-   **Nationalism:** Flemish separatist
+
+-   **Economic:** Right‑wing, economic nativism
+
+-   **Social:** Authoritarian‑conservative
+
+-   **EU:** Radical‑right Eurosceptic
+:::::
+:::::::::
+
+
+## Belgium: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+p_belgium <- ggplot(belgium_data, aes(x = year, y = vote_share)) +
+  geom_line(size = 1.5, color = "#F39C12") +
+  geom_point(size = 3, color = "#F39C12") +
+  annotate("rect", xmin = 1989, xmax = 2024, ymin = 0, ymax = 25, alpha = 0.1, fill = "red") +
+  annotate("text", x = 2007, y = 23, label = "Cordon sanitaire", size = 3.5, color = "red") +
+  geom_vline(xintercept = 2004, linetype = "dashed", color = "black") +
+  annotate("text", x = 2004, y = 25, label = "Ban→Rebrand", hjust = -0.1, size = 3.5) +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16)
+
+ggplotly(p_belgium, tooltip = c("x", "y")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+
+# Part 3: Comparative Synthesis
+
+## Overall Patterns
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+far_right_flags <- far_right_data %>% 
+  filter(country %in% c("France", "Germany", "Austria", "Netherlands", "Belgium")) %>%
+  mutate(
+    flag_emoji = case_when(
+      country == "France" ~ "🇫🇷",
+      country == "Germany" ~ "🇩🇪",
+      country == "Austria" ~ "🇦🇹",
+      country == "Netherlands" ~ "🇳🇱",
+      country == "Belgium" ~ "🇧🇪"
+    )
+  )
+
+# Get only the last year for each country
+last_points <- far_right_flags %>%
+  group_by(country) %>%
+  slice_max(year, n = 1) %>%
+  ungroup()
+
+p <- ggplot(far_right_flags, 
+            aes(x = year, y = vote_share, color = country, group = country)) +
+  geom_line(size = 1.5, alpha = 0.8) +
+  geom_point(size = 3, alpha = 0.7) +  # Optional: keep dots for all points
+  geom_text(data = last_points,  # ONLY last points get flags
+            aes(label = flag_emoji), 
+            size = 8, 
+            hjust = -0.5) +  # Offset slightly to the right
+  scale_color_manual(
+    values = c("France" = "#E74C3C", "Germany" = "#34495E", 
+               "Austria" = "#E67E22", "Netherlands" = "#3498DB",
+               "Belgium" = "#F39C12")
+  ) +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16) +
+  theme(legend.position = "bottom")
+
+ggplotly(p) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+
+
+## Timing Variation: Breakthrough vs. Current Power {vertical-align="center"}
+
+::: {style="font-size: 0.85em;"}
+| Country | Breakthrough | Context | Status Today (2024-2026) |
+|:-----------------|:----------------:|:-----------------|:-----------------|
+| **France** | 1984 | Dreux coalition | **RN is the leading opposition force.** Jordan Bardella dominates 2027 presidential polls (\~35%) amid Le Pen's legal appeals. |
+| **Austria** | 1986 | Haider leadership | **2024 Election Winner (28.8%).** Currently in opposition after being excluded by the ÖVP-SPÖ-NEOS coalition. |
+| **Belgium** | 1991 | "Black Sunday" | **Second largest in Flanders.** Vlaams Belang remains isolated by the *cordon sanitaire* despite high regional polling. |
+| **Netherlands** | 2002 | Fortuyn murder | **Largest party in Parliament.** Left the Schoof cabinet (3rd June 2025), triggering a major political crisis. |
+| **Germany** | 2017 | Refugee crisis | **Bundestag's second largest party.** Secured 20.8% in the 2025 snap election; currently the primary opposition to the Merz (CDU) gov. |
+
+: {tbl-colwidths="\[15, 15, 20, 50\]"}
+:::
+
+. . .
+
+::: {.fragment .fade-up style="background-color: #f8f9fa; padding: 15px; border-left: 5px solid #2c3e50; margin-top: 20px; font-size: 0.8em;"}
+**Key Synthesis:** While grievances (demand) remain constant across these wealthy democracies, the **timing of the breakthrough** depends on the **supply**: credible leaders, organizational shifts, and mainstream party reactions.
+:::
+
+
+
+## Who Votes Far-Right? (ESS Data)
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 12
+#| fig-height: 8
+
+load("/Users/cvrakopo/My Drive/Publications/ESS Data 1-10/Final Creation/ess_analysis_full.RData")  # Adjust path as needed
+
+# Filter data for the five countries
+ess_five <- ess_analysis %>%
+  filter(country %in% c("Germany", "Austria", "Belgium", "Netherlands", "France"))
+
+# Prepare data with age categories and calculate differences from reference
+demo_comparison <- ess_five %>%
+  mutate(
+    # Create age categories
+    age_cat = case_when(
+      agea < 35 ~ "18-34",
+      agea >= 35 & agea < 55 ~ "35-54",
+      agea >= 55 & agea < 70 ~ "55-69",
+      agea >= 70 ~ "70+"
+    ),
+    
+    # Immigration attitudes
+    immi_cat = case_when(
+      is.na(p_immi_index) ~ NA_character_,
+      p_immi_index < 30 ~ "Liberal",
+      p_immi_index >= 30 & p_immi_index < 70 ~ "Neutral",
+      p_immi_index >= 70 ~ "Restrictive"
+    ),
+    
+    # Trust in politicians (0-10 scale)
+    trust_cat = case_when(
+      is.na(trstplt) ~ NA_character_,
+      trstplt <= 3 ~ "Low trust",
+      trstplt >= 4 & trstplt <= 6 ~ "Medium trust",
+      trstplt >= 7 ~ "High trust"
+    ),
+    
+    # Left-Right scale (0-10 scale)
+    lr_cat = case_when(
+      is.na(lrscale) ~ NA_character_,
+      lrscale <= 3 ~ "Left",
+      lrscale >= 4 & lrscale <= 6 ~ "Center",
+      lrscale >= 7 ~ "Right"
+    ),
+    
+    # Household income feelings (1-4 scale)
+    income_cat = case_when(
+      is.na(hincfel) ~ NA_character_,
+      hincfel == 1 ~ "Comfortable",
+      hincfel == 2 ~ "Coping",
+      hincfel == 3 ~ "Difficult",
+      hincfel == 4 ~ "Very difficult"
+    ),
+    
+    # Simplify education
+    education_simple = case_when(
+      educ_level %in% c("Less than lower secondary", "Lower secondary") ~ "Low",
+      educ_level %in% c("Lower tier upper secondary", "Upper tier upper secondary", 
+                        "Advanced vocational, sub-degree") ~ "Medium",
+      educ_level %in% c("Lower tertiary education, BA level", 
+                        "Higher tertiary education, >= MA level") ~ "High"
+    ),
+    
+    # Simplify class
+    class_simple = case_when(
+      oesch8 %in% c("Production workers", "Service workers") ~ "Working class",
+      oesch8 %in% c("Clerks", "Small business owners") ~ "Lower middle",
+      oesch8 %in% c("Technical (semi-)professionals", "(Associate) managers") ~ "Upper middle",
+      oesch8 %in% c("Socio-cultural (semi-)professionals", 
+                    "Self-employed professionals and large employers") ~ "Professional/Managers"
+    )
+  ) %>%
+  # Convert far_right to numeric if it's not already
+  mutate(far_right_num = as.numeric(far_right == "Far-right"))
+
+# Calculate proportions for each category
+calc_props <- function(data, var) {
+  data %>%
+    filter(!is.na(.data[[var]])) %>%  # Remove NAs for this variable
+    group_by(across(all_of(var))) %>%
+    summarise(
+      prop = mean(far_right_num, na.rm = TRUE) * 100,
+      n = n(),
+      se = sd(far_right_num, na.rm = TRUE) / sqrt(n()) * 100,
+      .groups = "drop"
+    ) %>%
+    rename(category = 1)
+}
+
+# Get proportions for each demographic
+gender_props <- calc_props(demo_comparison, "gender") %>% mutate(variable = "Gender")
+age_props <- calc_props(demo_comparison, "age_cat") %>% mutate(variable = "Age")
+immi_props <- calc_props(demo_comparison, "immi_cat") %>% mutate(variable = "Immigration attitudes")
+trust_props <- calc_props(demo_comparison, "trust_cat") %>% mutate(variable = "Political trust")
+lr_props <- calc_props(demo_comparison, "lr_cat") %>% mutate(variable = "Left-Right position")
+income_props <- calc_props(demo_comparison, "income_cat") %>% mutate(variable = "Economic situation")
+edu_props <- calc_props(demo_comparison, "education_simple") %>% mutate(variable = "Education")
+urban_props <- calc_props(demo_comparison, "urban_rural") %>% mutate(variable = "Location")
+class_props <- calc_props(demo_comparison, "class_simple") %>% mutate(variable = "Class")
+
+# Combine all
+all_props <- bind_rows(
+  gender_props, age_props, immi_props, trust_props, lr_props, income_props,
+  edu_props, urban_props, class_props
+) %>%
+  filter(!is.na(category))
+
+# Set reference categories and calculate differences
+reference_levels <- tribble(
+  ~variable, ~reference,
+  "Gender", "Female",
+  "Age", "18-34",
+  "Immigration attitudes", "Liberal",
+  "Political trust", "High trust",
+  "Left-Right position", "Center",
+  "Economic situation", "Comfortable",
+  "Education", "High",
+  "Location", "Urban",
+  "Class", "Professional/Managers"
+)
+
+# Get reference values
+reference_values <- all_props %>%
+  inner_join(reference_levels, by = "variable") %>%
+  filter(category == reference) %>%
+  select(variable, ref_prop = prop)
+
+# Calculate differences from reference
+plot_data <- all_props %>%
+  left_join(reference_values, by = "variable") %>%
+  mutate(
+    diff = prop - ref_prop,
+    ci_lower = diff - 1.96 * se,
+    ci_upper = diff + 1.96 * se,
+    is_reference = category %in% reference_levels$reference
+  ) %>%
+  # Order categories within each variable
+  mutate(
+    category = factor(category, levels = c(
+      # Gender
+      "Male", "Female",
+      # Age
+      "70+", "55-69", "35-54", "18-34",
+      # Immigration
+      "Restrictive", "Neutral", "Liberal",
+      # Trust
+      "Low trust", "Medium trust", "High trust",
+      # Left-Right
+      "Right", "Center", "Left",
+      # Economic situation
+      "Very difficult", "Difficult", "Coping", "Comfortable",
+      # Education
+      "Low", "Medium", "High",
+      # Location
+      "Rural", "Urban",
+      # Class
+      "Working class", "Lower middle", "Upper middle", "Professional/Managers"
+    )),
+    variable = factor(variable, levels = c(
+      "Gender", "Age", "Immigration attitudes", "Political trust", 
+      "Left-Right position", "Economic situation", "Education", "Location", "Class"
+    ))
+  ) %>%
+  arrange(variable, category)
+
+# Create the plot
+ggplot(plot_data, aes(x = diff, y = category)) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "gray40", linewidth = 0.8) +
+  geom_segment(aes(x = 0, xend = diff, y = category, yend = category, 
+                   color = diff > 0, alpha = !is_reference), 
+               linewidth = 4) +
+  geom_errorbar(aes(xmin = ci_lower, xmax = ci_upper, alpha = !is_reference), 
+                orientation = "y", width = 0.2, linewidth = 0.8) +
+  geom_point(aes(alpha = !is_reference), size = 2.5, color = "black") +
+  geom_text(data = plot_data %>% filter(is_reference),
+            aes(label = "Reference"), x = 0.5, size = 3, hjust = 0, 
+            fontface = "italic", color = "gray50") +
+  facet_wrap(~variable, ncol = 1, scales = "free_y", strip.position = "left") +
+  scale_color_manual(values = c("TRUE" = "#E74C3C", "FALSE" = "#3498DB"), guide = "none") +
+  scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.3), guide = "none") +
+  scale_x_continuous(
+    breaks = seq(-20, 30, 5),
+    labels = function(x) paste0(ifelse(x > 0, "+", ""), x, " pp")
+  ) +
+  labs(
+    title = "Far-Right Support: Differences from Reference Categories",
+    subtitle = "Austria, Belgium, France, Germany and Netherlands (ESS data)",
+    x = "← Less likely to support far-right          More likely to support far-right →",
+    y = NULL
+  ) +
+  theme_solarized(base_size = 14) +
+  theme(
+    strip.placement = "outside",
+    strip.text.y.left = element_text(face = "bold", angle = 0, hjust = 1, size = 13),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.title = element_text(face = "bold", size = 15),
+    plot.subtitle = element_text(color = "gray40", size = 12),
+    axis.text.y = element_text(size = 12),
+    axis.title.x = element_text(margin = margin(t = 10), size = 12)
+  )
+```
+
+## The Big Puzzles
+
+::::: columns
+::: {.column width="50%"}
+1.  **Germany's 30-year delay – strong latent demand but no credible supply?**
+
+-   Why resistant until 2017?
+
+-   Same conditions as France 1980s
+
+2.  **Austria's government curse**
+
+-   Why collapse when entering govt?
+
+-   Twice! (2000, 2017)
+
+3.  **Belgium's cordon sanitaire**
+
+-   Why isolation works for 35 years?
+
+-   Yet doesn't stop electoral growth
+:::
+
+::: {.column width="50%"}
+4.  **Netherlands' moderation**
+
+-   Why extremists (CP/CD) failed?
+
+-   But "moderate" anti-Islam succeeded?
+
+5.  **Regional variation**
+
+-   VB only Flanders, not Wallonia
+
+-   Why within-country differences?
+:::
+:::::
+
+## Patterns We Observe in Western Europe {vertical-align="center"}
+
+::::: {layout="[[1,1]]"}
+::: {.fragment .fade-up style="border: 1px solid #ddd; padding: 20px; border-radius: 10px;"}
+### Demand-Side Patterns
+
+-   **Timing varies dramatically:** A 30-year span exists between breakthroughs (e.g., France 1984 vs. Germany 2017) despite similar socio-economic conditions.
+-   **Historical legacies:** National histories, such as the post-WWII stigma in Germany, shape the "possibility space" for far-right emergence.
+-   **Mobilization gaps:** While anti-immigrant or anti-elite attitudes are widespread, parties vary significantly in their ability to mobilize them into votes.
+:::
+
+::: {.fragment .fade-up style="border: 1px solid #ddd; padding: 20px; border-radius: 10px;"}
+### Supply & Strategic Patterns
+
+-   **Diverse trajectories:** Party development varies across the region: stable (France), volatile (Austria), fragmented (Netherlands), delayed (Germany), and isolated (Belgium).
+-   **The Moderation Premium:** Political success correlates with programmatic moderation; open extremism is typically linked to failure.
+-   **Mainstream responses:** Outcomes are shaped by how established parties react, ranging from *cordon sanitaire* to accommodation or position theft.
+:::
+:::::
+
+<br>
+
+::: {.fragment .fade-in style="text-align: center; background-color: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 5px solid #2c3e50; font-weight: bold;"}
+**Takeaway:** Far-right success is not automatic: it depends on *how* parties and mainstream actors structure similar grievances.
+:::
+
+## Course Roadmap
+
+::::: columns
+::: {.column width="50%"}
+**Cases (Weeks 2-6):**
+
+-   Week 2: ✓ Western Europe
+-   Week 3: UK & Brexit
+-   Week 4: Scandinavia
+-   Week 5: Southern Europe
+-   Week 6: Eastern Europe
+:::
+
+::: {.column width="50%"}
+**Theory (Weeks 7-10):**
+
+-   Week 7: Demand-side
+-   Week 8: Supply-side
+-   Week 9: Competition & Normalization
+-   Week 10: Global patterns
+:::
+:::::
+
+. . .
+
+**Pedagogical approach:** Accumulate puzzles from cases → Theory provides systematic answers
+
+
+## Questions?

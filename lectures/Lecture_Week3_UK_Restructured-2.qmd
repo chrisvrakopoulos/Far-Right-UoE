@@ -1,0 +1,800 @@
+---
+title: "Far-Right in the United Kingdom"
+subtitle: "The Far Right (Week 3)"
+author: "Dr. Christos Vrakopoulos"
+format:
+  revealjs:
+    theme: solarized
+    slide-number: true
+    incremental: true
+    
+    transition: fade
+    fontsize: 26px
+    css: custom.css
+editor: visual
+---
+
+```{r setup, include=FALSE}
+# Load required packages
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(tidyverse)
+library(manifestoR)
+library(lubridate)
+library(ggthemes)
+
+# Set Manifesto Project API key
+mp_setapikey(key = "193c54d64b1189c526214074350ead07")
+
+# Load Manifesto Project data
+mp_data <- manifestoR::mp_maindataset()
+
+# Define party codes
+party_codes <- tribble(
+  ~party, ~party_label,
+  # UK
+  51620, "Conservatives",
+  51320, "Labour",
+  51421, "LibDems",
+  51951, "UKIP",
+  51701, "Reform UK"
+)
+
+# Extract far-right party data (BNP, UKIP)
+far_right_raw <- mp_data %>%
+  filter(party %in% party_codes$party) %>%
+  mutate(year = year(as.Date(edate))) %>%
+  left_join(party_codes, by = "party") %>%
+  select(countryname, year, edate, party_label, pervote, absseat) %>%
+  filter(!is.na(pervote)) %>%
+  arrange(countryname, year, edate)
+
+# Aggregate to get separate far-right votes
+bnp_data <- far_right_raw %>%
+  filter(party_label == "BNP") %>%
+  group_by(year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  mutate(party = "BNP (far-right)") %>%
+  select(year, vote_share, party)
+
+ukip_data <- far_right_raw %>%
+  filter(party_label == "UKIP") %>%
+  group_by(year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  mutate(party = "UKIP (far-right populist)") %>%
+  select(year, vote_share, party)
+
+# UK electoral data (include European Parliament elections for comparison)
+# Note: Manifesto Project has both national and EP elections
+uk_elections_national <- far_right_raw %>%
+  filter(countryname == "United Kingdom") %>%
+  mutate(election_type = "National") %>%
+  group_by(year, edate) %>%
+  summarise(
+    vote_share = sum(pervote, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Conservative Party transformation
+con_data <- far_right_raw %>%
+  filter(party_label == "Con") %>%
+  group_by(year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  select(year, vote_share)
+```
+
+## Today's Lecture
+
+::: incremental
+-   **Part 1:** The Puzzle - Demand Without Breakthrough
+-   **Part 2:** Three Trajectories - BNP, UKIP, Reform
+-   **Part 3:** Who Votes Far-Right in the UK?
+-   **Part 4:** Implications for Theory
+:::
+
+# Part 1: The Puzzle
+
+## Demand Without Breakthrough (1968–2010)
+
+::::::::::::: columns
+::::::: {.column width="50%"}
+### Enoch Powell, April 1968
+
+::: {.fragment .fade-in}
+Conservative Shadow Cabinet: **“Rivers of Blood” speech**
+:::
+
+::: {.fragment .fade-in}
+Topic: Immigration threat to British culture
+:::
+
+::: {.fragment .fade-in}
+Polls and letters suggest broad popular sympathy with Powell’s message
+:::
+
+::: {.fragment .fade-in}
+Political response: Isolated, forced to resign from shadow cabinet
+:::
+:::::::
+
+::::::: {.column width="50%"}
+### The consequence
+
+::: {.fragment .fade-in}
+Powell’s 1968 speech sharply raised the salience of immigration.
+:::
+
+::: {.fragment .fade-in}
+But, as Evans & Mellon argue, this did not crystallize into a new durable cleavage or party alignment in the 1970s–80s.
+:::
+
+::: {.fragment .fade-in}
+Thatcher selectively adopted “Powellite” themes in a more measured form, undercutting the electoral space for the National Front.
+:::
+
+::: {.fragment .fade-in}
+NF/BNP links to neo-Nazism and post-war fascism made them less socially acceptable than many continental radical right parties, limiting their breakthrough potential.
+:::
+:::::::
+:::::::::::::
+
+## What happened next (1970s–2000s)?
+
+::: {.fragment .fade-in}
+National Front (1967-): Peak **1.4% (1979)**
+:::
+
+::: {.fragment .fade-in}
+BNP (1982-): Peak **1.5% (2009)** + **2 MEPs**
+:::
+
+::: {.fragment .fade-in}
+#### The Puzzle
+:::
+
+::: {.fragment .fade-in}
+Why did strong anti-immigration sentiment persist for 40+ years without a successful radical right party?
+:::
+
+## Same Demand, Divergent Party Trajectories
+
+| Election | BNP Votes | BNP %    | UKIP Votes | UKIP %    |
+|----------|-----------|----------|------------|-----------|
+| **1997** | 35,832    | 1.4%     | 106,028    | 1.1%      |
+| **2001** | 47,129    | 3.9%     | 380,575    | 2.2%      |
+| **2005** | 192,746   | 4.3%     | 603,298    | 2.8%      |
+| **2010** | 563,743   | **3.8%** | 919,546    | **3.5%**  |
+| **2015** | 1,667     | **0.5%** | 3,881,129  | **13.2%** |
+
+::: {.fragment .fade-in}
+Indicators of underlying immigration/Europe scepticism change slowly, yet party fortunes diverge rapidly.
+:::
+
+## Three Questions
+
+::: incremental
+1.  **Supply-side failure (1968–2010):** Why did strong public demand not produce a breakthrough?
+    -   Was it **extremism**? (NF/BNP too radical, organisationally weak)
+    -   Was it **mainstream closure**? (Conservatives “stole the issue”)
+    -   Or an **interaction of both**?
+2.  **Supply-side success (2010–2016):** What changed to enable breakthrough?
+    -   Which party finally succeeded, and why UKIP rather than BNP?
+    -   Which **strategic choices** mattered (issue focus, leadership, moderation, organisation)?
+3.  **The paradox: electoral marginality, policy victory**
+    -   Just **1 seat** in Westminster
+    -   Yet forced a **national referendum**
+    -   Yet helped **reshape the country’s long‑term trajectory**
+:::
+
+# Part 2: Three Trajectories
+
+## Why BNP Failed: Locked in Extremism
+
+::: incremental
+1.  **Geographic concentration**
+    -   563,743 votes (2010) but only 3.8% nationally
+    -   88 council seats (2005) on just 4.3% vote share
+    -   Support heavily clustered in a few local strongholds
+2.  **Extremism trap**
+    -   Neo-Nazi imagery kept party on the hardline fringe
+    -   Could hit 16% in local “true believer” areas
+    -   But could never reach 4%+ nationally (repelled moderates)
+3.  **Unable to moderate**
+    -   Unlike UKIP, couldn’t soften message without losing core identity
+    -   Fascist heritage blocked “respectable” rebranding
+    -   Strategically stuck: need extremism to survive, but extremism blocks growth
+:::
+
+## Why UKIP Succeeded: Strategic Repositioning
+
+::: incremental
+1.  **Framing shift:**
+    -   **BNP:** "British culture threatened by non-white immigrants" (racialist)
+    -   **UKIP:** "Britain's sovereignty threatened by Brussels" (Eurosceptic)
+2.  **Image matters:**
+    -   **BNP:** Perceived Neo-Nazi associations, skinhead base, paramilitary
+    -   **UKIP:** Farage in suits, professional media, mainstream
+3.  **Anti-immigration reframed:**
+    -   **BNP:** "Racial threat" (extremist appeal only)
+    -   **UKIP:** "Public service pressure, population control" (moderate appeal)
+4.  **Result:**
+    -   Same underlying demand
+    -   Completely different supply
+    -   By 2015, access to roughly 6.8x more voters
+:::
+
+## The Paradox: 13.2% Votes, 1 Seat, Won Brexit
+
+::: incremental
+1.  **Electoral system effect**
+    -   2014 EP (PR): 26.6% → 24 MEPs
+    -   2015 GE (FPTP): 13.2% → 1 MP
+    -   Same electorate, different rules → radically different representation
+2.  **Electorally weak, but policy victory**
+    -   Only 1 seat in Westminster
+    -   Yet: Pushed Conservatives into promising a referendum (2013)
+    -   Yet: Helped set the agenda for the 2016 Brexit vote
+    -   → Electoral marginality ≠ policy irrelevance
+3.  **Key insight**
+    -   Non‑electoral pathways of influence: agenda‑setting, intra‑party pressure, media
+    -   Far‑right success is not just about seats, but about shaping options
+:::
+
+## Why UKIP Declined, Why Reform Emerged (Same Demand, New Vessel)
+
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### UKIP 2010-2015 - Breakthrough and fulfilment
+:::
+
+-   Forced EU referendum onto agenda
+-   Became main vehicle for Brexit demand
+-   Policy goal achieved in 2016 → mission accomplished
+
+::: {.fragment .fade-in}
+#### UKIP 2016-2019 – Redundancy and collapse
+:::
+
+-   Core issue (EU membership) removed from agenda
+-   Leadership crises and party infighting
+-   Vote share and organisation rapidly disintegrate
+:::::
+
+::::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Reform 2022-2024 – Successor party
+:::
+
+-   Farage returns with new vehicle (Clacton 2024)
+-   Conservative government instability (Brexit fallout, Covid, Truss, etc.)
+-   Rising Conservative voter dissatisfaction on immigration, taxes, “betrayed Brexit”
+-   Same underlying demand (nationalist, anti‑establishment, anti‑immigration)
+-   New credible supply to channel it
+
+::: {.fragment .fade-in}
+#### Pattern
+
+-   Underlying demand is structural and durable
+-   Party vehicles are temporary and recyclable (roughly every 15–20 years)
+:::
+:::::
+
+## Reform Breaks into Scotland: Holyrood Constituency Vote
+
+![Holyrood constituency vote intention, 2022-2026](images/constituency.png)
+
+Source: Scottish Election Study, Scottish Opinion Monitor
+
+**Question:** Why NOW? Scotland uses PR (not constrained by FPTP). This is pure demand/supply question.
+
+::: notes
+Same pattern in constituency vote: Reform absent → emerges → grows rapidly
+
+Note: Both graphs show methodology change in Oct 2024 (when Reform formally added to options).
+
+Before Oct 2024: Reform likely clustered in "Other"—so emergence is partly definitional (added as option) but also real (rapid growth once visible).
+
+The answer comes next: Scotland's political space opens when the SNP-Tory symbiosis breaks and constitutional salience decays. This is supply-side theory playing out regionally.
+:::
+
+## Why Scotland's Political Space Opens Now (Vampa et al. Forthcoming in Political Studies)
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### 20 years (1998-2018): SNP-Tory symbiosis on constitutional issues
+:::
+
+-   SNP: "Vote for us for independence"
+
+-   Conservatives: “Vote for us to defend the Union and deliver Brexit”
+
+-   Independence vs. Union becomes the dominant cleavage, structuring party competition and voter alignments
+
+-   Other conflicts (immigration, tax, anti‑establishment sentiment) are submerged beneath the sovereignty question
+::::
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Post‑2019/2024: Symbiosis breaks down
+:::
+
+-   SNP weakened: leadership crisis, indyref fatigue, governing wear‑and‑tear
+
+-   Scottish Conservatives lose credibility: UK‑wide scandals, Brexit delivery, and UK “muscular unionism” alienate voters
+
+-   Salience of the constitutional issue stops rising and begins to diffuse into wider frustration with both camps
+::::
+
+::: {.fragment .fade-in}
+#### Result
+:::
+
+-   Constitutional polarisation erodes to let new player, like the anti‑establishment, anti‑SNP party enter the field (Reform) under proportional rules
+
+## Demand is Structural, Supply is Contingent
+
+::: incremental
+1.  **Same demand, different supply vehicles:**
+    -   2010: BNP (563k votes, extremist) vs UKIP (919k votes, sovereigntist)
+    -   Underlying economic/cultural anxiety is similar
+    -   Distinct framings → divergent electoral trajectories
+2.  **Supply parties recycle (\~15-20 years):**
+    -   BNP peaks mid‑2000s → hits extremism ceiling, collapses
+    -   UKIP peaks 2015 → achieves Brexit goal, becomes redundant
+    -   Reform rises post‑2022 → reactivates same reservoir of discontent
+    -   Parties are disposable vessels; underlying demand is durable
+3.  **Supply spreads to new regions:**
+    -   England: BNP → UKIP → Reform as successive carriers
+    -   Scotland: long blocked by constitutional salience → opening after SNP–Tory symbiosis breaks
+    -   Same demand, different institutional and territorial opportunity structures
+:::
+
+# Part 3: Who Votes Far-Right in the UK?
+
+## ESS Demographics: Who Votes Far-Right in the UK? (Rounds 1-11)
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 11
+#| fig-height: 7
+
+# Load ESS data
+load("/Users/cvrakopo/My Drive/Publications/ESS Data 1-10/Final Creation/ess_analysis_full.RData")
+
+# Filter data for the five countries
+ess_five <- ess_analysis %>%
+  filter(country %in% c("United Kingdom"))
+
+# Prepare data with age categories and calculate differences from reference
+demo_comparison <- ess_five %>%
+  mutate(
+    # Create age categories
+    age_cat = case_when(
+      agea < 35 ~ "18-34",
+      agea >= 35 & agea < 55 ~ "35-54",
+      agea >= 55 & agea < 70 ~ "55-69",
+      agea >= 70 ~ "70+"
+    ),
+    
+    # Immigration attitudes
+    immi_cat = case_when(
+      is.na(p_immi_index) ~ NA_character_,
+      p_immi_index < 30 ~ "Liberal",
+      p_immi_index >= 30 & p_immi_index < 70 ~ "Neutral",
+      p_immi_index >= 70 ~ "Restrictive"
+    ),
+    
+    # Trust in politicians (0-10 scale)
+    trust_cat = case_when(
+      is.na(trstplt) ~ NA_character_,
+      trstplt <= 3 ~ "Low trust",
+      trstplt >= 4 & trstplt <= 6 ~ "Medium trust",
+      trstplt >= 7 ~ "High trust"
+    ),
+    
+    # Left-Right scale (0-10 scale)
+    lr_cat = case_when(
+      is.na(lrscale) ~ NA_character_,
+      lrscale <= 3 ~ "Left",
+      lrscale >= 4 & lrscale <= 6 ~ "Center",
+      lrscale >= 7 ~ "Right"
+    ),
+    
+    # Household income feelings (1-4 scale)
+    income_cat = case_when(
+      is.na(hincfel) ~ NA_character_,
+      hincfel == 1 ~ "Comfortable",
+      hincfel == 2 ~ "Coping",
+      hincfel == 3 ~ "Difficult",
+      hincfel == 4 ~ "Very difficult"
+    ),
+    
+    # Simplify education
+    education_simple = case_when(
+      educ_level %in% c("Less than lower secondary", "Lower secondary") ~ "Low",
+      educ_level %in% c("Lower tier upper secondary", "Upper tier upper secondary", 
+                        "Advanced vocational, sub-degree") ~ "Medium",
+      educ_level %in% c("Lower tertiary education, BA level", 
+                        "Higher tertiary education, >= MA level") ~ "High"
+    ),
+    
+    # Simplify class
+    class_simple = case_when(
+      oesch8 %in% c("Production workers", "Service workers") ~ "Working class",
+      oesch8 %in% c("Clerks", "Small business owners") ~ "Lower middle",
+      oesch8 %in% c("Technical (semi-)professionals", "(Associate) managers") ~ "Upper middle",
+      oesch8 %in% c("Socio-cultural (semi-)professionals", 
+                    "Self-employed professionals and large employers") ~ "Professional/Managers"
+    )
+  ) %>%
+  # Convert far_right to numeric if it's not already
+  mutate(far_right_num = as.numeric(far_right == "Far-right"))
+
+# Calculate proportions for each category
+calc_props <- function(data, var) {
+  data %>%
+    filter(!is.na(.data[[var]])) %>%  # Remove NAs for this variable
+    group_by(across(all_of(var))) %>%
+    summarise(
+      prop = mean(far_right_num, na.rm = TRUE) * 100,
+      n = n(),
+      se = sd(far_right_num, na.rm = TRUE) / sqrt(n()) * 100,
+      .groups = "drop"
+    ) %>%
+    rename(category = 1)
+}
+
+# Get proportions for each demographic
+gender_props <- calc_props(demo_comparison, "gender") %>% mutate(variable = "Gender")
+age_props <- calc_props(demo_comparison, "age_cat") %>% mutate(variable = "Age")
+immi_props <- calc_props(demo_comparison, "immi_cat") %>% mutate(variable = "Immigration attitudes")
+trust_props <- calc_props(demo_comparison, "trust_cat") %>% mutate(variable = "Political trust")
+lr_props <- calc_props(demo_comparison, "lr_cat") %>% mutate(variable = "Left-Right position")
+income_props <- calc_props(demo_comparison, "income_cat") %>% mutate(variable = "Economic situation")
+edu_props <- calc_props(demo_comparison, "education_simple") %>% mutate(variable = "Education")
+urban_props <- calc_props(demo_comparison, "urban_rural") %>% mutate(variable = "Location")
+class_props <- calc_props(demo_comparison, "class_simple") %>% mutate(variable = "Class")
+
+# Combine all
+all_props <- bind_rows(
+  gender_props, age_props, immi_props, trust_props, lr_props, income_props,
+  edu_props, urban_props, class_props
+) %>%
+  filter(!is.na(category))
+
+# Set reference categories and calculate differences
+reference_levels <- tribble(
+  ~variable, ~reference,
+  "Gender", "Female",
+  "Age", "18-34",
+  "Immigration attitudes", "Liberal",
+  "Political trust", "High trust",
+  "Left-Right position", "Center",
+  "Economic situation", "Comfortable",
+  "Education", "High",
+  "Location", "Urban",
+  "Class", "Professional/Managers"
+)
+
+# Get reference values
+reference_values <- all_props %>%
+  inner_join(reference_levels, by = "variable") %>%
+  filter(category == reference) %>%
+  select(variable, ref_prop = prop)
+
+# Calculate differences from reference
+plot_data <- all_props %>%
+  left_join(reference_values, by = "variable") %>%
+  mutate(
+    diff = prop - ref_prop,
+    ci_lower = diff - 1.96 * se,
+    ci_upper = diff + 1.96 * se,
+    is_reference = category %in% reference_levels$reference
+  ) %>%
+  # Order categories within each variable
+  mutate(
+    category = factor(category, levels = c(
+      # Gender
+      "Male", "Female",
+      # Age
+      "70+", "55-69", "35-54", "18-34",
+      # Immigration
+      "Restrictive", "Neutral", "Liberal",
+      # Trust
+      "Low trust", "Medium trust", "High trust",
+      # Left-Right
+      "Right", "Center", "Left",
+      # Economic situation
+      "Very difficult", "Difficult", "Coping", "Comfortable",
+      # Education
+      "Low", "Medium", "High",
+      # Location
+      "Rural", "Urban",
+      # Class
+      "Working class", "Lower middle", "Upper middle", "Professional/Managers"
+    )),
+    variable = factor(variable, levels = c(
+      "Gender", "Age", "Immigration attitudes", "Political trust", 
+      "Left-Right position", "Economic situation", "Education", "Location", "Class"
+    ))
+  ) %>%
+  arrange(variable, category)
+
+# Create the plot
+ggplot(plot_data, aes(x = diff, y = category)) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "gray40", linewidth = 0.8) +
+  geom_segment(aes(x = 0, xend = diff, y = category, yend = category, 
+                   color = diff > 0, alpha = !is_reference), 
+               linewidth = 4) +
+  geom_errorbar(aes(xmin = ci_lower, xmax = ci_upper, alpha = !is_reference), 
+                orientation = "y", width = 0.2, linewidth = 0.8) +
+  geom_point(aes(alpha = !is_reference), size = 2.5, color = "black") +
+  geom_text(data = plot_data %>% filter(is_reference),
+            aes(label = "Reference"), x = 0.5, size = 3, hjust = 0, 
+            fontface = "italic", color = "gray50") +
+  facet_wrap(~variable, ncol = 1, scales = "free_y", strip.position = "left") +
+  scale_color_manual(values = c("TRUE" = "#E74C3C", "FALSE" = "#3498DB"), guide = "none") +
+  scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.3), guide = "none") +
+  scale_x_continuous(
+    breaks = seq(-20, 30, 5),
+    labels = function(x) paste0(ifelse(x > 0, "+", ""), x, " pp")
+  ) +
+  labs(
+    title = "Far-Right Support: Differences from Reference Categories",
+    subtitle = "United Kingdom (ESS data)",
+    x = "← Less likely to support far-right          More likely to support far-right →",
+    y = NULL
+  ) +
+  theme_solarized(base_size = 14) +
+  theme(
+    strip.placement = "outside",
+    strip.text.y.left = element_text(face = "bold", angle = 0, hjust = 1, size = 13),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.title = element_text(face = "bold", size = 15),
+    plot.subtitle = element_text(color = "gray40", size = 12),
+    axis.text.y = element_text(size = 12),
+    axis.title.x = element_text(margin = margin(t = 10), size = 12)
+  )
+```
+
+::: notes
+**What we're looking at:**
+
+This shows differences from reference categories across nine demographic dimensions:
+
+**Reference baseline (0 line):** - Female (gender reference) - Age 18-34 (age reference) - Liberal on immigration (reference) - High trust in politicians (reference) - Political center (reference) - Comfortable income (reference) - High education (reference) - Urban location (reference) - Professional/managers (reference)
+
+**Dennison & Goodwin framework predicts:** - Economic insecurity → lower education, working class (+) - Age → older voters (55-70) (+) - Cultural anxiety → restrictive immigration attitudes (+) - Political distrust → low trust in politicians (+) - Location → rural/small town (+)
+
+**Is the data pattern as expected?**
+
+Yes: Working class +, lower education +, restrictive immigration attitudes +, older voters +, rural +, low political trust +
+
+This confirms: Multiple dimensions interact (economic + cultural + political).
+:::
+
+## Electoral Marginality & Policy Victory (2010-2016)
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 12
+#| fig-height: 6.5
+
+# ============================================================================
+# COMPLETE SCRIPT: UK Far-Right Electoral System Comparison
+# From ParlGov loading through visualization
+# ============================================================================
+
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(ggthemes)
+
+# ============================================================================
+# STEP 1: LOAD PARLGOV DATA
+# ============================================================================
+
+# Load the main datasets
+election_data <- read_xlsx("/Users/cvrakopo/Downloads/parlgov-stable.xlsx", sheet = "election")
+party_data <- read_xlsx("/Users/cvrakopo/Downloads/parlgov-stable.xlsx", sheet = "party")
+
+# ============================================================================
+# STEP 2: FILTER & MERGE
+# ============================================================================
+
+# Start with election data for UK
+uk_elections <- election_data %>%
+  filter(country_name == "United Kingdom")
+
+# Filter to far-right parties
+uk_far_right <- uk_elections %>%
+  filter(party_name_short %in% c("BNP", "UKIP", "NF", "R"))
+
+# Merge with party data to get additional info
+uk_far_right_merged <- uk_far_right %>%
+  left_join(
+    party_data %>% select(party_id, country_name, family_name_short),
+    by = c("party_id", "country_name")
+  )
+
+
+# ============================================================================
+# STEP 3: CLEAN & PREPARE DATA
+# ============================================================================
+
+uk_far_right_clean <- uk_far_right_merged %>%
+  # Convert date
+  mutate(
+    election_date = as.Date(election_date),
+    year = year(election_date),
+    month = month(election_date)
+  ) %>%
+  # Remap election_type to readable labels
+  mutate(
+    election_type_label = case_when(
+      election_type == "ep" ~ "European Parliament\n(Proportional Representation)",
+      election_type == "parliament" ~ "General Election\n(First-Past-The-Post)",
+      TRUE ~ election_type
+    )
+  ) %>%
+  # Select and rename columns
+  select(
+    party = party_name_short,
+    year,
+    month,
+    election_date,
+    election_type,
+    election_type_label,
+    vote_share = vote_share,
+    seats
+  ) %>%
+  # Convert to numeric
+  mutate(
+    vote_share = as.numeric(vote_share),
+    seats = as.numeric(seats)
+  ) %>%
+  # Remove rows with missing vote share
+  filter(!is.na(vote_share))
+
+
+
+# ============================================================================
+# STEP 6: CREATE VISUALIZATION
+# ============================================================================
+
+p_faceted <- ggplot(uk_far_right_clean,
+                    aes(x = year, y = vote_share, color = party, group = party)) +
+  
+  # Line + points
+  geom_line(linewidth = 1.3, alpha = 0.85) +
+  geom_point(size = 3, alpha = 0.8) +
+  
+  # Labels for peaks in each facet
+  geom_text(
+    data = uk_far_right_clean %>% 
+      group_by(party, election_type_label) %>%
+      slice_max(vote_share, n = 1, with_ties = FALSE),
+    aes(label = sprintf("%.1f%%", vote_share)),
+    vjust = -1.2, size = 3.5, fontface = "bold", show.legend = FALSE
+  ) +
+  
+  # Facet by electoral system
+  facet_wrap(~election_type_label, ncol = 2) +
+  
+  # Colors
+  scale_color_manual(
+    values = c("BNP" = "#E67E22",      # Orange
+               "UKIP" = "#2C3E50",     # Dark blue
+               "NF" = "#C0392B",       # Red
+               "ED" = "#95A5A6"),      # Gray
+    name = "Party"
+  ) +
+  
+  # Y-axis
+  scale_y_continuous(
+    name = "Vote Share (%)",
+    breaks = seq(0, 30, by = 5),
+    limits = c(0, 32)
+  ) +
+  
+  # X-axis
+  scale_x_continuous(
+    name = "Year",
+    breaks = seq(min(uk_far_right_clean$year, na.rm = TRUE), 
+                 max(uk_far_right_clean$year, na.rm = TRUE), 
+                 by = 4)
+  ) +
+  
+  # Labels
+ labs(
+    title = "Electoral System Effects: How FPTP Suppresses Far-Right Representation",
+    subtitle = "Same voters, same parties—proportional vs. winner-takes-all outcomes",
+    caption = "Data: ParlGov | Left: European Parliament (PR) | Right: General Elections (FPTP)"
+) +
+  
+  # Theme
+  theme_solarized(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold", size = 15, margin = margin(b = 5)),
+    plot.subtitle = element_text(color = "gray50", size = 11, margin = margin(b = 10)),
+    strip.text = element_text(face = "bold", size = 12, margin = margin(b = 10)),
+    panel.grid.major.y = element_line(color = "gray90", linewidth = 0.3),
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom",
+    legend.title = element_text(face = "bold"),
+    axis.title = element_text(face = "bold")
+  )
+
+# Display
+print(p_faceted)
+```
+
+::: notes
+**The Real Paradox (not what the chart shows):**
+
+The chart shows something MECHANICAL, not paradoxical: - FPTP suppresses representation → predictable, by design - PR enables proportional representation → also predictable, by design - This is HOW these systems work, not surprising
+
+**The ACTUAL paradox is elsewhere:**
+
+1.  **Electoral marginality via FPTP (2015):**
+    -   3.88 million votes (12.6%) → 1 seat
+    -   Massively unrepresented
+2.  **But policy victory (2016):**
+    -   Won Brexit referendum
+    -   Forced government hand
+    -   Achieved biggest political goal without parliament
+
+**This contradicts an assumption:** - "Parliamentary seats = political power" - UKIP proves: Electoral marginality ≠ policy irrelevance - Non-electoral pathways (activism, public campaign, political pressure) can matter more than seats
+
+**This is genuinely puzzling:** - How do parties without seats win referendums? - How do marginal parties force major policy shifts? - What does this tell us about far-right influence beyond parliament?
+
+This will be crucial for Week 9 (normalization): Far-right influence operates through multiple channels, not just electoral representation.
+:::
+
+## From Strategy to System: What the UK Case Shows
+
+-   Same grievances, different party framings and images → different voter coalitions.
+
+-   Same voters, different electoral rules → different representation in office.
+
+-   Weak in parliament, but strong through referendums and discourse → major policy change (Brexit).
+
+::: {.fragment .fade-in}
+**Key questions**:
+:::
+
+1)  Which party strategies unlock broad support among those worried about immigration and Europe?
+
+2)  How do electoral rules and referendums channel that support into real policy outcomes?
+
+## Key References
+
+::: nonincremental
+**Primary Source (Electoral Data):**
+
+Goodwin, M. J., & Dennison, J. (2018). The Radical Right in the United Kingdom. In J. Rydgren (Ed.), *The Oxford Handbook of the Radical Right* (pp. 530-552). Oxford University Press.
+
+Ford, Robert, and Matthew J Goodwin. 2010. ‘Angry White Men: Individual and Contextual Predictors of Support for the British National Party’. Political studies 58(1): 1–25. doi:10.1111/j.1467-9248.2009.00829.x.
+
+**Data Sources:**
+
+-   Electoral data: ParlGov (1994-2024)
+
+-   Demographic data: European Social Survey (Rounds 1-11)
+
+-   Scottish polling: Scottish Election Study, Scottish Opinion Monitor
+:::

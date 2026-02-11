@@ -1,0 +1,74 @@
+---
+title: "Week 8: Supply-Side Theories"
+description: "Party strategy, leadership, and political opportunity structures."
+---
+
+::: panel-tabset
+## Materials
+
+### Lecture
+
+-   [Download Lecture Slides](lectures/Supply_v2.html){target="_blank"}
+
+### Seminar
+
+**Objective**: To explain the timing and variation of far-right success by applying the Structure and Agency frameworks to your original regional findings.
+
+#### Seminar Preparation:
+
+Look at the "Party Strategy" and "Mainstream Strategy" columns from your original regional weeks (Weeks 2-6). Why did you think the party succeeded or failed then?
+
+#### In-class activities:
+
+1) Demand vs Supply
+Using today’s lecture, classify the countries from your region in the table below. What do you observe? Which is more powerful explanation for cross-national variation?
+
+|             |               |             |
+|-------------|---------------|-------------|
+|             | Closed Supply | Open Supply |
+| Low Demand  | Country X1    | Country X2  |
+| High Demand | Country X3    | Country X4  |
+
+2) The Meguid Challenge: Mainstream Reactions
+
+Look at your original notes on how mainstream parties responded. Re-evaluate them using Meguid's Theory:
+
+a) Did the mainstream right Dismiss, Accommodate, or be Adversarial? 
+
+b) Did their strategy "kill" the far right (like in Denmark) or "feed" it (like in Italy/Austria)?
+
+3) Solving the "Why Now?" Puzzle
+
+Compare your breakthrough date (e.g., Vox 2018 vs. AfD 2013). 
+
+If the Demand was there for decades (from Week 7), what specifically changed in the Supply that allowed the breakthrough to happen in that specific year? Was it POS or DOS?
+
+4) The Grand Theory Synthesis
+
+On the whiteboard, we will build the final course map.
+
+Region: [e.g., Scandinavia]
+
+Demand Driver: [e.g., Cultural/Welfare]
+
+Supply: [e.g., Welfare Chauvinist Formula + Institutionalisation]
+
+Synthesis: Why is the far right more stable in this region than in the South or East?
+
+
+## Readings
+
+Read TWO of the provided readings below
+
+1) [Mudde, Cas. 2007. Populist Radical Right Parties in Europe . Cambridge: Cambridge University Press. Chapter 10 & 11 - Demand-side: in search of the perfect breeding ground](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_miscellaneous_58787697&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Mudde,%20Cas.%202007.%20Populist%20Radical%20Right%20Parties%20in%20Europe%20.%20Cambridge:%20Cambridge%20University%20Press.%20Chapter%209%20-%20Demand-side:%20in%20search%20of%20the%20perfect%20breeding%20ground&offset=0)
+
+2) [Golder, M. (2016). Far Right Parties in Europe. Annual Review of Political Science, 19(1), 477–497. https://doi.org/10.1146/annurev-polisci-042814-012441](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_journals_1826494252&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Golder%20Far%20Right%20in%20Europe)
+
+3) [Mudde, C. (2010). The Populist Radical Right: A Pathological Normalcy. West European Politics, 33(6), 1167–1186. https://doi.org/10.1080/01402382.2010.508901](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_crossref_primary_10_1080_01402382_2010_508901&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Pathological%20Normalcy&offset=0)
+
+4) [MEGUID, B. M. (2005). Competition Between Unequals: The Role of Mainstream Party Strategy in Niche Party Success. The American Political Science Review, 99(3), 347–359. https://doi.org/10.1017/S0003055405051701](https://discovered.ed.ac.uk/discovery/fulldisplay?docid=cdi_proquest_miscellaneous_59679256&context=PC&vid=44UOE_INST:44UOE_VU2&lang=en&search_scope=UoE&adaptor=Primo%20Central&tab=Everything&query=any,contains,Competition%20between%20unequals&offset=0)
+
+## Whiteboard
+
+*Upload photos of your seminar whiteboard work here.*
+:::

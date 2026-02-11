@@ -1,0 +1,788 @@
+---
+title: "Far-Right in Southern Europe"
+subtitle: "The Far Right (Week 5)"
+author: "Dr. Christos Vrakopoulos"
+format:
+  revealjs:
+    theme: solarized
+    slide-number: true
+    incremental: true
+    
+    transition: fade
+    fontsize: 26px
+    css: custom.css
+editor: visual
+---
+
+```{r setup, include=FALSE}
+# Load required packages
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(tidyverse)
+library(manifestoR)
+library(lubridate)
+library(ggthemes)
+
+# Set Manifesto Project API key
+mp_setapikey(key = "193c54d64b1189c526214074350ead07")
+
+# Load Manifesto Project data
+mp_data <- manifestoR::mp_maindataset()
+
+# Define party codes for Southern European far-right parties
+party_codes <- tribble(
+  ~party, ~party_label,
+  # Italy
+  32710, "MSI/AN",    # Italian Social Movement → National Alliance (same code)
+  32720, "Lega",      # Northern League/Lega
+  32630, "FdI",       # Brothers of Italy
+  # Spain
+  33710, "VOX",       # Vox
+  # Greece
+  34710, "LAOS",      # Popular Orthodox Rally
+  34720, "GD",        # Golden Dawn (Chrysi Avgi)
+  34730, "ANEL",      # Independent Greeks
+  34711, "EL",        # Greek Solution (Elliniki Lysi)
+  # Portugal
+  35720, "Chega",     # Enough
+  35951, "PSN"        # National Solidarity Party
+)
+
+# Extract far-right party data
+far_right_raw <- mp_data %>%
+  filter(party %in% party_codes$party) %>%
+  mutate(year = year(as.Date(edate))) %>%
+  left_join(party_codes, by = "party") %>%
+  select(countryname, year, edate, party_label, pervote, absseat) %>%
+  filter(!is.na(pervote)) %>%
+  arrange(countryname, year, edate)
+
+# Combine vote shares within same election
+far_right_combined <- far_right_raw %>%
+  group_by(countryname, year, edate) %>%
+  summarise(
+    vote_share = sum(pervote, na.rm = TRUE),
+    parties = paste(unique(party_label), collapse = " + "),
+    .groups = "drop"
+  ) %>%
+  group_by(countryname, year) %>%
+  slice_max(edate, n = 1, with_ties = FALSE) %>%
+  ungroup() %>%
+  select(country = countryname, year, vote_share)
+
+far_right_data <- far_right_combined
+
+# Individual country datasets
+italy_data <- far_right_raw %>% 
+  filter(countryname == "Italy") %>%
+  group_by(countryname, year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(countryname, year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  select(country = countryname, year, vote_share)
+
+spain_data <- far_right_raw %>% 
+  filter(countryname == "Spain") %>%
+  group_by(countryname, year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(countryname, year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  select(country = countryname, year, vote_share)
+
+greece_data <- far_right_raw %>% 
+  filter(countryname == "Greece") %>%
+  group_by(year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  mutate(country = "Greece") %>%
+  select(country, year, vote_share)
+
+portugal_data <- far_right_raw %>% 
+  filter(countryname == "Portugal") %>%
+  group_by(year, edate) %>%
+  summarise(vote_share = sum(pervote, na.rm = TRUE), .groups = "drop") %>%
+  group_by(year) %>%
+  slice_max(edate, n = 1) %>%
+  ungroup() %>%
+  mutate(country = "Portugal") %>%
+  select(country, year, vote_share)
+```
+
+## Today's Lecture
+
+::: incremental
+-   **Part 1:** The Crisis Puzzle
+-   **Part 2:** Four Trajectories
+-   **Part 3:** Comparative Synthesis
+-   **Part 4:** Implications
+:::
+
+# Part 1: The Crisis Puzzle
+
+## Why Southern Europe?
+
+::::::: columns
+:::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+#### Shared context:
+:::
+
+-   Fascist/authoritarian past (Mussolini, Franco, Salazar, Greek junta)
+
+-   Late democratization (1970s)
+
+-   **2008-2015: Severe economic crisis**
+
+-   High unemployment, austerity, EU bailouts
+::::
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+#### Yet outcomes vary:
+:::
+
+::: incremental
+-   **Greece**: "Early" and violent breakthrough – Golden Dawn \~7% (2012–15)
+
+-   **Spain**: Delayed entry – Vox only after 2018
+
+-   **Italy**: Party mutation – Lega + rise of FdI, now governing
+
+-   **Portugal**: Late breakthrough – Chega after 2019, from marginal to third largest party
+:::
+:::: 
+::::::: 
+
+# Part 2: Four Trajectories
+
+## Italy: Post-Fascist Trajectory {background-image="images/meloni.jpg" background-size="cover" background-opacity="0.2"}
+
+::::: columns
+::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+#### Three waves:
+:::
+
+1.  **MSI (1946-1995)**: Post-fascist nostalgia
+    -   Founded by Mussolini supporters
+    -   Anti-communist, anti-democratic
+    -   5-8% stable, South-based
+2.  **AN (1995-2009)**: Legitimization
+    -   Fini's moderation: "post-fascist"
+    -   Joined Berlusconi governments → Normalisation
+    -   Merged into PdL (2009)
+:::
+
+::: {.column width="50%"}
+3.  **Lega (1991-)**: From regional protest to national radical right (but not post‑fascist)
+    -   Bossi (1991-2012): Northern separatism
+    -   Salvini (2013-): National, anti-immigration
+    -   Rebrand: Lega Nord → Lega
+4.  **FdI (2012-)**: Neo-fascist heir
+    -   Meloni: Ex-MSI youth wing
+    -   2022: **26%** - Prime Minister
+    -   **First far-right PM since Mussolini**
+:::
+:::::
+
+## Italy: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 12
+#| fig-height: 8
+
+p_italy <- ggplot(italy_data, aes(x = year, y = vote_share)) +
+  geom_line(linewidth = 1.5, color = "#009246") +
+  geom_point(size = 3, color = "#009246") +
+  geom_vline(xintercept = c(1995, 2013, 2022), linetype = "dashed", alpha = 0.5) +
+  annotate("text", x = 1995, y = 18, label = "AN forms", hjust = -0.1, size = 4) +
+  annotate("text", x = 2013, y = 12, label = "Salvini\nleader", hjust = -0.1, size = 4) +
+  annotate("text", x = 2022, y = 28, label = "Meloni\nPM", hjust = -0.1, size = 4, fontface = "bold") +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16)
+
+ggplotly(p_italy, tooltip = c("x", "y")) %>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+## Spain: Forty Years Without a Major Far Right Party {background-image="images/Vox.jpg" background-size="cover" background-opacity="0.2"}
+
+::::: columns
+::: {.column width="50%"}
+::: {.fragment .fade-in}
+**Franco legacy (1939-1975):**
+:::
+-   Falangist movement (openly fascist)
+
+-   36-year dictatorship
+
+-   Strong Church–state alliance, anti-communist, nationalist
+
+
+::: {.fragment .fade-in}
+**Transition (1975-1978):**
+::: 
+-   Regime members joined mainstream
+
+-   **People's Party (PP)** incorporated Francoists
+
+-   Far-right electorally absorbed by PP
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+**Failed parties (1975-2013):**
+:::
+-   Multiple neo-fascist groups: \<1%
+
+-   Stigma too strong (Franco memory)
+
+::: {.fragment .fade-in}
+**Vox (2013-):**
+:::
+-   Founded by ex-PP members (Abascal)
+
+-   2013-2017: \<1%
+
+-   **2018: 10.3%** -\> Breakthrough
+
+-   **Catalan crisis as catalyst**: nationalism + territorial unity
+:::
+:::::
+
+-   Why a territorial crisis (Catalonia) helps the far-right?
+
+## Spain: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 5
+
+# Note: Spain data will be very sparse (Vox only 2018+)
+p_spain <- ggplot(spain_data, aes(x = year, y = vote_share)) +
+  geom_line(linewidth = 1.5, color = "#AA151B") +
+  geom_point(size = 3, color = "#AA151B") +
+  geom_vline(xintercept = 2008, linetype = "dashed", color = "darkgray", alpha = 0.5) +
+  geom_vline(xintercept = 2017, linetype = "dashed", color = "black") +
+  annotate("text", x = 2008, y = 5, label = "Crisis\n(no far-right)", hjust = -0.1, size = 3.5, color = "darkgray") +
+  annotate("text", x = 2017, y = 8, label = "Catalan\ncrisis", hjust = -0.1, size = 4, fontface = "bold") +
+  annotate("text", x = 2018, y = 12, label = "Vox\nbreakthrough", hjust = -0.1, size = 4) +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16)
+
+ggplotly(p_spain, tooltip = c("x", "y"))%>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+## Greece: Crisis-Driven Surge {background-image="images/gd.jpg" background-size="cover" background-opacity="0.2"}
+
+::::: columns
+::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+**Military junta (1967-1974):**
+:::
+-   Papadopoulos regime: "Greece for Christian Greeks"
+
+-   Collapsed after Cyprus invasion (1974)
+
+
+
+::: {.fragment .fade-in}
+**Failed parties (1974-2012):**
+:::
+-   National Alignment (1977): Merged with ND
+
+-   Political Spring (1993): Macedonia issue
+
+-   LAOS (2000-2012): Moderate far-right, 5-6%, part of coalition government with PASOK and ND
+
+-   Independent Greeks (2012): Eurosceptic, governed with SYRIZA
+
+
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+**Golden Dawn (1985-):**
+:::
+-   Founded by Michaloliakos (neo-Nazi)
+
+-   2010–2012: Austerity, unemployment, anti‑bailout anger → protest vote
+
+-   **Openly neo-Nazi:** Uniforms, salutes, violence
+
+-   2013: Murder of Pavlos Fyssas → criminal organization trial
+
+-   Leaders imprisoned, party collapsed
+
+-   **Greek Solution (2019-) and other smaller parties**: Parliamentary, softer style; no open Nazi symbolism
+
+
+:::
+:::::
+
+## Greece: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 5
+
+p_greece <- ggplot(greece_data, aes(x = year, y = vote_share)) +
+  geom_line(linewidth = 1.5, color = "#0D5EAF") +
+  geom_point(size = 3, color = "#0D5EAF") +
+  geom_vline(xintercept = c(2010, 2013), linetype = "dashed", alpha = 0.5) +
+  annotate("rect", xmin = 2010, xmax = 2015, ymin = 0, ymax = 35, alpha = 0.1, fill = "red") +
+  annotate("text", x = 2012.5, y = 33, label = "Crisis peak\n25% unemployment", size = 3.5, color = "darkred") +
+  annotate("text", x = 2012, y = 25, label = "GD surge\n7%", hjust = -0.1, size = 4, fontface = "bold") +
+  annotate("text", x = 2013, y = 18, label = "Murder→\nInvestigation", hjust = -0.1, size = 3.5) +
+  annotate("text", x = 2019, y = 7, label = "GD collapse\nGreek Solution", hjust = 1.1, size = 3.5) +
+  labs(x = "Year", y = "Vote Share (%)") +
+  theme_solarized(base_size = 16)
+
+ggplotly(p_greece, tooltip = c("x", "y"))%>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+## Portugal: Why did Portugal resist far-right breakthrough for four decades? {background-image="images/chega.png" background-size="cover" background-opacity="0.2"}
+
+::::: columns
+::: {.column width="50%"}
+
+::: {.fragment .fade-in}
+**Salazar dictatorship (1932-1974):**
+:::
+-   Estado Novo: Authoritarian, Catholic, pro-Franco
+
+-   Suppressed explicitly fascist rivals; regime monopolized authoritarian right
+
+
+
+::: {.fragment .fade-in}
+**Carnation Revolution (1974):**
+:::
+-   **Left-leaning** military coup
+
+-   Peaceful transition
+
+-   De-colonization
+
+-   Left-leaning political culture (strong PCP, PS dominance, weak post-authoritarian right)
+
+:::
+
+::: {.column width="50%"}
+::: {.fragment .fade-in}
+**Far-right marginalized (1974-2019):** No successful radical right in parliament until 2019
+:::
+-   National Renovator Party (2000-): Extreme-right, \<1%
+
+
+::: {.fragment .fade-in}
+**Chega (2019-):**
+:::
+-   Founded by André Ventura (ex-PSD)
+
+-   2019: 1.3%
+
+-   2022: **7.2%** -\> Breakthrough
+
+-   2024: **18%** -\> Third largest
+
+-   **Finally broke through** (45 years after democratization)
+
+:::
+:::::
+
+## Portugal: Trajectory & Pattern
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 5
+
+# Note: Portugal data will be very sparse (Chega only 2019+)
+p_portugal <- ggplot(portugal_data, aes(x = year, y = vote_share)) +
+  geom_line(linewidth = 1.5, color = "#FF0000") +
+  geom_point(size = 3, color = "#FF0000") +
+  geom_hline(yintercept = 0, color = "gray", linewidth = 0.5) +
+  geom_vline(xintercept = 2011, linetype = "dashed", color = "darkgray", alpha = 0.5) +
+  annotate("text", x = 2011, y = 3, label = "Crisis\n(no far-right)", hjust = -0.1, size = 3.5, color = "darkgray") +
+  annotate("text", x = 2019, y = 2, label = "Chega\nfounded", hjust = -0.1, size = 4) +
+  annotate("text", x = 2022, y = 8, label = "Breakthrough\n7.2%", hjust = -0.1, size = 4, fontface = "bold") +
+  annotate("text", x = 2005, y = 12, label = "45 years: NO far-right\n(1974-2019)", hjust = 0.5, size = 4, fontface = "italic", color = "darkgray") +
+  labs(x = "Year", y = "Vote Share (%)") +
+  ylim(0, 15) +
+  theme_solarized(base_size = 16)
+
+ggplotly(p_portugal, tooltip = c("x", "y"))%>%
+  layout(autosize = FALSE, width = 900, height = 500)
+```
+
+# Part 3: Comparative Synthesis
+
+## The Southern European Crisis Puzzle
+
+| Country      | Crisis Severity       | Far-Right 2010-2012 | Far-Right 2018-2024 |
+|-----------------|--------------------|------------------|------------------|
+| **Greece**   | Severe (bailout)      | 7% (GD surge)       | 4% (after collapse) |
+| **Spain**    | Severe (bailout)      | 0% (no party)       | 15% (Vox)           |
+| **Portugal** | Severe (bailout)      | 0% (no party)       | 18% (Chega)         |
+| **Italy**    | Moderate (stagnation) | 5-15% (gradual)     | 35% (Lega+FdI)      |
+
+. . .
+
+**The puzzle:** Same economic crisis (2008-2015), yet dramatically different far-right trajectories. What explains this variation?
+
+## South European Patterns
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 5
+
+# Add flag emojis
+far_right_flags <- far_right_data %>% 
+  filter(country %in% c("Italy", "Spain", "Greece", "Portugal")) %>%
+  mutate(
+    flag_emoji = case_when(
+      country == "Italy" ~ "🇮🇹",
+      country == "Spain" ~ "🇪🇸",
+      country == "Greece" ~ "🇬🇷",
+      country == "Portugal" ~ "🇵🇹"
+    )
+  )
+
+# Get only the last year for each country
+last_points <- far_right_flags %>%
+  group_by(country) %>%
+  slice_max(year, n = 1) %>%
+  ungroup()
+
+p <- ggplot(far_right_flags, 
+            aes(x = year, y = vote_share, color = country, group = country)) +
+  geom_line(linewidth = 1.5, alpha = 0.8) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_vline(xintercept = 2008, linetype = "dashed", color = "red", linewidth = 1) +
+  annotate("text", x = 2008, y = 25, label = "Financial\nCrisis", hjust = -0.1, color = "red", size = 4) +
+  geom_text(data = last_points,
+            aes(label = flag_emoji), 
+            size = 8, 
+            hjust = -0.5) +
+  scale_color_manual(
+    values = c("Italy" = "#009246", "Spain" = "#AA151B", 
+               "Greece" = "#0D5EAF", "Portugal" = "#FF0000")
+  ) +
+  labs(x = "Year", y = "Vote Share (%)", color = "Country") +
+  theme_solarized(base_size = 16) +
+  theme(legend.position = "bottom", legend.title = element_text(face = "bold"))
+
+ggplotly(p, tooltip = c("x", "y", "colour")) %>%
+  layout(hovermode = "x unified", autosize = FALSE, width = 900, height = 500)
+```
+
+## Historical Legacies Matter
+
+::::::: columns
+:::: {.column width="50%"}
+**How regimes ended:**
+
+::: incremental
+-   **Italy**: Mussolini defeated (war), gradual acceptance
+-   **Spain**: Franco died, transition incorporated regime members
+-   **Greece**: Junta collapsed (Cyprus), some integration
+-   **Portugal**: Left-wing revolution, anti-fascist consensus
+:::
+::::
+
+:::: {.column width="50%"}
+**Effect on far-right:**
+
+::: incremental
+-   **Italy**: Longest continuous legitimization (MSI→AN→FdI)
+-   **Spain**: Absorption into PP, blocked independent far-right for \~40 years
+-   **Greece**: Multiple attempts, crisis breakthrough
+-   **Portugal**: Strongest post-authoritarian stigma, 45-year delay
+:::
+::::
+:::::::
+
+. . .
+
+**Key insight:** Different transitions create different party-space for the far right!!
+
+**BUT**: How and why the effect of legacies break?
+
+## Mainstream Responses Varied
+
+| Country | Mainstream Strategy | Far-Right Result | Effectiveness |
+|------------------|------------------|------------------|------------------|
+| **Italy** | Accommodation (Berlusconi + AN) | Legitimized, now in government | Failed (legitimized) |
+| **Spain** | Incorporation (Franco → PP) | Blocked 40 years, then breakthrough | Worked until 2018 |
+| **Greece** | Partial integration (junta → ND) | Multiple attempts, crisis surge | Partially worked |
+| **Portugal** | Isolation + left consensus | Blocked 45 years, then breakthrough | Worked until 2019 |
+
+## Recent Convergence (2019-2024)
+
+**All four now have far-right in parliament:**
+
+::: incremental
+-   **Italy**: Brothers of Italy (26%) - **Prime Minister Meloni**
+-   **Spain**: Vox (12-15%) - Third largest, regional governments
+-   **Greece**: Fragmentation
+-   **Portugal**: Chega (18%) - Third largest, rapid rise
+:::
+
+. . .
+
+**Pattern:** Historical resistance **delayed** but didn't **prevent** far-right emergence
+
+. . .
+
+**2010s:** Convergence across Europe - far-right now mainstream everywhere
+
+## Who Votes Far-Right in Southern Europe?
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 12
+#| fig-height: 8
+
+load("/Users/cvrakopo/My Drive/Publications/ESS Data 1-10/Final Creation/ess_analysis_full.RData")  # Adjust path as needed
+
+# Filter data for the five countries
+ess_south <- ess_analysis %>%
+  filter(country %in% c("Greece", "Italy", "Spain", "Portugal"))
+
+
+# Prepare data with age categories and calculate differences from reference
+demo_comparison <- ess_south %>%
+  mutate(
+    # Create age categories
+    age_cat = case_when(
+      agea < 35 ~ "18-34",
+      agea >= 35 & agea < 55 ~ "35-54",
+      agea >= 55 & agea < 70 ~ "55-69",
+      agea >= 70 ~ "70+"
+    ),
+    
+    # Immigration attitudes
+    immi_cat = case_when(
+      is.na(p_immi_index) ~ NA_character_,
+      p_immi_index < 30 ~ "Liberal",
+      p_immi_index >= 30 & p_immi_index < 70 ~ "Neutral",
+      p_immi_index >= 70 ~ "Restrictive"
+    ),
+    
+    # Trust in politicians (0-10 scale)
+    trust_cat = case_when(
+      is.na(trstplt) ~ NA_character_,
+      trstplt <= 3 ~ "Low trust",
+      trstplt >= 4 & trstplt <= 6 ~ "Medium trust",
+      trstplt >= 7 ~ "High trust"
+    ),
+    
+    # Left-Right scale (0-10 scale)
+    lr_cat = case_when(
+      is.na(lrscale) ~ NA_character_,
+      lrscale <= 3 ~ "Left",
+      lrscale >= 4 & lrscale <= 6 ~ "Center",
+      lrscale >= 7 ~ "Right"
+    ),
+    
+    # Household income feelings (1-4 scale)
+    income_cat = case_when(
+      is.na(hincfel) ~ NA_character_,
+      hincfel == 1 ~ "Comfortable",
+      hincfel == 2 ~ "Coping",
+      hincfel == 3 ~ "Difficult",
+      hincfel == 4 ~ "Very difficult"
+    ),
+    
+    # Simplify education
+    education_simple = case_when(
+      educ_level %in% c("Less than lower secondary", "Lower secondary") ~ "Low",
+      educ_level %in% c("Lower tier upper secondary", "Upper tier upper secondary", 
+                        "Advanced vocational, sub-degree") ~ "Medium",
+      educ_level %in% c("Lower tertiary education, BA level", 
+                        "Higher tertiary education, >= MA level") ~ "High"
+    ),
+    
+    # Simplify class
+    class_simple = case_when(
+      oesch8 %in% c("Production workers", "Service workers") ~ "Working class",
+      oesch8 %in% c("Clerks", "Small business owners") ~ "Lower middle",
+      oesch8 %in% c("Technical (semi-)professionals", "(Associate) managers") ~ "Upper middle",
+      oesch8 %in% c("Socio-cultural (semi-)professionals", 
+                    "Self-employed professionals and large employers") ~ "Professional/Managers"
+    )
+  ) %>%
+  # Convert far_right to numeric if it's not already
+  mutate(far_right_num = as.numeric(far_right == "Far-right"))
+
+# Calculate proportions for each category
+calc_props <- function(data, var) {
+  data %>%
+    filter(!is.na(.data[[var]])) %>%  # Remove NAs for this variable
+    group_by(across(all_of(var))) %>%
+    summarise(
+      prop = mean(far_right_num, na.rm = TRUE) * 100,
+      n = n(),
+      se = sd(far_right_num, na.rm = TRUE) / sqrt(n()) * 100,
+      .groups = "drop"
+    ) %>%
+    rename(category = 1)
+}
+
+# Get proportions for each demographic
+gender_props <- calc_props(demo_comparison, "gender") %>% mutate(variable = "Gender")
+age_props <- calc_props(demo_comparison, "age_cat") %>% mutate(variable = "Age")
+immi_props <- calc_props(demo_comparison, "immi_cat") %>% mutate(variable = "Immigration attitudes")
+trust_props <- calc_props(demo_comparison, "trust_cat") %>% mutate(variable = "Political trust")
+lr_props <- calc_props(demo_comparison, "lr_cat") %>% mutate(variable = "Left-Right position")
+income_props <- calc_props(demo_comparison, "income_cat") %>% mutate(variable = "Economic situation")
+edu_props <- calc_props(demo_comparison, "education_simple") %>% mutate(variable = "Education")
+urban_props <- calc_props(demo_comparison, "urban_rural") %>% mutate(variable = "Location")
+class_props <- calc_props(demo_comparison, "class_simple") %>% mutate(variable = "Class")
+
+# Combine all
+all_props <- bind_rows(
+  gender_props, age_props, immi_props, trust_props, lr_props, income_props,
+  edu_props, urban_props, class_props
+) %>%
+  filter(!is.na(category))
+
+# Set reference categories and calculate differences
+reference_levels <- tribble(
+  ~variable, ~reference,
+  "Gender", "Female",
+  "Age", "18-34",
+  "Immigration attitudes", "Liberal",
+  "Political trust", "High trust",
+  "Left-Right position", "Center",
+  "Economic situation", "Comfortable",
+  "Education", "High",
+  "Location", "Urban",
+  "Class", "Professional/Managers"
+)
+
+# Get reference values
+reference_values <- all_props %>%
+  inner_join(reference_levels, by = "variable") %>%
+  filter(category == reference) %>%
+  select(variable, ref_prop = prop)
+
+# Calculate differences from reference
+plot_data <- all_props %>%
+  left_join(reference_values, by = "variable") %>%
+  mutate(
+    diff = prop - ref_prop,
+    ci_lower = diff - 1.96 * se,
+    ci_upper = diff + 1.96 * se,
+    is_reference = category %in% reference_levels$reference
+  ) %>%
+  # Order categories within each variable
+  mutate(
+    category = factor(category, levels = c(
+      # Gender
+      "Male", "Female",
+      # Age
+      "70+", "55-69", "35-54", "18-34",
+      # Immigration
+      "Restrictive", "Neutral", "Liberal",
+      # Trust
+      "Low trust", "Medium trust", "High trust",
+      # Left-Right
+      "Right", "Center", "Left",
+      # Economic situation
+      "Very difficult", "Difficult", "Coping", "Comfortable",
+      # Education
+      "Low", "Medium", "High",
+      # Location
+      "Rural", "Urban",
+      # Class
+      "Working class", "Lower middle", "Upper middle", "Professional/Managers"
+    )),
+    variable = factor(variable, levels = c(
+      "Gender", "Age", "Immigration attitudes", "Political trust", 
+      "Left-Right position", "Economic situation", "Education", "Location", "Class"
+    ))
+  ) %>%
+  arrange(variable, category)
+
+# Create the plot
+ggplot(plot_data, aes(x = diff, y = category)) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "gray40", linewidth = 0.8) +
+  geom_segment(aes(x = 0, xend = diff, y = category, yend = category, 
+                   color = diff > 0, alpha = !is_reference), 
+               linewidth = 4) +
+  geom_errorbar(aes(xmin = ci_lower, xmax = ci_upper, alpha = !is_reference), 
+                orientation = "y", width = 0.2, linewidth = 0.8) +
+  geom_point(aes(alpha = !is_reference), size = 2.5, color = "black") +
+  geom_text(data = plot_data %>% filter(is_reference),
+            aes(label = "Reference"), x = 0.5, size = 3, hjust = 0, 
+            fontface = "italic", color = "gray50") +
+  facet_wrap(~variable, ncol = 1, scales = "free_y", strip.position = "left") +
+  scale_color_manual(values = c("TRUE" = "#E74C3C", "FALSE" = "#3498DB"), guide = "none") +
+  scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.3), guide = "none") +
+  scale_x_continuous(
+    breaks = seq(-10, 15, 5),
+    labels = function(x) paste0(ifelse(x > 0, "+", ""), x, " pp")
+  ) +
+  labs(
+    title = "Far-Right Support: Differences from Reference Categories",
+    subtitle = "Greece, Italy, Portugal, Spain (ESS data)",
+    x = "← Less likely to support far-right          More likely to support far-right →",
+    y = NULL
+  ) +
+  theme_solarized(base_size = 14) +
+  theme(
+    strip.placement = "outside",
+    strip.text.y.left = element_text(face = "bold", angle = 0, hjust = 1, size = 13),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.title = element_text(face = "bold", size = 15),
+    plot.subtitle = element_text(color = "gray40", size = 12),
+    axis.text.y = element_text(size = 12),
+    axis.title.x = element_text(margin = margin(t = 10), size = 12)
+  )
+
+```
+
+## Key Puzzles from Southern Europe
+
+::: incremental
+1.  **The Crisis Timing Puzzle** - When economic crisis creates far-right opportunities, what determines the timing of breakthrough? Can crisis alone drive far-right success, or is something else required?
+
+2.  **The Historical Durability Question** - How long can historical legacies (regime type, founding narratives) delay or block far-right emergence? Is there a breaking point?
+
+3.  **The Supply-Demand Relationship** - Across all cases, demand for far-right politics existed before parties mobilized it. What explains when credible supply emerges to meet demand?
+
+4.  **The Mainstream Strategy Question** - Do different mainstream responses (isolation, incorporation, accommodation) permanently block far-right, or do they merely delay breakthrough?
+
+5.  **The Path Dependency Puzzle** - Does the *type* of regime transition (left-wing revolution vs. right-wing elite transition vs. external collapse) shape far-right trajectories for decades? If so, why?
+
+6.  **The Convergence Question** - Why do regions with dramatically different historical contexts eventually converge toward similar far-right electoral levels (15-25%)?
+
+7.  **The Legitimization Mechanism** - What transforms far-right parties from pariah to mainstream? Does it require government participation, gradual normalization, or mainstream accommodation?
+:::
+
+## Questions?
