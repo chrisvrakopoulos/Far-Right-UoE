@@ -1,0 +1,308 @@
+---
+title: "Global Patterns & Summary"
+subtitle: "The Far Right (Week 10)"
+author: "Dr. Christos Vrakopoulos"
+format:
+  revealjs:
+    theme: solarized
+    fontsize: 26px
+    slide-number: true
+    incremental: true
+    self-contained: true
+    transition: slide
+    css: custom.css
+    mermaid:
+      theme: neutral
+editor: visual
+---
+
+```{r setup, include=FALSE}
+# Load required packages
+library(ggplot2)
+library(plotly)
+library(tidyverse)
+library(haven)
+library(ggthemes)
+
+# Global settings for plots
+theme_set(theme_solarized())
+
+# Note for Dr. Vrakopoulos: 
+# You can load your specific datasets (CPDS, CHES, V-Dem) here.
+# cpds <- read_dta("path/to/CPDS.dta")
+# ches <- read_dta("path/to/CHES.dta")
+```
+
+## Today's Lecture
+
+::: nonincremental
+-   **Part 1:** The Far-Right as a Global Phenomenon
+-   **Part 2:** Comparative Cases: Latin America
+-   **Part 3:** Comparative Cases: USA & India
+-   **Part 4:** Summary: Synthesising Theory & Evidence
+-   **Part 5:** The Future of Far-Right Studies
+:::
+
+::: notes
+Welcome students to the final lecture. Today we move beyond our Eurocentric focus. 
+The goal is to test if the "Demand/Supply" framework we've used for 9 weeks holds up globally. 
+We'll look at the 'Fourth Wave' (Mudde), the 'Immigration Paradox' (Jonge et al. 2024), and how the 'Other' is defined in different contexts.
+:::
+
+# Part 1: The Far-Right as a Global Phenomenon
+
+## Beyond Europe: The "Fourth Wave"
+
+::::: columns
+::: {.column width="50%"}
+**The "European" Lens:** - Traditionally focused on Western Europe (1980s-90s) - Expansion to Eastern Europe (2000s) - Heavy emphasis on *nativism* and *immigration*
+:::
+
+::: {.column width="50%"}
+**The "Global" Turn:** - Rise of strongmen in the Americas, Asia, and the Global South - **Heterogeneity:** Different drivers (crime, religion) under the same "umbrella" - **Transnationalization:** Global networks like CPAC and the Foro de Madrid
+:::
+:::::
+
+::: notes
+- **European Lens:** Remind them of the 'Third Wave' (post-WWII to 2000s). It was mostly about fringe parties becoming challengers.
+- **Global Turn:** Mudde argues we are in the 'Fourth Wave' where the far-right is mainstreamed and global.
+- **Key Question:** Is a party in India (BJP) comparable to one in Sweden (SD)? We need to look at the 'Umbrella' concept.
+:::
+
+## Nationalism: The Global Umbrella
+
+-   **The Conceptual Problem:**
+    -   *Nativism* (xenophobic/ethnic) is central to the European far-right (Mudde, 2007).
+    -   But does it travel? In Latin America, immigration levels are often low.
+-   **Reframing the Core (Jonge et al., 2024):**
+    -   Instead of strict nativism, **Nationalism** serves as the broader global umbrella.
+    -   **Global North:** Focus on *external* threats (immigrants, Islam).
+    -   **Global South:** Focus on *internal* threats (corrupt elites, criminals, "anti-nationals").
+    -   *Key Insight:* The "Other" shifts, but the exclusionary logic remains.
+
+::: notes
+- This slide is based on the 2024 Nations & Nationalism exchange.
+- **Point to emphasize:** In Europe, the 'Other' is the outsider coming in (horizontal exclusion). In LatAm, the 'Other' is often the 'traitor' inside—the corrupt politician or the criminal (vertical/internal exclusion).
+- **Nationalism** is the glue: "The People" are defined against "The Non-People" (whoever they may be).
+:::
+
+## Mapping the Global Rise
+
+```{r global-trend, echo=FALSE, warning=FALSE, message=FALSE}
+# Data: Selected Global Far-Right/Populist Leaders
+# Note: Comparison includes Presidential Vote (Runoff/Popular) for Presidential systems
+# and Party Vote for Parliamentary systems (India).
+
+global_data <- data.frame(
+  Country = c("Brazil (Bolsonaro)", "Brazil (Bolsonaro)", 
+              "Argentina (Milei)", 
+              "USA (Trump)", "USA (Trump)", "USA (Trump)",
+              "India (BJP)", "India (BJP)", "India (BJP)",
+              "El Salvador (Bukele)", "El Salvador (Bukele)"),
+  Year = c(2018, 2022, 
+           2023, 
+           2016, 2020, 2024, 
+           2014, 2019, 2024, 
+           2019, 2024),
+  Vote_Share = c(55.1, 49.1, 
+                 55.7, 
+                 46.1, 46.8, 49.8, 
+                 31.3, 37.4, 36.6, 
+                 53.1, 84.7)
+)
+
+ggplot(global_data, aes(x = Year, y = Vote_Share, color = Country)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 3) +
+  scale_color_solarized() +
+  labs(title = "Electoral Strength of Key Far-Right/Populist Leaders",
+       subtitle = "Vote Share: Presidential Runoff/Popular (LatAm/USA) vs. Party Vote (India)",
+       y = "Vote Share (%)",
+       x = "Year",
+       caption = "Sources: CNE, TSE, ECI, US FEC") +
+  theme_minimal() +
+  theme(text = element_text(size = 16),
+        legend.position = "bottom")
+```
+
+::: notes
+- Look at the scale of these victories. 
+- **Bukele (El Salvador):** 84% in 2024. This is 'hegemonic' support, unlike the 20-25% we see in Europe.
+- **Trump:** Notice the steady rise in popular vote share (46% -> 49%).
+- **BJP:** Remarkable stability in a parliamentary system with over 30% vote share, translating to massive seat majorities.
+- **Key Takeaway:** We are looking at 'Majority-building' projects, not just protest voting.
+:::
+
+## Transnational Networks
+
+-   **The Foro de Madrid (2020):**
+    -   Led by Vox (Spain).
+    -   Narrative: Fighting the "threat of communism" (Grupo de Puebla).
+    -   Goal: Consolidate the "Iberosphere" through shared conservative values.
+-   **CPAC (Conservative Political Action Conference):**
+    -   Originally US-centric, now a global network (Brazil, Japan, Hungary).
+    -   A hub for "copy-paste" electoral tactics and rhetoric.
+
+::: notes
+- The far-right is **Internationalist**. 
+- **The Foro de Madrid:** Replaces the 'anti-immigrant' focus with 'anti-communism' (Sino-Soviet/Cuban influence tropes) to unite Spain and LatAm.
+- **Copy-Paste Tactics:** Mention how Bolsonaro used Trump's playbook (questioning electronic voting machines) almost verbatim.
+:::
+
+# Part 2: Comparative Cases: Latin America
+
+## Regional Puzzles
+
+-   **Observation:** Sudden rise of Milei (Argentina), Bolsonaro (Brazil), Bukele (El Salvador).
+-   **The "Immigration Paradox" (Jonge et al., 2024):**
+    -   Unlike Europe, immigration is *not* the primary driver.
+    -   Instead: Crime, corruption, and economic collapse.
+    -   The "Other" is the **internal enemy** (criminals, corrupt politicians) rather than the migrant.
+-   **Religion:** Massive role of the Evangelical Church (Doğan, 2025).
+
+::: notes
+- **Immigration Paradox:** Why do these parties win without 'migration crises'? 
+- In Brazil/Salvador, **Crime** is the 'demand' equivalent of immigration in Europe. The 'Iron Fist' (Bukele) is the product.
+- **Religion:** In LatAm, the Evangelical shift is a massive 'Supply' factor. It provides the moral infrastructure that parties used to lack.
+:::
+
+## Case Study: Brazil (Bolsonaro)
+
+-   **Organization:** Weak party structure, highly personalist.
+-   **Narrative:** "Brazil above everything, God above all."
+-   **Welfare Strategy:**
+    -   **Inclusionary Logic:** Used Bolsa Família (Auxílio Brasil) to maintain support among the poor.
+    -   **Exclusionary Logic:** Symbolic targeting of "enemies" (LGBTQ+, Leftists, NGOs).
+-   **Democracy:** Erosion through military co-optation and institutional bypass.
+
+::: notes
+- **Bolsonaro's Paradox:** He is neoliberal in rhetoric but expansionist in welfare for 'his' people.
+- **Inclusionary vs Exclusionary:** This is a key theoretical concept. He included the 'working poor' economically while excluding them culturally if they didn't fit the 'patriotic' mold.
+- Compare with Europe's 'Firewall'—in Brazil, the military *was* the support structure.
+:::
+
+## Case Study: Argentina (Milei)
+
+-   **The "Anarcho-Capitalist" Far-Right:**
+    -   High emphasis on market radicalism vs. the "Casta" (political elite).
+    -   **Distinct from Europe:** Not "welfare chauvinism" (protecting state benefits for natives) but a **rejection of the state itself** due to failure/corruption.
+-   **The Market as the "People":**
+    -   Redefining the people through economic freedom rather than just national identity.
+    -   A radical shift from the traditional Peronist populist model.
+
+::: notes
+- Milei is unique. Most far-right parties like the state (to control borders/welfare). Milei wants to destroy it (the chainsaw).
+- **The 'Casta':** This is his 'Other'. It's an anti-elite populism taken to the extreme.
+- **Why did it work?** 100%+ inflation. When the state fails completely, the 'Demand' side shifts from 'protecting the state' to 'destroying the state'.
+:::
+
+# Part 3: Comparative Perspectives: USA & India
+
+## The USA: American Exceptionalism No More?
+
+-   **Cas Mudde (2022):** The US is "Europeanizing" in its far-right manifestations.
+-   **Mainstreaming:** The Republican Party has been "captured" by far-right frames.
+-   **The "Hungarian Model":** Explicit comparisons between Trump and Orbán.
+    -   Judicial capture
+    -   Media harassment
+    -   Discrediting electoral integrity
+
+::: notes
+- For decades, we thought the US was immune because of its two-party system.
+- **Mainstreaming:** Instead of a third party rising (like AfD), the far-right took over a mainstream party (GOP).
+- **The Orbán Link:** Mention how CPAC met in Budapest. Trump explicitly praises Orbán's 'illiberal democracy'.
+:::
+
+## India: The BJP and Religious Populism
+
+-   **The "Hindutva" Ideology:**
+    -   Defining "The People" as Hindu; secularism as an "elite" imposition.
+-   **The "Others":** Muslims, "anti-nationals" (academics, NGOs, liberals).
+-   **Welfare & Inclusion:**
+    -   The BJP uses social schemes to integrate lower-caste Hindus while explicitly excluding religious minorities (McDonnell & Cabrera, 2019).
+
+::: notes
+- **Hindutva:** This is the 'Nationalism' umbrella. It merges religion and citizenship.
+- **Digital Populism:** The BJP is perhaps the most advanced party in the world in terms of WhatsApp/Social Media mobilization.
+- **Comparison:** Like the French RN, the BJP tries to look 'moderate' on economics (development) while remaining radical on identity.
+:::
+
+# Part 4: Summary: Synthesising Theory & Evidence
+
+## The Theorisation Matrix (Recap)
+
+| Region              | Primary Mechanism          | Supply-Side Form | Key Cases     |
+|---------------------|----------------------------|-------------------|---------------|
+| **Scandinavia**     | Welfare Chauvinism         | Institutionalized Party | SD, Finns     |
+| **Southern Europe** | Institutional Trust        | Mixed (Party/Personalist) | Vox, Chega    |
+| **Eastern Europe**  | Imagined Cultural Threat   | Dominant Party State | PiS, Fidesz   |
+| **Latin America**   | Crime & Anti-Establishment | **Personalist Vehicle** | Milei, Bukele |
+| **USA/India**       | Identity Radicalization    | Mainstream Party Capture | GOP, BJP      |
+
+::: notes
+- Use this table to summarize the whole course.
+- Note the **Supply-Side Form**: This is the big difference. Europe has parties that outlast leaders. LatAm has leaders that create (and destroy) parties.
+- The USA/India case is the most 'dangerous' for democracy because the far-right controls established, massive institutions.
+:::
+
+## Synthesis: Demand vs. Supply
+
+-   **Demand (The Fuel):**
+    -   Structural grievances (Economic vs. Cultural).
+    -   Modernization losers vs. Status anxiety.
+-   **Supply (The Spark):**
+    -   Charismatic leadership.
+    -   Party organization (**Robust/Institutionalized** in Europe vs. **Personalist** in LatAm).
+    -   Mainstream response (Normalisation vs. Cordon Sanitaire).
+
+::: notes
+- **Demand is everywhere.** Every country has losers of globalization.
+- **Supply is the variable.** Why did the far-right win in Brazil but not (yet) in Chile? Look at the 'Spark'—the leader and the organization.
+- **Mainstream Response:** This is our Week 8 topic. When mainstream parties 'copy' the far-right, they usually fuel it.
+:::
+
+## The Impact on Democracy
+
+1.  **Normalization:** Extreme ideas become "common sense".
+2.  **Polarization:** "Us vs. Them" logic destroys democratic consensus.
+3.  **Institutional Erosion:** The "Frankenstate" — using democratic laws to kill democracy (Scheppele, 2013).
+
+::: notes
+- **Normalization:** Mention the 'Overton Window'.
+- **Frankenstate:** This is Kim Lane Scheppele's term. You don't need a coup to kill democracy; you just need to change the laws one by one (like Orbán).
+- Ask the students: Is the far-right a *product* of democratic failure, or the *cause*?
+:::
+
+# Part 5: The Future of Far-Right Studies
+
+## What's Next?
+
+-   **Technology:** Radicalization through algorithmic echo chambers and AI.
+-   **Climate Change:** "Green" far-right (protecting *our* land) vs. Climate denialism.
+-   **Gender:** The backlash against "Gender Ideology" as a global unifying glue.
+
+::: notes
+- **Gender:** This is the new 'Immigration'. It unites the religious right in the US, the Catholic right in Poland, and the Evangelical right in Brazil.
+- **Climate:** Will we see 'Eco-Bordering'? "We must stop immigrants to protect our environment."
+:::
+
+# Course Conclusion
+
+## Assessment Reminders
+
+-   **Final Essay:** Due Thursday 16th April at 23:59.
+-   Use the theories we've discussed!
+-   Don't just describe a case; *theorise* the variation.
+
+::: notes
+- Remind them: An A-grade essay links a case (e.g. Milei) to a theory (e.g. Demand-side economic failure + Supply-side anti-establishment charisma).
+:::
+
+## Thank You!
+
+Questions?
+
+::: notes
+- Thank the students for a great semester. 
+- Open the floor for the final Q&A.
+:::

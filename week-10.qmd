@@ -8,7 +8,7 @@ description: "Non-European cases, democratic implications, and course wrap-up."
 ## Materials
 
 ### Lecture
-*   [Download Lecture Slides](lectures/Lecture-10.qmd){target="_blank"}
+*   [Download Lecture Slides](lectures/Lecture_Week10_Global_Patterns_Refined.qmd){target="_blank"}
 
 ### Seminar
 *   **Topic:** Is the Far-Right a Global Phenomenon?
