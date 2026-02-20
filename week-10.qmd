@@ -11,16 +11,32 @@ description: "Non-European cases, democratic implications, and course wrap-up."
 *   [Download Lecture Slides](lectures/Lecture_Week10_Global_Patterns_Refined.qmd){target="_blank"}
 
 ### Seminar
-*   **Topic:** Is the Far-Right a Global Phenomenon?
-*   **Activity:** Summary discussion and exam/essay preparation.
+
+#### The Grand Synthesis: Reflecting on 10 Weeks of Theory
+
+This week's seminar focuses on connecting the dots across our entire course, from the definitions of Week 1 to the global patterns of Week 10.
+
+**Part 1: The Global Debate (20 mins)**
+*   **Discussion:** Is the Far-Right a single global phenomenon, or are we stretching the concept too thin? (Reference: **de Jonge et al. 2024**).
+*   **The "Other" Paradox:** How is the "Other" defined in Scandinavia vs. Latin America? What remains consistent (e.g., exclusionary logic)?
+
+**Part 2: The Final Whiteboard (30 mins)**
+*   **Reflection:** Look at all the **Whiteboards** we have generated since Week 1. 
+*   **The Test:** How did our early hypotheses (Week 1) about why people vote far-right compare to the theories (Weeks 7-9) and evidence (Weeks 2-6, 10)?
+*   **The Synthesis:** Based on what we have learned, what is the single most important factor (Demand or Supply) driving the far-right today? 
+
+**Part 3: Assessment Clinic**
+*   **Final Essay Q&A:** Bring your essay outlines for a final peer and tutor review.
 
 ## Readings
 
 ### Key Readings
-*Readings for this week will be updated based on your specific global case studies.*
+*   **Jonge, L., et al. (2024):** "Is the Far Right a Global Phenomenon? Comparing Europe and Latin America: A Scholarly Exchange." *Nations and Nationalism*.
+*   **Mudde, C. (2022):** "The Far-Right Threat in the United States: A European Perspective."
+*   **Rovira Kaltwasser, C., & Tánscheit, T. (2023):** "The Far Right in Latin America."
 
 ## Whiteboard
 
-*Upload photos of your seminar whiteboard work here.*
+*Synthesis of your reflections and the course wrap-up work.*
 
 :::

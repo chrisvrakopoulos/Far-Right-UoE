@@ -1,5 +1,5 @@
 ---
-title: "Week 9: Normalisation"
+title: "Week 9: Normalisation and Mainstreaming"
 description: "Strategic Interaction, Media, and Legitimacy."
 ---
 
@@ -8,18 +8,30 @@ description: "Strategic Interaction, Media, and Legitimacy."
 ## Materials
 
 ### Lecture
-*   [Download Lecture Slides](lectures/lecture_week9_v4.html){target="_blank"}
+*   [Download Lecture Slides](lectures/lecture_week9_v4.qmd){target="_blank"}
 
 ### Seminar
 
-TBC
+#### The Strategy Workshop: Stopping the Far-Right?
+
+**The Scenario:** You are a strategic advisor to a mainstream center-right or center-left party in Europe (e.g., in France, Germany, or Sweden). A far-right party is surging in the polls. 
+
+**Your Task:** In your assigned "Strategy Teams," choose one of the following approaches and present your reasoning:
+1.  **Exclusion (Cordon Sanitaire):** Strict isolation. Never vote for their bills; never enter a coalition.
+2.  **Co-option (Strategic Mimicry):** Adopting their rhetoric (e.g., on immigration) to "win back" their voters.
+3.  **Collaboration (The Responsibility Trap):** Bringing them into government to "tame" them through the reality of governing.
+
+**The Question:** Can normalisation be stopped? Use your knowledge of "Supply" (Week 8) and "Normalization" (Week 9) to justify your chosen strategy. Record your team’s final decision on the **Whiteboard**.
 
 ## Readings
 
-
+### Key Readings
+*   **Akkerman, T. (2012):** "Comparing Radical Right-Wing Populist Parties: Immigration and National Identity across Western Europe."
+*   **Bale, T. (2003):** "Cinderella and her Ugly Sisters: The Mainstream and the Far Right in Europe."
+*   **Mondon, A. (2022):** "The Mainstreaming of the Far Right."
 
 ## Whiteboard
 
-*Upload photos of your seminar whiteboard work here.*
+*Post your strategy team's conclusions and reasoning here.*
 
 :::
